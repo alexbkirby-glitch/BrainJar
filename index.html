@@ -1,0 +1,3263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lodestone — your personal AI knowledge layer</title>
+<!-- Partial CSP via meta tag (GitHub Pages cannot set HTTP headers).
+     frame-ancestors prevents clickjacking; object-src blocks plugin injection;
+     base-uri prevents base tag hijacking. script-src is intentionally omitted
+     because the site uses inline scripts throughout. -->
+<meta http-equiv="Content-Security-Policy" content="
+  object-src 'none';
+  base-uri   'self';
+  form-action 'self';
+">
+<meta name="description" content="Build a personal Stone that grows with your coding sessions. Seeds inject the right antipatterns into every AI session — via MCP, Claude Projects, or CLI. MIT licensed, model-agnostic, works offline.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="alternate" type="text/plain" href="llms.txt" title="LLM site summary">
+<meta property="og:title" content="Lodestone — your personal AI knowledge layer">
+<meta property="og:description" content="Build a personal Stone that grows with your coding sessions. Seeds inject the right antipatterns into every AI session — via MCP, Claude Projects, or CLI.">
+<meta property="og:image" content="https://alexbkirby-glitch.github.io/lodestone/apple-touch-icon.png">
+<meta property="og:image:width" content="180">
+<meta property="og:image:height" content="180">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://alexbkirby-glitch.github.io/lodestone/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,400;0,700;1,400&family=Share+Tech+Mono&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Lodestone",
+  "url": "https://alexbkirby-glitch.github.io/lodestone/",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://alexbkirby-glitch.github.io/lodestone/#stacks?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Lodestone",
+  "description": "A personal AI knowledge layer for developers. Grows through your real sessions, injects what matters most, and connects to any MCP-compatible AI tool — offline by default.",
+  "url": "https://alexbkirby-glitch.github.io/lodestone/",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "license": "https://opensource.org/licenses/MIT",
+  "codeRepository": "https://github.com/alexbkirby-glitch/lodestone",
+  "keywords": ["LLM", "AI coding", "context injection", "Claude", "Stone", "MCP", "knowledge base"],
+  "potentialAction": [
+    {
+      "@type": "SearchAction",
+      "target": "https://alexbkirby-glitch.github.io/lodestone/api/symptom-index.json",
+      "description": "Reverse-index for O(1) symptom lookup — tokenise an error message and look up tokens in the index field to find matching seed IDs"
+    }
+  ],
+  "hasPart": [
+    {
+      "@type": "Dataset",
+      "name": "Lodestone community SeedBank",
+      "description": "1,599 curated wrong→correct antipattern seeds across 86 technology stacks, indexed by observable symptoms. Fetch api/seeds/index.json for the full index.",
+      "url": "https://alexbkirby-glitch.github.io/lodestone/api/seeds/index.json",
+      "encodingFormat": "application/json",
+      "license": "https://opensource.org/licenses/MIT"
+    }
+  ]
+}
+</script>
+<style>
+  :root {
+    --bg:       #f5f4f0;
+    --bg2:      #ffffff;
+    --bg3:      #eceae5;
+    --border:   #dddbd5;
+    --border2:  #c8c5be;
+    --text:     #1a1917;
+    --muted:    #5c5a54;
+    --dim:      #64615e;  /* darkened from #9e9b94 for WCAG AA contrast */
+    --accent:   #97651f;  /* nudged from #9a6820 to clear 4.5:1 on warm bg */
+    --accent2:  #7a4a10;
+    --green:    #2a6e46;
+    --red:      #8a2828;
+    --mono:     'Share Tech Mono', monospace;
+    --serif:    'Instrument Serif', serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── Nav ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 0 32px;
+    display: flex; align-items: center; gap: 0; height: 44px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .nav-logo {
+    color: var(--accent); font-size: 12px; letter-spacing: 0.18em;
+    margin-right: 32px; text-decoration: none;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .nav-logo img { width: 28px; height: 28px; object-fit: contain; flex-shrink: 0; }
+  .nav-logo span { color: var(--muted); }
+  .nav-links { display: flex; gap: 0; flex: 1; }
+  .nav-link {
+    color: var(--muted); font-size: 10px; letter-spacing: 0.12em;
+    text-decoration: none; padding: 0 16px; height: 44px;
+    display: flex; align-items: center;
+    border-right: 1px solid var(--border);
+    transition: color 0.15s, background 0.15s;
+    cursor: pointer; background: none; border-top: none; border-bottom: none; border-left: none;
+    font-family: var(--mono);
+  }
+  .nav-link:first-child { border-left: 1px solid var(--border); }
+  .nav-link:hover, .nav-link.active { color: var(--accent); background: var(--bg2); }
+  .nav-key {
+    margin-left: auto;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .key-status {
+    font-size: 9px; letter-spacing: 0.1em;
+    padding: 3px 10px; border: 1px solid var(--border);
+    cursor: pointer; transition: border-color 0.15s, color 0.15s;
+    background: none; font-family: var(--mono); color: var(--muted);
+  }
+  .key-status.set { color: var(--green); border-color: var(--green); }
+  .key-status:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ── Pages ── */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ── Hero ── */
+  .hero {
+    padding: 80px 32px 64px;
+    max-width: 860px;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero-eyebrow {
+    font-size: 9px; letter-spacing: 0.2em; color: var(--accent);
+    margin-bottom: 24px;
+  }
+  .hero-title {
+    font-family: var(--serif); font-size: 52px; line-height: 1.1;
+    color: var(--text); margin-bottom: 24px; font-weight: 400;
+    font-style: italic;
+  }
+  .hero-title em { color: var(--accent); font-style: normal; }
+  .hero-sub {
+    font-size: 13px; color: var(--muted); max-width: 560px;
+    line-height: 1.8; margin-bottom: 36px;
+  }
+  .hero-quote {
+    border-left: 2px solid var(--accent2);
+    padding: 12px 20px; margin-bottom: 36px;
+    background: var(--bg2);
+    font-style: italic; color: var(--muted); font-size: 12px;
+    max-width: 560px;
+  }
+  .hero-quote cite {
+    display: block; margin-top: 6px; font-style: normal;
+    font-size: 10px; color: var(--dim); letter-spacing: 0.08em;
+  }
+  .cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em;
+    padding: 9px 20px; cursor: pointer; border: none; transition: all 0.15s;
+    text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-primary { background: var(--accent); color: #ffffff; }
+  .btn-primary:hover { background: #7e5518; }
+  .btn-ghost { background: transparent; color: var(--muted); border: 1px solid var(--border2); }
+  .btn-ghost:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* ── How it works ── */
+  .section { padding: 48px 32px; border-bottom: 1px solid var(--border); max-width: 900px; }
+  .section-label, h2.section-label { font-size: 9px; letter-spacing: 0.18em; color: var(--accent); margin-bottom: 28px; font-weight: 400; }
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); }
+  .step { background: var(--bg2); padding: 24px; border-left: 3px solid transparent; transition: border-color 0.2s; }
+  .step:hover { border-left-color: var(--accent); }
+  .step-num { font-size: 10px; color: var(--accent); letter-spacing: 0.1em; margin-bottom: 12px; }
+  .step-title { font-size: 13px; color: var(--text); margin-bottom: 8px; }
+  .step-desc { font-size: 11px; color: var(--muted); line-height: 1.7; }
+
+  /* ── Tool panels ── */
+  .tool-container { padding: 24px 32px; max-width: 1100px; }
+  .panel {
+    border: 1px solid var(--border); background: var(--bg2);
+    margin-bottom: 1px;
+  }
+  .panel-header {
+    padding: 10px 16px; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 12px;
+    background: var(--bg3);
+  }
+  .panel-title { font-size: 9px; letter-spacing: 0.15em; color: var(--accent); }
+  .panel-sub { font-size: 9px; color: var(--muted); }
+  .panel-body { padding: 16px; }
+
+  /* ── Key setup modal ── */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.5); z-index: 1000;
+    align-items: center; justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--bg2); border: 1px solid var(--border2);
+    width: 480px; max-width: 95vw;
+  }
+  .modal-header {
+    padding: 16px 20px; border-bottom: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .modal-title { font-size: 11px; letter-spacing: 0.12em; color: var(--accent); }
+  .modal-close { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 16px; font-family: var(--mono); }
+  .modal-body { padding: 20px; }
+  .field-label { font-size: 9px; letter-spacing: 0.12em; color: var(--muted); margin-bottom: 6px; display: block; }
+  input[type=text], input[type=password], input[type=url], textarea, select {
+    width: 100%; background: var(--bg);
+    border: 1px solid var(--border2); color: var(--text);
+    font-family: var(--mono); font-size: 12px;
+    padding: 8px 10px; outline: none;
+    transition: border-color 0.15s;
+  }
+  input:focus, textarea:focus, select:focus { border-color: var(--accent); }
+  .field-hint { font-size: 9px; color: var(--dim); margin-top: 5px; line-height: 1.5; }
+  .field-group { margin-bottom: 16px; }
+  .divider { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
+  .provider-tabs { display: flex; gap: 1px; margin-bottom: 16px; background: var(--border); }
+  .provider-tab {
+    flex: 1; padding: 8px; background: var(--bg3);
+    font-size: 9px; letter-spacing: 0.1em; color: var(--muted);
+    cursor: pointer; border: none; font-family: var(--mono);
+    transition: all 0.15s; text-align: center;
+  }
+  .provider-tab.active { background: var(--bg2); color: var(--accent); }
+
+  /* ── Skill generator tool ── */
+  .gen-grid { display: grid; grid-template-columns: 260px 1fr; min-height: 480px; gap: 1px; background: var(--border); }
+  .gen-left { background: var(--bg2); display: flex; flex-direction: column; }
+  .gen-right { background: var(--bg2); display: flex; flex-direction: column; }
+  .drop-zone {
+    margin: 14px; border: 2px dashed var(--border);
+    padding: 20px 14px; text-align: center; cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  .drop-zone:hover { border-color: var(--accent); }
+  .drop-zone-text { font-size: 11px; color: var(--muted); margin-bottom: 6px; }
+  .drop-zone-hint { font-size: 9px; color: var(--dim); }
+  .file-list { padding: 0 14px 12px; flex: 1; overflow-y: auto; }
+  .file-row { display: flex; justify-content: space-between; margin-bottom: 3px; }
+  .file-name { font-size: 9px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 160px; }
+  .file-name.md { color: var(--accent); }
+  .file-size { font-size: 9px; color: var(--dim); }
+  .profile-box { padding: 12px 14px; border-top: 1px solid var(--border); }
+  .profile-row { display: flex; gap: 8px; margin-bottom: 3px; }
+  .profile-key { font-size: 9px; color: var(--dim); min-width: 80px; }
+  .profile-val { font-size: 9px; color: var(--text); }
+  .section-pill {
+    font-size: 9px; padding: 1px 6px; margin: 2px;
+    display: inline-block;
+    border: 1px solid var(--border); color: var(--muted);
+  }
+  .section-pill.conditional { border-color: var(--accent2); color: var(--accent); }
+  .output-header {
+    padding: 10px 16px; border-bottom: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    background: var(--bg3);
+  }
+  .output-body { flex: 1; overflow-y: auto; padding: 14px 16px; }
+  pre.skill-output {
+    font-size: 11px; line-height: 1.65; color: var(--text);
+    white-space: pre-wrap; word-break: break-word; font-family: var(--mono);
+  }
+  .status-bar {
+    padding: 8px 14px; border-top: 1px solid var(--border);
+    font-size: 9px; letter-spacing: 0.08em;
+    background: var(--bg3);
+  }
+  .status-running { color: var(--accent); }
+  .status-done    { color: var(--green); }
+  .status-error   { color: var(--red); }
+
+  /* ── Pressure tool ── */
+  .pressure-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); min-height: 440px; }
+  .pressure-left, .pressure-right { background: var(--bg2); display: flex; flex-direction: column; }
+  textarea.intent {
+    width: 100%; background: var(--bg);
+    border: 1px solid var(--border2); color: var(--text);
+    font-family: var(--mono); font-size: 12px;
+    padding: 10px; outline: none; resize: vertical;
+    min-height: 80px; transition: border-color 0.15s;
+  }
+  textarea.intent:focus { border-color: var(--accent); }
+  .gauge-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+  .gauge-label { font-size: 9px; min-width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .gauge-label.bleed { color: var(--accent); }
+  .gauge-track { flex: 1; height: 3px; background: var(--bg3); }
+  .gauge-fill { height: 100%; transition: width 0.3s; background: var(--border2); }
+  .gauge-fill.bleed { background: var(--accent); }
+  .gauge-score { font-size: 9px; color: var(--dim); width: 44px; text-align: right; }
+  .gauge-score.bleed { color: var(--accent); }
+  .injected-chunk { border-bottom: 1px solid var(--border); padding: 12px 14px; }
+  .chunk-title { font-size: 10px; color: var(--accent); margin-bottom: 6px; }
+  .chunk-meta { font-size: 9px; color: var(--dim); margin-bottom: 6px; }
+  pre.chunk-content { font-size: 10px; line-height: 1.65; color: var(--muted); white-space: pre-wrap; word-break: break-word; font-family: var(--mono); }
+
+  /* ── Buttons inline ── */
+  .btn-sm {
+    font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em;
+    padding: 4px 12px; cursor: pointer; border: 1px solid var(--border2);
+    background: transparent; color: var(--muted); transition: all 0.15s;
+  }
+  .btn-sm:hover { color: var(--accent); border-color: var(--accent); }
+  .btn-sm.primary { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+  .btn-sm.primary:hover { background: #d4892a; }
+  .btn-sm.success { color: var(--green); border-color: var(--green); }
+
+  /* ── Footer ── */
+  footer {
+    border-top: 1px solid var(--border); padding: 24px 32px;
+    display: flex; gap: 24px; align-items: center;
+    font-size: 9px; color: var(--dim); letter-spacing: 0.1em;
+  }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+  .footer-logo { color: var(--accent2); }
+
+  /* ── Analytics page ── */
+  .analytics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); }
+  .analytics-grid.two-col { grid-template-columns: 1fr 1fr; }
+  .stat-card { background: var(--bg2); padding: 20px 24px; }
+  .stat-number { font-size: 32px; color: var(--accent); letter-spacing: -0.02em; margin-bottom: 4px; }
+  .stat-label { font-size: 9px; color: var(--muted); letter-spacing: 0.1em; }
+  .stat-sub { font-size: 10px; color: var(--dim); margin-top: 6px; line-height: 1.6; }
+  .stat-source { font-size: 8px; color: var(--dim); margin-top: 8px; letter-spacing: 0.06em; }
+  .stat-source.estimated { color: #9a6820; }
+  .methodology { background: var(--bg3); border-left: 3px solid var(--border2); padding: 12px 16px; margin-top: 16px; font-size: 10px; color: var(--muted); line-height: 1.8; }
+  .methodology code { background: var(--bg2); padding: 1px 4px; font-size: 9px; color: var(--text); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); }
+  .about-cell { background: var(--bg2); padding: 28px; }
+  .about-heading { font-size: 11px; color: var(--accent); letter-spacing: 0.12em; margin-bottom: 14px; }
+  .about-text { font-size: 11px; color: var(--muted); line-height: 1.85; }
+  .about-text code { color: var(--text); background: var(--bg3); padding: 1px 5px; font-size: 10px; }
+  .about-text a { color: var(--accent); text-decoration: none; }
+  .about-text a:hover { text-decoration: underline; }
+  /* THE IDEA cell uses comic sans as a tribute to a friend */
+  .about-cell-idea .about-text {
+    font-family: 'Comic Neue', 'Comic Sans MS', 'Comic Sans', cursive;
+    font-size: 13px;
+    line-height: 1.9;
+    color: var(--text);
+  }
+  .about-cell-idea .about-heading { color: var(--accent2); }
+  /* hero logo */
+  .hero-logo {
+    display: flex; align-items: center; gap: 16px; margin-bottom: 32px;
+  }
+  .hero-logo img { width: 64px; height: 64px; object-fit: contain; }
+  .hero-logo-text { font-family: var(--serif); font-size: 28px; color: var(--accent); font-style: italic; }
+
+  @media (max-width: 700px) {
+    .steps, .gen-grid, .pressure-grid, .about-grid { grid-template-columns: 1fr; }
+    .hero-title { font-size: 36px; }
+    nav { padding: 0 16px; }
+    .tool-container, .section, .hero { padding-left: 16px; padding-right: 16px; }
+  }
+  input:focus-visible,textarea:focus-visible,select:focus-visible,button:focus-visible,[role="button"]:focus-visible,a:focus-visible{outline:2px solid var(--accent,#1D9E75);outline-offset:2px}
+  .skip-nav{position:absolute;left:-9999px;top:8px;z-index:9999;padding:8px 16px;background:var(--accent,#1D9E75);color:#fff;border-radius:4px;font-size:14px;font-weight:600;text-decoration:none}
+  .skip-nav:focus{left:8px}
+  .visually-hidden {
+    position: absolute; width: 1px; height: 1px;
+    padding: 0; margin: -1px; overflow: hidden;
+    clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+  }
+  .stack-pill {
+    background: var(--bg2); border: 1px solid var(--border2);
+    color: var(--muted); font-family: var(--mono); font-size: 10px;
+    padding: 4px 10px; cursor: pointer; letter-spacing: 0.06em;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .stack-pill:hover { border-color: var(--accent); color: var(--accent); }
+  @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-nav">Skip to main content</a>
+
+<!-- ── Nav ── -->
+<nav>
+  <a class="nav-logo" href="#home" onclick="showPage('home')">
+    <img src="favicon.svg" alt="Lodestone logo">
+    Lodestone
+  </a>
+  <div class="nav-links">
+    <button class="nav-link active" onclick="showPage('home')">HOME</button>
+    <button class="nav-link" onclick="showPage('skill')">SKILL GENERATOR</button>
+    <button class="nav-link" onclick="showPage('pressure')">SEED SCORER</button>
+    <button class="nav-link" onclick="showPage('outcomes')">OUTCOMES</button>
+    <button class="nav-link" onclick="showPage('publish')">SHARE ON STONEHUB</button>
+    <button class="nav-link" onclick="showPage('workflow')">WORKFLOW</button>
+    <button class="nav-link" onclick="showPage('contribute')">CONTRIBUTE LESSONS</button>
+    <button class="nav-link" onclick="showPage('about')">ABOUT</button>
+    <button class="nav-link" onclick="showPage('analytics')" style="font-size:9px;color:var(--dim)">ANALYTICS</button>
+    <button class="nav-link" onclick="showPage('extension')" style="font-size:9px;color:var(--accent)">EXTENSION ↓</button>
+    <a class="nav-link" href="demo.html" style="text-decoration:none" title="Paste an error, search the corpus — no install">TRY IT</a>
+    <a class="nav-link" href="registry.html" style="color:var(--accent);text-decoration:none" title="Public Jar Registry — discover tagged Brain Jars">REGISTRY →</a>
+  </div>
+  <div class="nav-key">
+    <button class="key-status" id="key-btn" onclick="openKeyModal()">NO KEY SET</button>
+  </div>
+</nav>
+
+<!-- ── Key modal ── -->
+<div class="modal-overlay" id="key-modal" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="key-modal-title">
+    <div class="modal-header">
+      <span class="modal-title" id="key-modal-title">MODEL CONFIGURATION</span>
+      <button class="modal-close" onclick="closeKeyModal()" aria-label="Close model configuration">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="provider-tabs">
+        <button class="provider-tab active" onclick="selectProvider('anthropic')">ANTHROPIC</button>
+        <button class="provider-tab" onclick="selectProvider('openai')">OPENAI</button>
+        <button class="provider-tab" onclick="selectProvider('ollama')">OLLAMA (LOCAL)</button>
+        <button class="provider-tab" onclick="selectProvider('custom')">CUSTOM</button>
+      </div>
+
+      <div id="provider-anthropic">
+        <div class="field-group">
+          <label class="field-label" for="input-anthropic-key">ANTHROPIC API KEY</label>
+          <input type="password" id="input-anthropic-key" placeholder="sk-ant-..." autocomplete="off">
+          <div class="field-hint">Your key is stored in localStorage only. Never sent anywhere except the provider's API. Risk: any XSS vulnerability on this page could read it — use a key with spending limits set.<br>Get a key at <a href="https://console.anthropic.com" target="_blank" style="color:var(--accent)">console.anthropic.com</a></div>
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="input-anthropic-model">MODEL</label>
+          <select id="input-anthropic-model">
+            <option value="claude-sonnet-4-20250514">claude-sonnet-4-20250514 (recommended)</option>
+            <option value="claude-haiku-4-5-20251001">claude-haiku-4-5-20251001 (faster, cheaper)</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="provider-openai" style="display:none">
+        <div class="field-group">
+          <label class="field-label" for="input-openai-key">OPENAI API KEY</label>
+          <input type="password" id="input-openai-key" placeholder="sk-..." autocomplete="off">
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="input-openai-model">MODEL</label>
+          <select id="input-openai-model">
+            <option value="gpt-4o-mini">gpt-4o-mini (recommended)</option>
+            <option value="gpt-4o">gpt-4o</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="provider-ollama" style="display:none">
+        <div class="field-hint" style="margin-bottom:14px;color:var(--muted)">
+          Run models locally — free, private, no API key needed.<br>
+          Install: <a href="https://ollama.com" target="_blank" style="color:var(--accent)">ollama.com</a> · then run: <code style="color:var(--text)">ollama pull llama3.2</code>
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="input-ollama-endpoint">OLLAMA ENDPOINT</label>
+          <input type="url" id="input-ollama-endpoint" value="http://localhost:11434/v1/chat/completions" autocomplete="url">
+          <div class="field-hint">Must have CORS enabled or use a proxy. See README for setup.</div>
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="input-ollama-model">MODEL</label>
+          <input type="text" id="input-ollama-model" value="llama3.2" placeholder="llama3.2, mistral, phi3..." autocomplete="off">
+        </div>
+      </div>
+
+      <div id="provider-custom" style="display:none">
+        <div class="field-group">
+          <label class="field-label" for="input-custom-endpoint">ENDPOINT (OPENAI-COMPATIBLE)</label>
+          <input type="url" id="input-custom-endpoint" placeholder="https://..." autocomplete="url">
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="input-custom-model">MODEL</label>
+          <input type="text" id="input-custom-model" placeholder="model-name" autocomplete="off">
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="input-custom-key">API KEY (IF REQUIRED)</label>
+          <input type="password" id="input-custom-key" placeholder="optional" autocomplete="off">
+        </div>
+      </div>
+
+      <hr class="divider">
+      <div style="display:flex;gap:8px">
+        <button class="btn-sm primary" onclick="saveConfig()">SAVE & CLOSE</button>
+        <button class="btn-sm" onclick="clearConfig()" style="color:var(--red);border-color:var(--red)">CLEAR KEY</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ HOME PAGE ══ -->
+<main id="main-content">
+<div class="page active" id="page-home">
+  <div class="hero">
+    <div class="hero-logo">
+      <img src="favicon.svg" alt="Lodestone">
+      <span class="hero-logo-text">Lodestone</span>
+    </div>
+    <div class="hero-eyebrow">▸ MIT LICENSED · OPEN SOURCE · MODEL-AGNOSTIC · <span data-stat="stacks">87</span> STACKS · <span data-stat="chunks">1,633</span> SEEDS<span id="eyebrow-henges" style="color:var(--accent)"></span></div>
+    <h1 class="hero-title">Your AI starts every session<br><em>already informed.</em></h1>
+    <p class="hero-sub">
+      AI coding tools start every session blank — no memory of your past bugs or the patterns your stack requires. Lodestone fixes this: a personal Stone that grows with your work, seeds what matters, and connects to any AI tool you use. Starts small. Gets smarter every session.
+    </p>
+    <div class="cta-row">
+      <button class="btn btn-primary" onclick="scrollToInstall()">▸ Get started</button>
+      <button class="btn btn-ghost" onclick="showPage('skill')">Generate a skill</button>
+      <a class="btn btn-ghost" href="https://github.com/alexbkirby-glitch/lodestone" target="_blank">GitHub ↗</a>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 class="section-label">HOW IT WORKS</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01 — START</div>
+        <div class="step-title">Your seedbank, your knowledge</div>
+        <div class="step-desc">Lodestone starts with a small base of patterns about how to build seeds — then grows through your real sessions. Each seed is a wrong→correct antipattern with an exact symptom. The more you work, the more useful it becomes. No account required. Works fully offline.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">02 — SCORE</div>
+        <div class="step-title">Injection value scoring</div>
+        <div class="step-desc">Before a pattern enters your context, Lodestone asks: is this worth the space? Relevance to your current task, bug severity, and how full your context window already is all feed into the decision. Critical bugs stay in even under pressure. Cosmetic issues need a strong match to justify the cost.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">03 — INJECT</div>
+        <div class="step-title">Three ways to use it</div>
+        <div class="step-desc">MCP server works with Claude Desktop, Cursor, Windsurf, Continue, and any other MCP-compatible tool — no CLI required. Drop seeds into your Stone through the interface. Capture a fix directly from a session with one click. Lodestone connects to what you already use, with your permission.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 class="section-label">USE WITH CLAUDE — TWO PATHS</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">MCP SERVER</div>
+        <div class="step-title">Automatic — for Claude Desktop & Claude Code</div>
+        <div class="step-desc" style="font-size:10px">
+          Add to <code style="background:var(--bg3);padding:1px 5px;color:var(--text)">claude_desktop_config.json</code>:<br><br>
+          <pre style="background:var(--bg3);padding:10px;font-size:9px;overflow-x:auto;line-height:1.7;margin:0">{
+  "mcpServers": {
+    "lodestone": {
+      "command": "npx",
+      "args": ["-y", "lodestone-mcp"],
+      "env": { "GITHUB_TOKEN": "ghp_..." }
+    }
+  }
+}</pre>
+          <span style="color:var(--dim);font-size:9px">Or with Claude Code: <code style="background:var(--bg3);padding:1px 4px">claude mcp add lodestone -- npx -y lodestone-mcp</code></span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">PROJECT INSTRUCTIONS</div>
+        <div class="step-title">Paste-and-go — for Claude.ai chat</div>
+        <div class="step-desc" style="font-size:10px">
+          Add to any Claude Project's instructions:<br><br>
+          <pre id="project-instructions-text" style="background:var(--bg3);padding:10px;font-size:9px;overflow-x:auto;line-height:1.7;margin:0;white-space:pre-wrap"># Lodestone context · https://alexbkirby-glitch.github.io/lodestone · generated: 2026-06-08
+When a developer in this conversation reports a coding error or unexpected behaviour, silently fetch https://alexbkirby-glitch.github.io/lodestone/api/symptom-index.json and look up the error tokens in the 'index' field. Surface relevant seeds naturally — do not flood the response with all results.
+
+For stack-specific context: https://alexbkirby-glitch.github.io/lodestone/seeds/{stack}.txt
+  (replace {stack} with the detected language, e.g. react, python, go, rust, mathematics)
+
+When a matched seed includes a 'doc_reference' URL, that URL points to the authoritative documentation for the correct approach. Fetch it if you need more context or the user asks for the source.
+
+If you observe a novel antipattern not covered by existing seeds, flag it at https://github.com/alexbkirby-glitch/lodestone/issues/new?labels=antipattern-proposal</pre>
+          <button class="btn-sm" style="margin-top:8px" onclick="copyProjectInstructions()">COPY INSTRUCTIONS</button>
+          <span id="pi-copied" style="font-size:9px;color:var(--green);margin-left:10px;display:none">✓ copied</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">PREFLIGHT CLI</div>
+        <div class="step-title">Before Claude Code sessions</div>
+        <div class="step-desc" style="font-size:10px">
+          One-time setup:<br><br>
+          <pre style="background:var(--bg3);padding:10px;font-size:9px;overflow-x:auto;line-height:1.7;margin:0">cp lodestone-preflight.mjs ~/tools/
+echo "alias claude='node ~/tools/lodestone-preflight.mjs && claude'" >> ~/.zshrc</pre>
+          <span style="color:var(--dim);font-size:9px">Scores patterns by expected token savings vs. injection cost. Runs <code style="background:var(--bg);padding:1px 3px">--complexity</code> to tune for task difficulty. Shows ROI% and severity per injected pattern.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="section-stacks">
+    <h2 class="section-label">FIND YOUR STACK</h2>
+    <div style="max-width:560px">
+      <label for="stack-search-input" class="visually-hidden">Search stacks</label>
+      <input
+        id="stack-search-input"
+        type="text"
+        placeholder="search stacks — react, rust, godot, django..."
+        oninput="searchStacks(this.value)"
+        autocomplete="off"
+        style="width:100%;background:var(--bg2);border:1px solid var(--border2);color:var(--text);font-family:var(--mono);font-size:12px;padding:10px 14px;outline:none;box-sizing:border-box;letter-spacing:0.04em"
+      >
+      <div id="stack-search-results" role="listbox" aria-label="Stack search results" aria-live="polite" style="margin-top:1px;background:var(--bg2);border:1px solid var(--border);border-top:none;display:none;max-height:320px;overflow-y:auto"></div>
+      <div id="stack-search-hint" style="font-size:9px;color:var(--dim);margin-top:8px;letter-spacing:0.06em">
+        <span data-stat="stacks">87</span> stacks · <span data-stat="chunks">1,633</span> seeds · type to filter by stack name or topic
+      </div>
+    </div>
+    <div style="margin-top:20px;display:flex;flex-wrap:wrap;gap:6px;max-width:700px">
+      <span style="font-size:9px;color:var(--dim);letter-spacing:0.1em;width:100%;margin-bottom:2px">POPULAR STACKS — click to browse</span>
+      <button class="stack-pill" onclick="searchStacks('react');document.getElementById('stack-search-input').value='react'">React</button>
+      <button class="stack-pill" onclick="searchStacks('typescript');document.getElementById('stack-search-input').value='typescript'">TypeScript</button>
+      <button class="stack-pill" onclick="searchStacks('python');document.getElementById('stack-search-input').value='python'">Python</button>
+      <button class="stack-pill" onclick="searchStacks('rust');document.getElementById('stack-search-input').value='rust'">Rust</button>
+      <button class="stack-pill" onclick="searchStacks('go');document.getElementById('stack-search-input').value='go'">Go</button>
+      <button class="stack-pill" onclick="searchStacks('nextjs');document.getElementById('stack-search-input').value='nextjs'">Next.js</button>
+      <button class="stack-pill" onclick="searchStacks('django');document.getElementById('stack-search-input').value='django'">Django</button>
+      <button class="stack-pill" onclick="searchStacks('docker');document.getElementById('stack-search-input').value='docker'">Docker</button>
+      <button class="stack-pill" onclick="searchStacks('kubernetes');document.getElementById('stack-search-input').value='kubernetes'">Kubernetes</button>
+      <button class="stack-pill" onclick="searchStacks('postgres');document.getElementById('stack-search-input').value='postgres'">PostgreSQL</button>
+      <button class="stack-pill" onclick="searchStacks('godot');document.getElementById('stack-search-input').value='godot'">Godot</button>
+      <button class="stack-pill" onclick="searchStacks('flutter');document.getElementById('stack-search-input').value='flutter'">Flutter</button>
+      <button class="stack-pill" onclick="searchStacks('rails');document.getElementById('stack-search-input').value='rails'">Rails</button>
+      <button class="stack-pill" onclick="searchStacks('svelte');document.getElementById('stack-search-input').value='svelte'">Svelte</button>
+      <button class="stack-pill" onclick="searchStacks('mathematics');document.getElementById('stack-search-input').value='mathematics'">Mathematics</button>
+    </div>
+  </div>
+
+  <div class="section" style="border-bottom:none">
+    <h2 class="section-label">YOUR SEED LIBRARY</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num"><span data-stat="stacks">87</span> STACKS</div>
+        <div class="step-title">No setup required</div>
+        <div class="step-desc">Community patterns load for your stack without uploading anything — React, Rust, Flutter, Godot, Django, Kubernetes, and more. Each pattern is a specific wrong→correct pair with the exact error message or observable symptom a developer would search for. Find yours below.</div>
+      </div>
+      <div class="step">
+        <div class="step-num"><span data-stat="chunks">1,633</span> SEEDS</div>
+        <div class="step-title">Scored, not just matched</div>
+        <div class="step-desc">Seeds are ranked by expected value, not just similarity. Severity (how bad is this bug?), relevance to your current task, and context pressure all feed the decision. Critical patterns get injected even at low relevance. Cosmetic ones need a strong match. Only what's worth the context cost enters your session.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">UNIVERSAL</div>
+        <div class="step-title">Cross-language baselines</div>
+        <div class="step-desc">A set of universal patterns — null guards, integer division, float equality, patch verification — loads for every session regardless of stack. The most common mistakes transcend language. Non-code domains (writing, personal finance, and more) are in staged rollout under a tiered review system.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SKILL GENERATOR PAGE ══ -->
+<div class="page" id="page-skill">
+  <div class="tool-container">
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-title">▸ SKILL GENERATOR</span>
+        <span class="panel-sub">project files → installable SKILL.md · any language · any framework</span>
+      </div>
+      <div class="gen-grid">
+        <!-- Left: drop + profile -->
+        <div class="gen-left">
+          <div class="drop-zone" id="skill-drop"
+            role="button" tabindex="0"
+            aria-label="Drop project files here, or press Enter to browse files"
+            onclick="document.getElementById('skill-input').click()"
+            onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('skill-input').click()}"
+            ondrop="skillDrop(event)" ondragover="event.preventDefault()">
+            <div class="drop-zone-text">drop project folder</div>
+            <div class="drop-zone-hint">or click to select files</div>
+            <div class="drop-zone-hint" style="margin-top:4px">md · gd · js · ts · py · rs · cs · go · rb · cpp</div>
+          </div>
+          <input id="skill-input" type="file" multiple accept=".md,.gd,.js,.jsx,.ts,.tsx,.py,.rs,.cs,.go,.rb,.cpp,.h,.swift,.toml,.yaml,.yml,.json" style="display:none" onchange="skillFiles(this.files)">
+
+          <div id="skill-file-list" class="file-list"></div>
+          <div id="skill-profile" class="profile-box" style="display:none"></div>
+          <div class="status-bar" id="skill-status" role="status" aria-live="polite" style="color:var(--dim)">// awaiting files</div>
+        </div>
+
+        <!-- Right: output -->
+        <div class="gen-right">
+          <div class="output-header">
+            <span style="font-size:9px;letter-spacing:0.1em;color:var(--muted)">SKILL.md OUTPUT</span>
+            <div style="display:flex;gap:6px" id="skill-actions" style="display:none"></div>
+          </div>
+          <div class="output-body" id="skill-output">
+            <div style="color:var(--dim);font-size:10px;line-height:2">
+              // drop your project on the left<br>
+              // step 1: detect stack<br>
+              // step 2: select sections<br>
+              // step 3: extract skill<br>
+              //<br>
+              // output: .zip downloads automatically<br>
+              // contains: SKILL.md + archive + readme<br>
+              //<br>
+              // nothing is published or made public<br>
+              // files stay on your device by default<br>
+              //<br>
+              // optional: publish to a URL via the<br>
+              // "Publish API (opt-in)" page
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ LODESTONE PAGE ══ -->
+<div class="page" id="page-pressure">
+  <div class="tool-container">
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-title">▸ LODESTONE</span>
+        <span class="panel-sub">semantic scoring · MiniLM-L6 embeddings · no API needed for scoring</span>
+      </div>
+      <div style="padding:14px 16px;border-bottom:1px solid var(--border);display:flex;gap:8px;align-items:flex-end">
+        <div style="flex:1">
+          <div style="font-size:9px;color:var(--muted);letter-spacing:0.1em;margin-bottom:6px">SESSION INTENT</div>
+          <textarea class="intent" id="pressure-query" aria-label="Describe what you're about to build or fix" placeholder="describe what you're about to build or fix&#10;&#10;e.g. &quot;fixing overlapping panel text in the main menu&quot;" rows="3"></textarea>
+        </div>
+        <div>
+          <button class="btn-sm primary" id="pressure-btn" onclick="runPressure()" style="padding:8px 16px">▸ PRESSURIZE</button>
+        </div>
+      </div>
+      <div class="pressure-grid">
+        <div class="pressure-left">
+          <div style="padding:12px 14px;border-bottom:1px solid var(--border)">
+            <div style="font-size:9px;color:var(--muted);letter-spacing:0.1em;margin-bottom:10px" id="pressure-gauge-label">ALL SEEDS · RANKED BY RELEVANCE SCORE</div>
+            <div id="pressure-gauge"></div>
+          </div>
+          <div style="padding:10px 14px;font-size:9px;color:var(--dim)" id="pressure-threshold-note"></div>
+        </div>
+        <div class="pressure-right">
+          <div style="padding:10px 14px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:9px;color:var(--muted);letter-spacing:0.1em">INJECTED CONTEXT</span>
+            <button class="btn-sm" id="pressure-copy-btn" style="display:none" onclick="copyPressure()">COPY BLOCK</button>
+          </div>
+          <div id="pressure-output" role="region" aria-label="Injected context output" aria-live="polite" style="flex:1;overflow-y:auto">
+            <div style="padding:14px;color:var(--dim);font-size:10px;line-height:2">
+              // high-Δ seeds appear here<br>
+              // model not needed — scoring runs in browser<br>
+              // paste the block into your claude session
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ GITHUB CONFIG MODAL ══ -->
+<div class="modal-overlay" id="gh-modal" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="gh-modal-title">
+    <div class="modal-header">
+      <span class="modal-title" id="gh-modal-title">GITHUB CONFIGURATION</span>
+      <button class="modal-close" onclick="closeGhModal()" aria-label="Close GitHub configuration">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="field-group">
+        <label class="field-label" for="gh-owner">GITHUB USERNAME</label>
+        <input type="text" id="gh-owner" placeholder="your-username" autocomplete="username">
+      </div>
+      <div class="field-group">
+        <label class="field-label" for="gh-repo">REPOSITORY NAME</label>
+        <input type="text" id="gh-repo" value="lodestone" autocomplete="off">
+        <div class="field-hint">The repo where your GitHub Pages site lives.</div>
+      </div>
+      <div class="field-group">
+        <label class="field-label" for="gh-token">PERSONAL ACCESS TOKEN</label>
+        <input type="password" id="gh-token" placeholder="github_pat_..." autocomplete="off">
+        <div class="field-hint">
+          Needs <code style="color:var(--text)">repo</code> write scope.<br>
+          Create at <a href="https://github.com/settings/tokens/new?scopes=repo" target="_blank" style="color:var(--accent)">github.com/settings/tokens</a> → Fine-grained token → Contents: read & write.<br>
+          Stored in localStorage only. Never sent anywhere except api.github.com. Risk: any XSS on this page could read this token. Use a fine-grained token with minimal scope (read:repo only). Clear it when not in use.
+        </div>
+      </div>
+      <hr class="divider">
+      <div style="display:flex;gap:8px">
+        <button class="btn-sm primary" onclick="saveGhConfig()">SAVE & CLOSE</button>
+        <button class="btn-sm" onclick="clearGhConfig()" style="color:var(--red);border-color:var(--red)">CLEAR</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ OUTCOMES DASHBOARD PAGE ══ -->
+<div class="page" id="page-outcomes">
+  <div class="tool-container">
+    <div style="padding:16px 0 20px;border-bottom:1px solid var(--border);margin-bottom:28px;max-width:680px">
+      <div style="font-size:9px;letter-spacing:0.16em;color:var(--accent);margin-bottom:10px">OUTCOMES DASHBOARD</div>
+      <div style="font-size:18px;color:var(--text);margin-bottom:12px;line-height:1.4">Which seeds are earning their place?</div>
+      <div style="font-size:11px;color:var(--muted);line-height:1.9;max-width:560px">
+        Confidence scores update after every <code style="background:var(--bg3);padding:1px 5px">record_outcome</code> call.
+        Seeds with consistent clean sessions inject more aggressively. Seeds with no activity in 6 months are flagged for review.
+        Requires a local Stone at <code style="background:var(--bg3);padding:1px 5px">localhost:3001</code>.
+      </div>
+    </div>
+
+    <div id="outcomes-status" style="font-size:11px;color:var(--muted);margin-bottom:20px">
+      // waiting for local Stone…
+    </div>
+
+    <!-- Summary cards -->
+    <div id="outcomes-cards" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-bottom:28px"></div>
+
+    <!-- Filters -->
+    <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+      <button class="btn-sm" id="outcomes-filter-all" onclick="outcomesFilter('all')" style="background:var(--accent);color:var(--bg)">ALL</button>
+      <button class="btn-sm" id="outcomes-filter-stale" onclick="outcomesFilter('stale')">STALE (6 mo+)</button>
+      <button class="btn-sm" id="outcomes-filter-clean" onclick="outcomesFilter('clean')">HIGH CLEAN RATE</button>
+      <button class="btn-sm" id="outcomes-filter-dirty" onclick="outcomesFilter('dirty')">REGRESSIONS</button>
+      <button class="btn-sm" style="margin-left:auto" onclick="loadOutcomes()">↻ REFRESH</button>
+    </div>
+
+    <!-- Seed table -->
+    <div id="outcomes-table" style="font-size:11px"></div>
+  </div>
+</div>
+
+<!-- ══ SHARE ON STONEHUB PAGE ══ -->
+<div class="page" id="page-publish">
+  <div class="tool-container">
+
+    <div style="padding:16px 0 20px;border-bottom:1px solid var(--border);margin-bottom:28px;max-width:680px">
+      <div style="font-size:9px;letter-spacing:0.16em;color:var(--accent);margin-bottom:10px">SHARE ON STONEHUB</div>
+      <div style="font-size:18px;color:var(--text);margin-bottom:12px;line-height:1.4">Your seeds, discoverable by everyone.</div>
+      <div style="font-size:11px;color:var(--muted);line-height:1.9;max-width:560px">
+        StoneHub indexes any public GitHub repo tagged with <code style="background:var(--bg3);padding:1px 5px">lodestone</code>.
+        There's no submission form, no PR, no approval. Tag your repo and it appears automatically.
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);max-width:760px">
+
+      <div style="background:var(--bg2);padding:20px 22px">
+        <div style="font-size:9px;letter-spacing:0.14em;color:var(--accent);margin-bottom:14px">1 — CREATE A PUBLIC REPO</div>
+        <div style="font-size:11px;color:var(--muted);line-height:1.8;margin-bottom:14px">
+          Your Stone's <code style="background:var(--bg3);padding:1px 4px">seeds/</code> folder
+          and <code style="background:var(--bg3);padding:1px 4px">lodestone-meta.json</code>
+          are all StoneHub needs. Push them to a public GitHub repo.
+        </div>
+        <pre style="background:var(--bg3);padding:10px;font-size:9px;line-height:1.8;overflow-x:auto">git init my-lodestone
+cd my-lodestone
+cp -r ~/my-lodestone/seeds .
+node scripts/build-index.mjs
+git add . && git commit -m "init"
+git remote add origin https://github.com/you/my-lodestone
+git push</pre>
+      </div>
+
+      <div style="background:var(--bg2);padding:20px 22px">
+        <div style="font-size:9px;letter-spacing:0.14em;color:var(--accent);margin-bottom:14px">2 — ADD THE TOPIC TAG</div>
+        <div style="font-size:11px;color:var(--muted);line-height:1.8;margin-bottom:14px">
+          On your GitHub repo page: <strong style="color:var(--text)">About → Topics → add <code style="background:var(--bg3);padding:1px 4px">lodestone</code></strong>.
+          StoneHub searches GitHub for this topic every time someone loads it.
+          Your stone appears within minutes — no waiting for approval.
+        </div>
+        <div style="background:var(--bg3);border:1px solid var(--border);padding:12px;font-size:9px;color:var(--muted)">
+          <div style="color:var(--accent);margin-bottom:6px">✓ What StoneHub shows from your repo</div>
+          <div>Name, description, stars from GitHub</div>
+          <div>Seed count from <code>lodestone-meta.json</code></div>
+          <div>Stack badges from your seed files</div>
+          <div>Direct graft links for each seed</div>
+        </div>
+      </div>
+
+      <div style="background:var(--bg2);padding:20px 22px">
+        <div style="font-size:9px;letter-spacing:0.14em;color:var(--accent);margin-bottom:14px">3 — KEEP IT UPDATED</div>
+        <div style="font-size:11px;color:var(--muted);line-height:1.8">
+          Rebuild and push whenever you add seeds. StoneHub always fetches the latest
+          <code style="background:var(--bg3);padding:1px 4px">lodestone-meta.json</code>
+          from your main branch.
+        </div>
+        <pre style="background:var(--bg3);padding:10px;font-size:9px;line-height:1.8;margin-top:12px;overflow-x:auto">node scripts/build-index.mjs
+git add lodestone-meta.json api/
+git commit -m "add 3 seeds"
+git push</pre>
+      </div>
+
+      <div style="background:var(--bg2);padding:20px 22px">
+        <div style="font-size:9px;letter-spacing:0.14em;color:var(--accent);margin-bottom:14px">CONTRIBUTE A SEED</div>
+        <div style="font-size:11px;color:var(--muted);line-height:1.8;margin-bottom:16px">
+          Found a bug that a seed would have caught? Fill in the pattern below — it generates correctly formatted JSON you can copy into your seeds file or open as a GitHub issue.
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div>
+            <div style="font-size:9px;color:var(--muted);letter-spacing:0.1em;margin-bottom:4px" id="lbl-contrib-stack">STACK</div>
+            <input id="contrib-stack" type="text" placeholder="react, python, rust, go…"
+              aria-labelledby="lbl-contrib-stack"
+              style="width:100%;background:var(--bg);border:1px solid var(--border2);color:var(--text);font-family:var(--mono);font-size:11px;padding:8px 10px;outline:none;box-sizing:border-box">
+          </div>
+          <div>
+            <div style="font-size:9px;color:var(--muted);letter-spacing:0.1em;margin-bottom:4px" id="lbl-contrib-wrong">WRONG — the antipattern</div>
+            <textarea id="contrib-wrong" rows="3" placeholder="The code pattern, API misuse, or approach that causes the bug"
+              aria-labelledby="lbl-contrib-wrong"
+              style="width:100%;background:var(--bg);border:1px solid var(--border2);color:var(--text);font-family:var(--mono);font-size:11px;padding:8px 10px;outline:none;resize:vertical;box-sizing:border-box;line-height:1.6"></textarea>
+          </div>
+          <div>
+            <div style="font-size:9px;color:var(--muted);letter-spacing:0.1em;margin-bottom:4px" id="lbl-contrib-correct">CORRECT — the fix</div>
+            <textarea id="contrib-correct" rows="3" placeholder="The correct pattern, API, or approach"
+              aria-labelledby="lbl-contrib-correct"
+              style="width:100%;background:var(--bg);border:1px solid var(--border2);color:var(--text);font-family:var(--mono);font-size:11px;padding:8px 10px;outline:none;resize:vertical;box-sizing:border-box;line-height:1.6"></textarea>
+          </div>
+          <div>
+            <div style="font-size:9px;color:var(--muted);letter-spacing:0.1em;margin-bottom:4px" id="lbl-contrib-symptom">SYMPTOM — how to recognise it</div>
+            <input id="contrib-symptom" type="text" placeholder="The error message, unexpected behavior, or observable symptom"
+              aria-labelledby="lbl-contrib-symptom"
+              style="width:100%;background:var(--bg);border:1px solid var(--border2);color:var(--text);font-family:var(--mono);font-size:11px;padding:8px 10px;outline:none;box-sizing:border-box">
+          </div>
+          <div style="display:flex;gap:8px;margin-top:4px">
+            <button class="btn-sm primary" onclick="generateSeedJson()" style="padding:8px 16px">▸ GENERATE SEED JSON</button>
+            <button class="btn-sm" id="contrib-issue-btn" style="display:none;padding:8px 16px" onclick="openSeedIssue()">Open GitHub issue ↗</button>
+          </div>
+          <pre id="contrib-output" style="display:none;background:var(--bg3);padding:12px;font-size:9px;line-height:1.7;overflow-x:auto;white-space:pre-wrap;border:1px solid var(--border)"></pre>
+          <button id="contrib-copy" style="display:none" class="btn-sm" onclick="copySeedJson()">COPY JSON</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ WORKFLOW PAGE ══ -->
+<div class="page" id="page-workflow">
+  <div class="tool-container">
+
+    <div style="padding:16px 0 20px;border-bottom:1px solid var(--border);margin-bottom:20px;max-width:680px">
+      <div style="font-size:9px;letter-spacing:0.16em;color:var(--accent);margin-bottom:10px">WORKFLOW RECOMMENDER</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.9">
+        Some tasks are too large, too complex, or too risky for a single AI session. Describe what you are trying to do and Lodestone will recommend how to break it into sessions — what context each session needs, what it should produce, and how sessions hand off to each other.
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:1px;background:var(--border);min-height:540px">
+
+      <!-- LEFT: input -->
+      <div style="background:var(--bg2);display:flex;flex-direction:column">
+
+        <div style="padding:16px;border-bottom:1px solid var(--border)">
+          <div style="font-size:9px;color:var(--muted);letter-spacing:0.1em;margin-bottom:8px" id="lbl-wf-intent">WHAT ARE YOU TRYING TO DO?</div>
+          <textarea id="wf-intent" rows="4" aria-labelledby="lbl-wf-intent" style="width:100%;background:var(--bg);border:1px solid var(--border2);color:var(--text);font-family:var(--mono);font-size:12px;padding:10px;outline:none;resize:vertical;box-sizing:border-box;line-height:1.6" placeholder="describe the task in plain terms&#10;&#10;e.g. 'refactor the entire service layer to use signals instead of direct references'&#10;e.g. 'add multiplayer networking to the game'&#10;e.g. 'migrate the database schema and update all queries'"></textarea>
+        </div>
+
+        <div style="padding:16px;border-bottom:1px solid var(--border)">
+          <div style="font-size:9px;color:var(--muted);letter-spacing:0.1em;margin-bottom:8px" id="lbl-wf-context">PROJECT CONTEXT <span style="color:var(--dim)">(optional but improves recommendations)</span></div>
+          <textarea id="wf-context" rows="3" aria-labelledby="lbl-wf-context" style="width:100%;background:var(--bg);border:1px solid var(--border2);color:var(--text);font-family:var(--mono);font-size:12px;padding:10px;outline:none;resize:vertical;box-sizing:border-box;line-height:1.6" placeholder="stack, project size, team size, any relevant constraints&#10;&#10;e.g. 'Godot 4 game, ~40 GDScript files, solo developer'"></textarea>
+        </div>
+
+        <div style="padding:16px;border-bottom:1px solid var(--border)">
+          <div style="font-size:9px;color:var(--muted);letter-spacing:0.1em;margin-bottom:10px">TASK SIGNALS <span style="color:var(--dim)">(check any that apply)</span></div>
+          <div id="wf-signals" style="display:flex;flex-direction:column;gap:8px">
+            <label style="display:flex;gap:10px;align-items:center;cursor:pointer;font-size:11px;color:var(--muted)"><input type="checkbox" id="sig-many-files" style="accent-color:var(--accent)"> Touches many files across the project</label>
+            <label style="display:flex;gap:10px;align-items:center;cursor:pointer;font-size:11px;color:var(--muted)"><input type="checkbox" id="sig-risky" style="accent-color:var(--accent)"> Breaking change or high risk of regression</label>
+            <label style="display:flex;gap:10px;align-items:center;cursor:pointer;font-size:11px;color:var(--muted)"><input type="checkbox" id="sig-unknown" style="accent-color:var(--accent)"> Unclear how to approach — need to explore options</label>
+            <label style="display:flex;gap:10px;align-items:center;cursor:pointer;font-size:11px;color:var(--muted)"><input type="checkbox" id="sig-iterative" style="accent-color:var(--accent)"> Requires multiple rounds of review and refinement</label>
+            <label style="display:flex;gap:10px;align-items:center;cursor:pointer;font-size:11px;color:var(--muted)"><input type="checkbox" id="sig-external" style="accent-color:var(--accent)"> Depends on external APIs, docs, or systems</label>
+            <label style="display:flex;gap:10px;align-items:center;cursor:pointer;font-size:11px;color:var(--muted)"><input type="checkbox" id="sig-test" style="accent-color:var(--accent)"> Needs tests written alongside implementation</label>
+          </div>
+        </div>
+
+        <div style="padding:16px">
+          <button class="btn-sm primary" onclick="runWorkflow()" id="wf-btn" style="width:100%;padding:9px">▸ RECOMMEND WORKFLOW</button>
+          <div id="wf-status" style="font-size:9px;color:var(--muted);margin-top:8px"></div>
+        </div>
+      </div>
+
+      <!-- RIGHT: recommendation output -->
+      <div style="background:var(--bg2);display:flex;flex-direction:column">
+        <div style="padding:12px 16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:9px;color:var(--muted);letter-spacing:0.1em">RECOMMENDED WORKFLOW</span>
+          <div style="display:flex;gap:6px">
+            <button id="wf-copy-btn" onclick="copyWorkflow()" style="display:none;background:transparent;border:1px solid var(--border2);color:var(--muted);padding:3px 10px;font-family:var(--mono);font-size:9px;letter-spacing:0.1em;cursor:pointer">COPY</button>
+            <button id="wf-skill-btn" onclick="addToSkill()" style="display:none;background:var(--accent);border:none;color:var(--bg);padding:3px 10px;font-family:var(--mono);font-size:9px;letter-spacing:0.1em;cursor:pointer">ADD TO SKILL.MD</button>
+          </div>
+        </div>
+
+        <div id="wf-output" style="flex:1;overflow-y:auto;padding:16px">
+          <div style="color:var(--dim);font-size:10px;line-height:2">
+            // describe your task on the left<br>
+            // Lodestone will recommend how many sessions<br>
+            // what each session should focus on<br>
+            // what context it needs loaded<br>
+            // what it should hand off to the next<br>
+            //<br>
+            // works best for tasks that feel too big<br>
+            // for a single conversation
+          </div>
+        </div>
+
+        <div id="wf-skill-preview" style="display:none;border-top:1px solid var(--border);padding:14px 16px;background:var(--bg3)">
+          <div style="font-size:9px;color:var(--muted);letter-spacing:0.1em;margin-bottom:8px">SKILL.MD SECTION PREVIEW</div>
+          <pre id="wf-skill-text" style="font-size:10px;line-height:1.65;color:var(--muted);white-space:pre-wrap;word-break:break-word;font-family:var(--mono);max-height:160px;overflow-y:auto"></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pattern reference -->
+    <div style="margin-top:16px;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border)">
+      <div style="background:var(--bg2);padding:14px">
+        <div style="font-size:10px;color:var(--accent);margin-bottom:6px">SEQUENTIAL</div>
+        <div style="font-size:10px;color:var(--muted);line-height:1.7">Audit → Plan → Implement → Verify. Each session builds on the last. Use when the task has a clear order of operations.</div>
+      </div>
+      <div style="background:var(--bg2);padding:14px">
+        <div style="font-size:10px;color:var(--accent);margin-bottom:6px">PARALLEL EXPLORE</div>
+        <div style="font-size:10px;color:var(--muted);line-height:1.7">Two sessions explore different approaches independently. A third synthesises. Use when the right approach is unclear.</div>
+      </div>
+      <div style="background:var(--bg2);padding:14px">
+        <div style="font-size:10px;color:var(--accent);margin-bottom:6px">SCOPED</div>
+        <div style="font-size:10px;color:var(--muted);line-height:1.7">Split by file scope, feature area, or layer. Sessions share a handoff document. Use for large refactors or migrations.</div>
+      </div>
+      <div style="background:var(--bg2);padding:14px">
+        <div style="font-size:10px;color:var(--accent);margin-bottom:6px">REVIEW LOOP</div>
+        <div style="font-size:10px;color:var(--muted);line-height:1.7">Implement → fresh-context review → fix → review. The review session loads only the output, not the implementation context.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ CONTRIBUTE PAGE ══ -->
+<div class="page" id="page-contribute">
+  <div class="tool-container">
+
+    <!-- Explainer -->
+    <div style="padding:16px 0 20px;border-bottom:1px solid var(--border);margin-bottom:20px;max-width:640px">
+      <div style="font-size:9px;letter-spacing:0.16em;color:var(--accent);margin-bottom:10px">HOW IT WORKS</div>
+      <div style="font-size:11px;color:var(--muted);line-height:1.9">
+        Paste your SKILL.md below. Claude extracts lessons that are generalizable to anyone using your stack — project names, scene names, file paths, and anything project-specific is stripped. You review every proposed lesson before anything leaves your device. Approved lessons open a GitHub Pull Request against the community seed file. A maintainer reviews and merges.
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);min-height:520px">
+
+      <!-- LEFT: input -->
+      <div style="background:var(--bg2);display:flex;flex-direction:column">
+
+        <div style="padding:14px 16px;border-bottom:1px solid var(--border)">
+          <div style="font-size:9px;color:var(--muted);letter-spacing:0.1em;margin-bottom:8px" id="lbl-contrib-skill">YOUR SKILL.md</div>
+          <textarea id="contrib-skill" aria-labelledby="lbl-contrib-skill" style="width:100%;min-height:160px;background:var(--bg);border:1px solid var(--border2);color:var(--text);font-family:var(--mono);font-size:11px;padding:10px;outline:none;resize:vertical;box-sizing:border-box" placeholder="paste your SKILL.md here&#10;&#10;or click 'pull from generator' if you just generated one"></textarea>
+          <button class="btn-sm" style="margin-top:8px" onclick="pullSkillForContrib()">↑ PULL FROM SKILL GENERATOR</button>
+        </div>
+
+        <div style="padding:14px 16px;border-bottom:1px solid var(--border)">
+          <div style="font-size:9px;color:var(--muted);letter-spacing:0.1em;margin-bottom:8px">DETECTED STACK <span style="color:var(--dim)">(or enter manually)</span></div>
+          <input type="text" id="contrib-stack" placeholder="gdscript · react · python · rust..." style="width:100%;background:var(--bg);border:1px solid var(--border2);color:var(--text);font-family:var(--mono);font-size:11px;padding:7px 10px;outline:none;box-sizing:border-box">
+          <div style="font-size:9px;color:var(--dim);margin-top:6px;line-height:1.6">This determines which community seed file receives your contribution — seeds/{stack}.json</div>
+        </div>
+
+        <div style="padding:14px 16px;flex:1">
+          <div style="font-size:9px;color:var(--muted);letter-spacing:0.1em;margin-bottom:8px">EXISTING SEEDS <span style="color:var(--dim)">(Claude won't propose duplicates)</span></div>
+          <div id="contrib-seed-status" style="font-size:9px;color:var(--dim);margin-bottom:8px">// fetching current seed...</div>
+          <div id="contrib-seed-list" style="font-size:9px;color:var(--dim);line-height:1.9;max-height:120px;overflow-y:auto"></div>
+          <div style="margin-top:12px;display:flex;gap:8px">
+            <button class="btn-sm primary" id="contrib-extract-btn" onclick="runExtraction()" style="flex:1;padding:8px">▸ EXTRACT LESSONS</button>
+          </div>
+          <div id="contrib-extract-status" style="font-size:9px;color:var(--muted);margin-top:8px"></div>
+        </div>
+      </div>
+
+      <!-- RIGHT: review + PR -->
+      <div style="background:var(--bg2);display:flex;flex-direction:column">
+
+        <div style="padding:12px 16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:9px;color:var(--muted);letter-spacing:0.1em">PROPOSED LESSONS — REVIEW BEFORE SUBMITTING</span>
+          <span id="contrib-count" style="font-size:9px;color:var(--dim)"></span>
+        </div>
+
+        <div id="contrib-proposals" style="flex:1;overflow-y:auto;padding:0">
+          <div style="padding:16px;color:var(--dim);font-size:10px;line-height:2">
+            // proposed lessons appear here<br>
+            // edit or reject any before submitting<br>
+            // nothing is sent until you click submit
+          </div>
+        </div>
+
+        <div style="padding:14px 16px;border-top:1px solid var(--border)">
+          <div style="font-size:9px;color:var(--muted);letter-spacing:0.1em;margin-bottom:10px">SUBMIT VIA PULL REQUEST</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
+            <div>
+              <div style="font-size:9px;color:var(--dim);margin-bottom:4px">YOUR GITHUB USERNAME</div>
+              <input type="text" id="contrib-gh-user" placeholder="your-username" style="width:100%;background:var(--bg);border:1px solid var(--border2);color:var(--text);font-family:var(--mono);font-size:11px;padding:6px 8px;outline:none;box-sizing:border-box">
+            </div>
+            <div>
+              <div style="font-size:9px;color:var(--dim);margin-bottom:4px">YOUR GITHUB TOKEN</div>
+              <input type="password" id="contrib-gh-token" placeholder="github_pat_..." style="width:100%;background:var(--bg);border:1px solid var(--border2);color:var(--text);font-family:var(--mono);font-size:11px;padding:6px 8px;outline:none;box-sizing:border-box">
+            </div>
+          </div>
+          <div style="font-size:9px;color:var(--dim);margin-bottom:10px;line-height:1.6">
+            Token needs <code style="color:var(--text)">repo</code> scope. PR opens against alexbkirby-glitch/lodestone. A maintainer reviews before merging.
+          </div>
+          <button class="btn-sm primary" id="contrib-pr-btn" onclick="submitPR()" style="width:100%;padding:8px">▸ OPEN PULL REQUEST</button>
+          <div id="contrib-pr-status" style="font-size:9px;color:var(--muted);margin-top:8px;line-height:1.8"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ABOUT PAGE ══ -->
+<div class="page" id="page-about">
+  <div class="tool-container">
+    <div class="about-grid">
+      <div class="about-cell about-cell-idea">
+        <div class="about-heading">THE IDEA</div>
+        <div class="about-text">
+          <p>AI coding assistants start every session blank. You re-explain your architecture, re-describe your bugs, re-establish your conventions — every time. The more complex your project, the more time you spend on context instead of code.</p>
+          <br>
+          <p>Lodestone extracts that knowledge once and makes it available to any AI session automatically. Your bug history, your working patterns, your project rules — loaded before you type a word.</p>
+          <br>
+          <p>The SeedBank extends this to stacks you haven't even configured yet. <span data-stat="seeds" id="about-seeds">—</span> curated wrong→correct patterns across <span data-stat="stacks" id="about-stacks">—</span> technologies, indexed by the exact symptoms developers google when something breaks.</p>
+        </div>
+      </div>
+      <div class="about-cell">
+        <div class="about-heading">ARCHITECTURE</div>
+        <div class="about-text">
+          Three composable modules:<br><br>
+          <code>stack-detector</code> — infers language, framework, domain from files. Two-pass: heuristic (free, instant) then LLM (one call).<br><br>
+          <code>skill-generator</code> — converts any project into a structured SKILL.md. Bug history is always the first priority section.<br><br>
+          <code>lodestone-inject</code> — scores seeds via cosine similarity (MiniLM-L6, runs entirely in your browser). Injects the top-k seeds above a relevance threshold into your session context.
+        </div>
+      </div>
+      <div class="about-cell">
+        <div class="about-heading">MODEL SUPPORT</div>
+        <div class="about-text">
+          Works with any OpenAI-compatible endpoint.<br><br>
+          <strong style="color:var(--text)">Recommended:</strong> Anthropic claude-sonnet-4 or claude-haiku-4<br>
+          <strong style="color:var(--text)">Budget:</strong> OpenAI gpt-4o-mini<br>
+          <strong style="color:var(--text)">Free/private:</strong> Ollama with llama3.2 or mistral<br><br>
+          Seed scoring uses MiniLM-L6 embeddings which run entirely in your browser via Transformers.js — no API key required for that step. The symptom reverse index requires no embeddings at all.
+        </div>
+      </div>
+      <div class="about-cell">
+        <div class="about-heading">CONTRIBUTING</div>
+        <div class="about-text">
+          MIT licensed. The most valuable contribution is a <strong style="color:var(--text)">seed file</strong> — a JSON knowledge base for your stack.<br><br>
+          Add <code>seeds/react.json</code>, <code>seeds/python.json</code>, <code>seeds/rust.json</code> and every project in that domain gets smarter immediately.<br><br>
+          Run <code>node scripts/contribute.mjs</code> for a guided flow with near-duplicate detection, or open a PR directly.<br><br>
+          <a href="https://github.com/alexbkirby-glitch/lodestone" target="_blank">github.com/alexbkirby-glitch/lodestone ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main><!-- end #main-content -->
+
+<footer>
+  <span class="footer-logo" style="display:flex;align-items:center;gap:8px">
+    <img src="logo.png" alt="Lodestone" style="width:18px;height:18px;object-fit:contain;opacity:0.7">
+    Lodestone
+  </span>
+  <span>MIT LICENSE</span>
+  <a href="https://github.com/alexbkirby-glitch/lodestone" target="_blank">GITHUB</a>
+  <a href="#" onclick="openKeyModal()">MODEL CONFIG</a>
+  <span style="margin-left:auto">keys stored locally · never transmitted except to your chosen endpoint</span>
+</footer>
+
+<!-- ── Scripts ── -->
+<script>
+// ══ CONFIG MANAGEMENT ══════════════════════════════════════════════════════
+
+let currentProvider = 'anthropic';
+
+const DEFAULT_CONFIGS = {
+  anthropic: { endpoint: 'https://api.anthropic.com/v1/messages', model: 'claude-sonnet-4-20250514', extraHeaders: {} },
+  openai:    { endpoint: 'https://api.openai.com/v1/chat/completions', model: 'gpt-4o-mini', extraHeaders: {} },
+  ollama:    { endpoint: 'http://localhost:11434/v1/chat/completions', model: 'llama3.2', extraHeaders: {} },
+  custom:    { endpoint: '', model: '', extraHeaders: {} },
+};
+
+function loadConfig() {
+  try { return JSON.parse(localStorage.getItem('lodestone_config') || 'null'); } catch { return null; }
+}
+
+function saveConfig() {
+  let cfg;
+  if (currentProvider === 'anthropic') {
+    cfg = { provider: 'anthropic', apiKey: document.getElementById('input-anthropic-key').value.trim(),
+            endpoint: DEFAULT_CONFIGS.anthropic.endpoint,
+            model: document.getElementById('input-anthropic-model').value };
+  } else if (currentProvider === 'openai') {
+    cfg = { provider: 'openai', apiKey: document.getElementById('input-openai-key').value.trim(),
+            endpoint: DEFAULT_CONFIGS.openai.endpoint,
+            model: document.getElementById('input-openai-model').value };
+  } else if (currentProvider === 'ollama') {
+    cfg = { provider: 'ollama', apiKey: null,
+            endpoint: document.getElementById('input-ollama-endpoint').value.trim(),
+            model: document.getElementById('input-ollama-model').value.trim() };
+  } else {
+    cfg = { provider: 'custom', apiKey: document.getElementById('input-custom-key').value.trim() || null,
+            endpoint: document.getElementById('input-custom-endpoint').value.trim(),
+            model: document.getElementById('input-custom-model').value.trim() };
+  }
+  localStorage.setItem('lodestone_config', JSON.stringify(cfg));
+  updateKeyButton();
+  closeKeyModal();
+}
+
+function clearConfig() {
+  localStorage.removeItem('lodestone_config');
+  updateKeyButton();
+  closeKeyModal();
+}
+
+function updateKeyButton() {
+  const cfg = loadConfig();
+  const btn = document.getElementById('key-btn');
+  if (cfg && (cfg.apiKey || cfg.provider === 'ollama')) {
+    btn.textContent = cfg.provider.toUpperCase() + ' ✓';
+    btn.className = 'key-status set';
+  } else {
+    btn.textContent = 'NO KEY SET';
+    btn.className = 'key-status';
+  }
+}
+
+function openKeyModal() {
+  const cfg = loadConfig();
+  if (cfg) {
+    selectProvider(cfg.provider || 'anthropic');
+    if (cfg.provider === 'anthropic' && cfg.apiKey) document.getElementById('input-anthropic-key').value = cfg.apiKey;
+    if (cfg.provider === 'openai' && cfg.apiKey) document.getElementById('input-openai-key').value = cfg.apiKey;
+    if (cfg.provider === 'ollama') { document.getElementById('input-ollama-endpoint').value = cfg.endpoint; document.getElementById('input-ollama-model').value = cfg.model; }
+    if (cfg.provider === 'custom') { document.getElementById('input-custom-endpoint').value = cfg.endpoint; document.getElementById('input-custom-model').value = cfg.model; }
+  }
+  document.getElementById('key-modal').classList.add('open');
+}
+
+function closeKeyModal() { document.getElementById('key-modal').classList.remove('open'); }
+
+function selectProvider(p) {
+  currentProvider = p;
+  ['anthropic','openai','ollama','custom'].forEach(id => {
+    document.getElementById('provider-' + id).style.display = id === p ? 'block' : 'none';
+    document.querySelectorAll('.provider-tab').forEach((t, i) => {
+      t.classList.toggle('active', ['anthropic','openai','ollama','custom'][i] === p);
+    });
+  });
+}
+
+// ══ MODEL CALL ══════════════════════════════════════════════════════════════
+
+async function callModel(prompt) {
+  const cfg = loadConfig();
+  if (!cfg) throw new Error('No model configured. Click "NO KEY SET" in the nav to add your API key.');
+
+  const headers = { 'Content-Type': 'application/json' };
+  if (cfg.apiKey) headers['Authorization'] = 'Bearer ' + cfg.apiKey;
+
+  const isAnthropic = cfg.endpoint.includes('anthropic.com');
+  const body = isAnthropic
+    ? { model: cfg.model, max_tokens: 1000, messages: [{ role: 'user', content: prompt }] }
+    : { model: cfg.model, max_tokens: 1000, messages: [{ role: 'user', content: prompt }] };
+
+  const res = await fetch(cfg.endpoint, { method: 'POST', headers, body: JSON.stringify(body) });
+  const data = await res.json();
+  if (data.error) throw new Error(data.error.message || JSON.stringify(data.error));
+  return data.choices?.[0]?.message?.content
+      ?? data.content?.find(b => b.type === 'text')?.text
+      ?? '';
+}
+
+// ══ PAGE ROUTING ════════════════════════════════════════════════════════════
+
+// ── Page titles for document.title updates ──────────────────────────────────
+const PAGE_TITLES = {
+  home:       'Lodestone — your personal AI knowledge layer',
+  skill:      'Skill Generator — Lodestone',
+  pressure:   'Seed Scorer — Lodestone',
+  publish:    'Share on Stonehub — Lodestone',
+  workflow:   'Workflow — Lodestone',
+  contribute: 'Contribute Lessons — Lodestone',
+  about:      'About — Lodestone',
+  analytics:  'Analytics — Lodestone',
+  outcomes:   'Outcomes Dashboard — Lodestone',
+  extension:  'Extension — Lodestone',
+};
+
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(l => {
+    l.classList.remove('active');
+    l.removeAttribute('aria-current'); // Fix 14: clear previous
+  });
+  document.getElementById('page-' + id).classList.add('active');
+  const trigger = event?.currentTarget;
+  if (trigger) {
+    trigger.classList.add('active');
+    trigger.setAttribute('aria-current', 'page'); // Fix 14: mark active
+  }
+  document.title = PAGE_TITLES[id] || 'Lodestone'; // Fix 16
+  window.scrollTo(0, 0);
+  // Update URL hash for deep-linking and browser history
+  if (history.pushState) {
+    history.pushState(null, '', '#' + id);
+  } else {
+    window.location.hash = id;
+  }
+  if (id === 'pressure' && !window._pressureModelLoaded) loadPressureModel();
+  if (id === 'pressure' && !window._activeSeedChunks) loadActiveSeedChunks();
+  if (id === 'contribute') {
+    const stack = getStack() || (window._lastProfile?.language ?? '');
+    if (stack) loadExistingSeed();
+  }
+  if (id === 'analytics' && !window._analyticsLoaded) {
+    window._analyticsLoaded = true;
+    loadAnalytics();
+  }
+  if (id === 'outcomes') loadOutcomes();
+}
+
+// ── Accessible modal system ─────────────────────────────────────────────────
+// Fixes 10, 11, 12, 13: focus trap, Escape key, focus return, aria-hidden
+
+function _getFocusable(el) {
+  return Array.from(el.querySelectorAll(
+    'button:not([disabled]),input:not([disabled]),select:not([disabled]),' +
+    'textarea:not([disabled]),a[href],[tabindex]:not([tabindex="-1"])'
+  ));
+}
+
+function openModal(overlayId, triggerId) {
+  const overlay = document.getElementById(overlayId);
+  overlay.classList.add('open');
+  overlay.setAttribute('aria-hidden', 'false');
+  overlay._triggerEl = triggerId ? document.getElementById(triggerId) : document.activeElement;
+
+  const focusable = _getFocusable(overlay);
+  if (focusable.length) focusable[0].focus();
+
+  overlay._trapHandler = (e) => {
+    if (e.key !== 'Tab') return;
+    const els = _getFocusable(overlay);
+    if (!els.length) return;
+    const first = els[0], last = els[els.length - 1];
+    if (e.shiftKey) { if (document.activeElement === first) { e.preventDefault(); last.focus(); } }
+    else            { if (document.activeElement === last)  { e.preventDefault(); first.focus(); } }
+  };
+  overlay._escHandler = (e) => { if (e.key === 'Escape') closeModal(overlayId); };
+  overlay.addEventListener('keydown', overlay._trapHandler);
+  document.addEventListener('keydown', overlay._escHandler);
+}
+
+function closeModal(overlayId) {
+  const overlay = document.getElementById(overlayId);
+  overlay.classList.remove('open');
+  overlay.setAttribute('aria-hidden', 'true');
+  if (overlay._trapHandler) overlay.removeEventListener('keydown', overlay._trapHandler);
+  if (overlay._escHandler)  document.removeEventListener('keydown', overlay._escHandler);
+  if (overlay._triggerEl)   overlay._triggerEl.focus(); // Fix 12: return focus
+}
+
+// Restore page from URL hash on load; handle browser back/forward
+(function initHashRouting() {
+  function applyHash() {
+    const hash = window.location.hash.replace('#', '').split('?')[0];
+    const validPages = ['home','skill','pressure','outcomes','publish','workflow','contribute','about','analytics','extension'];
+    if (hash && validPages.includes(hash)) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-link').forEach(l => {
+        l.classList.remove('active');
+        l.removeAttribute('aria-current');
+      });
+      const page = document.getElementById('page-' + hash);
+      if (page) page.classList.add('active');
+      document.title = PAGE_TITLES[hash] || 'Lodestone';
+    }
+  }
+  window.addEventListener('popstate', applyHash);
+  document.addEventListener('DOMContentLoaded', applyHash);
+})();
+
+function scrollToInstall() {
+  showPage('home');
+  setTimeout(() => {
+    const sections = Array.from(document.querySelectorAll('#page-home .section'));
+    const claudeSection = sections.find(s => s.querySelector('.section-label')?.textContent.includes('USE WITH CLAUDE'));
+    if (claudeSection) {
+      claudeSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, 50);
+}
+
+// ══ SKILL GENERATOR ═════════════════════════════════════════════════════════
+
+const HEURISTICS = [
+  { p: /\.gd$/,      k: 'language',  v: 'gdscript' },
+  { p: /\.rs$/,      k: 'language',  v: 'rust' },
+  { p: /\.py$/,      k: 'language',  v: 'python' },
+  { p: /\.tsx?$/,    k: 'language',  v: 'typescript' },
+  { p: /\.jsx?$/,    k: 'language',  v: 'javascript' },
+  { p: /\.cs$/,      k: 'language',  v: 'csharp' },
+  { p: /\.go$/,      k: 'language',  v: 'go' },
+  { p: /\.rb$/,      k: 'language',  v: 'ruby' },
+  { p: /project\.godot$/i, k: 'framework', v: 'godot4' },
+  { p: /package\.json$/i,  k: 'packageManager', v: 'npm' },
+  { p: /cargo\.toml$/i,    k: 'framework', v: 'rust-cargo' },
+  { p: /next\.config/i,    k: 'framework', v: 'nextjs' },
+  { p: /vite\.config/i,    k: 'framework', v: 'vite' },
+  { p: /pubspec\.yaml$/i,  k: 'framework', v: 'flutter' },
+  { p: /CLAUDE_RULES\.md$/i,    k: 'docStyle', v: 'claude-rules' },
+  { p: /CLAUDE_PATTERNS\.\w+$/i,k: 'docStyle', v: 'claude-patterns' },
+  { p: /GODOT_FOR_CLAUDE\.md$/i,k: 'docStyle', v: 'godot-for-claude' },
+  { p: /Claude\.md$/i,          k: 'hasClaudeMd', v: true },
+];
+
+const SECTIONS = [
+  { id:'overview',      title:'Project overview',            universal:true, priority:1, instruction:'2-3 sentences: what the project is, its core purpose, and target platform.' },
+  { id:'architecture',  title:'Architecture map',            universal:true, priority:2, instruction:'Bullet list: key files/modules and what each owns. Init order if determinable.' },
+  { id:'bugs',          title:'Bug history — every confirmed fix', universal:true, priority:3, instruction:'HIGHEST PRIORITY. Every bug: Symptom | Root cause | Fix. Never merge bugs. Table if >5.' },
+  { id:'patterns',      title:'Working patterns — paste-ready', universal:true, priority:4, instruction:'3-8 verified code snippets from the actual project. Label each.' },
+  { id:'conventions',   title:'Naming and style conventions',universal:true, priority:5, instruction:'Conventions observed in the code. Grounded in actual files only.' },
+  { id:'session_rules', title:'Session rules',               universal:true, priority:6, instruction:'3-5 non-negotiable process rules. Imperatives.' },
+  { id:'gdscript',  title:'GDScript 4 gotchas',  condition: p => p.language==='gdscript'||p.framework?.startsWith('godot'), priority:35, instruction:'GDScript 4 traps. Wrong → correct for each.' },
+  { id:'html_exp',  title:'HTML export constraints', condition: p => p.target==='html-export'||p.target==='web', priority:36, instruction:'Browser-specific workarounds. Only issues in files.' },
+  { id:'react',     title:'React / hooks patterns', condition: p => ['react','nextjs','vite'].includes(p.framework), priority:35, instruction:'Hook usage, component conventions, state management.' },
+  { id:'python',    title:'Python environment notes', condition: p => p.language==='python', priority:35, instruction:'Venv, dependencies, import conventions, version gotchas.' },
+  { id:'rust',      title:'Rust ownership patterns', condition: p => p.language==='rust', priority:35, instruction:'Lifetime/ownership patterns. Borrow checker traps.' },
+  { id:'typescript',title:'TypeScript config', condition: p => p.language==='typescript', priority:35, instruction:'tsconfig choices, custom types, strict-mode gotchas.' },
+  { id:'issues',    title:'Open issues and workarounds', condition: p => p.hasBugHistory, priority:50, instruction:'Unresolved bugs, workarounds. One line each.' },
+];
+
+let skillFiles_state = [];
+
+function readFile(f) {
+  return new Promise((res,rej)=>{ const r=new FileReader(); r.onload=e=>res({name:f.name,content:e.target.result}); r.onerror=rej; r.readAsText(f); });
+}
+
+function isRelevant(n) { return /\.(md|gd|js|jsx|ts|tsx|py|rs|cs|go|rb|cpp|h|swift|toml|yaml|yml|json)$/i.test(n); }
+
+async function skillDrop(e) { e.preventDefault(); const items=e.dataTransfer.items; if(!items) return; const promises=[]; for(const item of items){ if(item.kind==='file'){ const entry=item.webkitGetAsEntry?.(); if(entry?.isDirectory) promises.push(readDir(entry)); else promises.push(Promise.resolve([item.getAsFile()])); }} Promise.all(promises).then(g=>skillFiles(g.flat().filter(Boolean))); }
+
+function readDir(entry) {
+  return new Promise(resolve => {
+    const reader = entry.createReader(); const results = [];
+    function batch() { reader.readEntries(entries => { if(!entries.length){resolve(results.flat());return;} Promise.all(entries.map(e=>e.isDirectory?readDir(e):new Promise(res=>e.file(f=>res([f]))))).then(g=>{results.push(...g);batch();}); }); }
+    batch();
+  });
+}
+
+async function skillFiles(raw) {
+  const relevant = Array.from(raw).filter(f=>isRelevant(f.name));
+  if(!relevant.length){setSkillStatus('error','No supported files found.');return;}
+  setSkillStatus('running','reading files...');
+
+  const allRead = await Promise.all(relevant.map(readFile));
+  const mdFiles  = allRead.filter(f=>f.name.endsWith('.md'));
+  const codeFiles = allRead.filter(f=>!f.name.endsWith('.md'));
+  codeFiles.sort((a,b)=>a.name.split('/').length-b.name.split('/').length);
+
+  const selected = [...mdFiles];
+  let budget = 40000 - mdFiles.reduce((s,f)=>s+f.content.length,0);
+  for(const f of codeFiles){
+    if(budget<=0) break;
+    const content=f.content.length>8000?f.content.slice(0,8000)+'\n...[truncated]':f.content;
+    selected.push({...f,content}); budget-=content.length;
+  }
+  skillFiles_state = selected;
+
+  // Render file list
+  const fl = document.getElementById('skill-file-list');
+  fl.innerHTML = selected.slice(0,14).map(f=>`<div class="file-row"><span class="file-name${f.name.endsWith('.md')?' md':''}">${f.name.split('/').pop()}</span><span class="file-size">${(f.content.length/1000).toFixed(1)}k</span></div>`).join('') + (selected.length>14?`<div style="font-size:9px;color:var(--dim)">+${selected.length-14} more</div>`:'');
+
+  // Heuristic detect
+  const heuristic = {};
+  for(const f of selected) for(const h of HEURISTICS) { if(h.p.test(f.name)) heuristic[h.k]=heuristic[h.k]??h.v; }
+
+  setSkillStatus('running','detecting stack...');
+
+  // LLM detect
+  let profile = {...heuristic, confidence:'heuristic'};
+  try {
+    const sample = selected.sort((a,b)=>(b.name.endsWith('.md')?1:0)-(a.name.endsWith('.md')?1:0)).slice(0,8).map(f=>`// ${f.name}\n${f.content.slice(0,350)}`).join('\n\n');
+    const raw = await callModel(`Analyze these project files and return ONLY a JSON stack profile (no fences):\n${sample}\n\nJSON fields: language, framework, domain, target, docStyle, hasClaudeMd, hasBugHistory, primaryFileType, projectName, notablePatterns (array, max 3), confidence`);
+    const parsed = JSON.parse(raw.replace(/\`\`\`json|\`\`\`/g,'').trim());
+    profile = {...heuristic, ...parsed};
+  } catch(e) { profile.confidence='heuristic-fallback'; }
+
+  // Show profile
+  const sections = SECTIONS.filter(s=>s.universal||(s.condition&&s.condition(profile))).sort((a,b)=>a.priority-b.priority);
+  renderProfile(profile, sections);
+
+  setSkillStatus('running','extracting skill...');
+  await new Promise(r=>setTimeout(r,400));
+
+  // Extract skill
+  try {
+    const slug=(profile.projectName??'project').toLowerCase().replace(/\s+/g,'-');
+    const lang=profile.language??'code';
+    const secInstructions=sections.map((s,i)=>`### Section ${i+1}: ${s.title}\n${s.instruction}`).join('\n\n');
+    const fileContent=selected.map(f=>`=== ${f.name} ===\n${f.content}`).join('\n\n');
+    const prompt=`You are building a Claude skill file. SKILL.md lets future Claude instances understand a project immediately.\n\nSTACK: ${JSON.stringify(profile)}\n\nFILES:\n${fileContent}\n\nProduce a SKILL.md:\n\n---\nname: ${slug}-${lang}\ndescription: Skill for ${profile.projectName??'this project'} — ${profile.domain??'software project'}. Use whenever working on this project.\n---\n\n# ${profile.projectName??'Project'} — ${profile.framework??lang} Skill\n\n${secInstructions}\n\nRULES: Output ONLY the SKILL.md. No fences. Every bug included. Real code only. Under 500 lines.`;
+    const skillText = await callModel(prompt);
+    renderSkill(skillText.trim(), profile);
+    setSkillStatus('done', `✓ skill ready · ${skillText.split('\n').length} lines`);
+  } catch(e) { setSkillStatus('error', e.message); }
+}
+
+function renderProfile(profile, sections) {
+  window._lastProfile = profile;
+  const box = document.getElementById('skill-profile');
+  box.style.display='block';
+  const keys = ['language','framework','domain','target','projectName','confidence'];
+  box.innerHTML = `<div style="font-size:9px;color:var(--muted);letter-spacing:0.1em;margin-bottom:8px">DETECTED STACK</div>`
+    + keys.filter(k=>profile[k]).map(k=>`<div class="profile-row"><span class="profile-key">${k}</span><span class="profile-val">${profile[k]}</span></div>`).join('')
+    + `<div style="margin-top:10px;font-size:9px;color:var(--muted);letter-spacing:0.1em;margin-bottom:6px">SECTIONS (${sections.length})</div>`
+    + sections.map(s=>`<span class="section-pill${s.universal?'':' conditional'}">${s.title}</span>`).join('')
+    + `<div id="coverage-badge" style="margin-top:12px;font-size:9px;color:var(--dim)">// checking seed coverage...</div>`;
+  showSeedCoverage(profile);
+}
+
+async function showSeedCoverage(profile) {
+  const badge = document.getElementById('coverage-badge');
+  if (!badge) return;
+
+  // Candidate stack names to look up, in priority order
+  const candidates = [
+    profile.framework?.toLowerCase().replace(/\s+/g,'-'),
+    profile.language?.toLowerCase(),
+    profile.domain?.toLowerCase(),
+  ].filter(Boolean);
+
+  try {
+    const idx = await fetch('api/seeds/index.json').then(r => r.json());
+    const stackNames = new Set(idx.stacks.map(s => s.stack));
+
+    // Find the first candidate that has a seed
+    const matched = candidates.find(c => stackNames.has(c));
+
+    if (matched) {
+      const entry = idx.stacks.find(s => s.stack === matched);
+      const tags  = (entry.top_tags || []).slice(0, 4).join(', ');
+      badge.innerHTML =
+        `<div style="margin-top:4px;display:flex;align-items:center;gap:8px">` +
+        `<span style="color:var(--green)">▸ SEED COVERAGE</span>` +
+        `<span style="color:var(--accent)">${entry.chunks} seeds for <strong>${matched}</strong></span>` +
+        `</div>` +
+        `<div style="color:var(--dim);margin-top:3px">topics: ${tags}</div>` +
+        `<div style="margin-top:4px"><a href="seeds/${matched}.txt" target="_blank" ` +
+        `style="color:var(--accent);font-size:9px;text-decoration:none">view seed ↗</a>` +
+        ` · <a href="seeds/${matched}.json" target="_blank" ` +
+        `style="color:var(--dim);font-size:9px;text-decoration:none">json ↗</a></div>`;
+    } else {
+      badge.innerHTML =
+        `<span style="color:var(--dim)">⚠ no community seed yet for this stack — ` +
+        `<a href="#" onclick="showPage('contribute')" style="color:var(--accent);text-decoration:none">add one ↗</a></span>`;
+    }
+  } catch {
+    // Fail silently — local dev without a server, or network error
+    badge.textContent = '';
+  }
+}
+
+function renderSkill(text, profile) {
+  const slug = (profile?.projectName??'project').toLowerCase().replace(/\s+/g,'-');
+  const out = document.getElementById('skill-output');
+  out.innerHTML = `<pre class="skill-output">${escHtml(text)}</pre>`;
+  const actions = document.getElementById('skill-actions');
+  actions.style.display='flex';
+  actions.innerHTML = `
+    <button class="btn-sm" onclick="copySkill()">COPY</button>
+    <button class="btn-sm primary" onclick="downloadSkillMd('${slug}')">DOWNLOAD SKILL.md</button>
+    <button class="btn-sm primary" onclick="downloadSkillZip('${slug}')">DOWNLOAD .ZIP</button>`;
+  // Auto-trigger zip download
+  setTimeout(() => downloadSkillZip(slug), 400);
+}
+
+function copySkill() {
+  const pre = document.querySelector('#skill-output pre');
+  if(!pre) return;
+  navigator.clipboard.writeText(pre.textContent).then(()=>{
+    const btn = document.querySelector('#skill-actions button');
+    btn.textContent='✓ COPIED'; btn.className='btn-sm success';
+    setTimeout(()=>{btn.textContent='COPY';btn.className='btn-sm';},2000);
+  });
+}
+
+function downloadSkillMd(slug) {
+  const pre = document.querySelector('#skill-output pre');
+  if(!pre) return;
+  dl(pre.textContent, `${slug}-SKILL.md`, 'text/markdown');
+}
+
+async function downloadSkillZip(slug) {
+  const pre = document.querySelector('#skill-output pre');
+  if(!pre) return;
+  const skill = pre.textContent;
+  // Build a minimal zip manually (store method, no compression needed for text)
+  // Use JSZip from CDN
+  try {
+    const JSZip = (await import('https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js').catch(()=>null))?.default;
+    if(!JSZip) { downloadSkillMd(slug); return; }
+    const zip = new JSZip();
+    zip.file(`${slug}-SKILL.md`, skill);
+    zip.file(`${slug}-lodestone.archive.md`, `# ${slug} — Lodestone Archive\n\nNo content archived yet.\nRun the Context Pruner to move low-relevance sections here.\n`);
+    zip.file('README-lodestone.md', `# Lodestone output for ${slug}\n\nFiles in this zip:\n- \`${slug}-SKILL.md\` — install as a Claude skill, or paste into CLAUDE.md\n- \`${slug}-lodestone.archive.md\` — low-delta content lives here (run Context Pruner to populate)\n\nGenerated by Lodestone · https://alexbkirby-glitch.github.io/lodestone\nYour files never left your browser except for the API call to generate the skill.\n`);
+    const blob = await zip.generateAsync({type:'blob'});
+    dl(blob, `${slug}-lodestone.zip`, 'application/zip', true);
+  } catch(e) {
+    downloadSkillMd(slug);
+  }
+}
+
+function dl(content, filename, type, isBlob=false) {
+  const url = isBlob ? URL.createObjectURL(content) : URL.createObjectURL(new Blob([content],{type}));
+  Object.assign(document.createElement('a'),{href:url,download:filename}).click();
+  setTimeout(()=>URL.revokeObjectURL(url), 5000);
+}
+
+function setSkillStatus(type, msg) {
+  const el=document.getElementById('skill-status');
+  el.className='status-bar status-'+type;
+  el.textContent=msg;
+}
+
+// ══ LODESTONE ═══════════════════════════════════════════════════════════
+
+const BUNDLED_SEEDS = [
+  { id:'patch_verify', title:'Patch verification rule', content:'Never apply a str.replace() patch without verifying it landed. Read target, confirm exact match, apply, then grep to confirm. Symptom: silent no-op when target string changed.', tags:['patch','str_replace','edit','fix','bug','modify','verify'] },
+  { id:'complete_files', title:'Write complete files not fragments', content:'Write complete files, never inject fragments mid-file. Partial writes leave inconsistent state — usages without declarations, entries without opening braces.', tags:['write','create','new','file','service','script','add','fragment'] },
+  { id:'lbl_helper', title:'_lbl() helper — correct label', content:'Critical: size_flags_horizontal = SIZE_EXPAND_FILL and autowrap_mode = AUTOWRAP_WORD_SMART must both be set or text clips. Add label to parent as last step.', tags:['label','text','lbl','helper','wrap','autowrap','ui','display'] },
+  { id:'colorect_panel', title:'ColorRect background for panels', content:'Any Control panel over other content needs a ColorRect background as FIRST child. Without it panel is transparent and content behind shows through. Symptom: text from previous screen bleeds through.', tags:['panel','overlap','transparent','background','colorect','main','menu'] },
+  { id:'virtual_keyboard', title:'LineEdit keyboard type — Godot 4', content:'WRONG: VIRTUAL_KEYBOARD_TYPE_NUMBER (Godot 3). CORRECT: keyboard_type = LineEdit.KEYBOARD_TYPE_NUMBER_PAD. Symptom: Cannot find member VIRTUAL_KEYBOARD_TYPE_NUMBER in base LineEdit.', tags:['keyboard','input','lineedit','number','virtual'] },
+  { id:'string_repeat', title:'String repetition — GDScript 4', content:"WRONG: 'char' * N (Python syntax). CORRECT: 'char'.repeat(N). Symptom: parser error at * operator.", tags:['string','repeat','multiply','separator','line','divider'] },
+  { id:'back_variant', title:'.back() returns Variant — must cast', content:"WRONG: var last := arr.back() then last.member. CORRECT: var last: Dictionary = arr.back() as Dictionary, then last.get('key', ''). Symptom: Invalid get index on base Nil.", tags:['back','array','last','variant','type','dict','member'] },
+  { id:'await_frame', title:'await process_frame for layout', content:'UI layout sizes not final inside _ready(). Pattern: await get_tree().process_frame before reading .size or setting scroll_vertical.', tags:['await','frame','layout','size','scroll','position','ready'] },
+  { id:'html_export', title:'Godot HTML export gotchas', content:'Audio needs user gesture before first play. LineEdit needs grab_focus() for keyboard. user:// paths differ in HTML export. Avoid WorkerThreadPool on HTML target. Use JavaScriptBridge for JS calls.', tags:['html','export','web','browser','javascript','audio','input','focus'] },
+  { id:'array_brace', title:'Array-of-dict missing opening brace', content:"Every array entry needs its own opening {. Detection: line where strip == '},' followed by line starting with a quoted key. Symptom: parser error at a correct-looking line.", tags:['array','dict','dictionary','list','json','data','entry','brace','missing'] },
+];
+
+// Active seed pool: personal Stone → community bundled → bundled fallback
+// Resolved once per pressure page load; refreshed on each PRESSURIZE click.
+window._activeSeedChunks = null;
+window._seedSource = 'bundled';
+
+async function loadActiveSeedChunks() {
+  // Try localhost:3001/api/seeds (personal Stone running locally)
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 1200);
+    const stackList = await fetch('http://localhost:3001/api/seeds', { signal: controller.signal }).then(r => r.json());
+    clearTimeout(timeout);
+    if (Array.isArray(stackList) && stackList.length > 0) {
+      // Fetch all stack seed files in parallel, flatten
+      const seedArrays = await Promise.all(
+        stackList.map(s =>
+          fetch(`http://localhost:3001/api/seeds/${s.stack}`)
+            .then(r => r.json())
+            .catch(() => [])
+        )
+      );
+      const allSeeds = seedArrays.flat().filter(s => s && s.id && (s.content || s.wrong));
+      if (allSeeds.length > 0) {
+        window._activeSeedChunks = allSeeds;
+        window._seedSource = `local Stone · ${allSeeds.length} seeds across ${stackList.length} stacks`;
+        return;
+      }
+    }
+  } catch (_) { /* Stone not running — fall through */ }
+
+  // Fall back to bundled community seeds
+  window._activeSeedChunks = BUNDLED_SEEDS;
+  window._seedSource = `community bundle · ${BUNDLED_SEEDS.length} seeds`;
+}
+
+window._pressureModelLoaded = false;
+window._pressurePipeline = null;
+window._embeddingCache = {};
+window._pressureResults = [];
+
+async function loadPressureModel() {
+  if(window._pressureModelLoaded) return;
+  document.getElementById('pressure-gauge-label').textContent = 'LOADING SCORING MODEL...';
+  try {
+    const { pipeline, env } = await import('https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2/dist/transformers.min.js');
+    env.allowLocalModels = false;
+    window._pressurePipeline = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');
+    window._pressureModelLoaded = true;
+    document.getElementById('pressure-gauge-label').textContent = 'READY · ENTER AN INTENT ABOVE';
+  } catch(e) {
+    document.getElementById('pressure-gauge-label').textContent = 'EMBEDDING UNAVAILABLE · USING LEXICAL SCORING';
+  }
+}
+
+async function embed(text) {
+  if(window._embeddingCache[text]) return window._embeddingCache[text];
+  if(!window._pressurePipeline) return null;
+  const out = await window._pressurePipeline(text, {pooling:'mean',normalize:true});
+  const vec = Array.from(out.data);
+  window._embeddingCache[text] = vec;
+  return vec;
+}
+
+function cosine(a,b){ let d=0,na=0,nb=0; for(let i=0;i<a.length;i++){d+=a[i]*b[i];na+=a[i]*a[i];nb+=b[i]*b[i];} return d/(Math.sqrt(na)*Math.sqrt(nb)+1e-10); }
+
+function lexical(chunk, tokens) {
+  const t=(chunk.title+' '+chunk.content).toLowerCase();
+  let s=0; for(const q of tokens){ if(q.length<3) continue; if(chunk.tags?.some(g=>g.includes(q)||q.includes(g))) s+=2; else if(t.includes(q)) s+=0.5; } return s/Math.max(tokens.length,1);
+}
+
+async function runPressure() {
+  const query = document.getElementById('pressure-query').value.trim();
+  if(!query) return;
+  if(!window._pressureModelLoaded) await loadPressureModel();
+
+  document.getElementById('pressure-gauge-label').textContent = 'LOADING SEEDS...';
+  document.getElementById('pressure-gauge').innerHTML='';
+  document.getElementById('pressure-output').innerHTML='';
+  document.getElementById('pressure-copy-btn').style.display='none';
+
+  // Resolve seed pool (personal Stone → bundled fallback)
+  await loadActiveSeedChunks();
+  const SEED_CHUNKS = window._activeSeedChunks;
+
+  document.getElementById('pressure-gauge-label').textContent = 'SCORING...';
+
+  const queryVec = await embed(query);
+  const queryTokens = query.toLowerCase().replace(/[^a-z0-9]/g,' ').split(/\s+/).filter(Boolean);
+
+  const scored = await Promise.all(SEED_CHUNKS.map(async chunk => {
+    const score = queryVec
+      ? cosine(queryVec, await embed(chunk.title+'. '+(chunk.content||chunk.wrong||'')))
+      : lexical(chunk, queryTokens);
+    return {...chunk, score};
+  }));
+  scored.sort((a,b)=>b.score-a.score);
+  window._pressureResults = scored;
+
+  const THRESHOLD = 0.35;
+  const MAX = 4;
+  const injected = scored.filter(c=>c.score>=THRESHOLD).slice(0,MAX);
+  const maxScore = scored[0]?.score || 1;
+
+  // Gauge
+  const gauge = document.getElementById('pressure-gauge');
+  gauge.innerHTML = scored.map(c => {
+    const bleeds = injected.some(i=>i.id===c.id);
+    const pct = Math.min((c.score/maxScore)*100,100);
+    return `<div class="gauge-row">
+      <span class="gauge-label${bleeds?' bleed':''}">${bleeds?'▸ ':' '}${escHtml(c.title)}</span>
+      <div class="gauge-track"><div class="gauge-fill${bleeds?' bleed':''}" style="width:${pct}%"></div></div>
+      <span class="gauge-score${bleeds?' bleed':''}">Δ${c.score.toFixed(3)}</span>
+    </div>`;
+  }).join('');
+
+  document.getElementById('pressure-gauge-label').textContent = `ALL SEEDS · ${injected.length} INJECTED · THRESHOLD Δ≥${THRESHOLD}`;
+  document.getElementById('pressure-threshold-note').textContent = `source: ${window._seedSource} · scoring: ${queryVec?'cosine similarity (MiniLM-L6)':'lexical fallback'} · ${scored.length-injected.length} below threshold`;
+
+  // Output
+  if(injected.length===0) {
+    document.getElementById('pressure-output').innerHTML='<div style="padding:14px;color:var(--dim);font-size:10px">// no seeds above threshold — broaden your intent signal</div>';
+    return;
+  }
+  document.getElementById('pressure-output').innerHTML = injected.map((c,i)=>`
+    <div class="injected-chunk">
+      <div class="chunk-title">[${i+1}] ${escHtml(c.title)}</div>
+      <div class="chunk-meta">Δ${c.score.toFixed(3)}</div>
+      <pre class="chunk-content">${escHtml(c.content||('WRONG: '+(c.wrong||'')+' CORRECT: '+(c.correct||'')))}</pre>
+    </div>`).join('');
+  document.getElementById('pressure-copy-btn').style.display='block';
+}
+
+function copyPressure() {
+  const query = document.getElementById('pressure-query').value.trim();
+  const injected = window._pressureResults.filter(c=>c.score>=0.35).slice(0,4);
+  const block = ['=== LODESTONE — INJECTED CONTEXT ===', `Intent: "${query}"`, `Injected: ${injected.length} chunks`, '', ...injected.flatMap((c,i)=>[`── [${i+1}] ${c.title} (Δ=${c.score.toFixed(3)}) ──`,c.content,'']), '=== END ==='].join('\n');
+  navigator.clipboard.writeText(block).then(()=>{
+    const btn=document.getElementById('pressure-copy-btn');
+    btn.textContent='✓ COPIED'; btn.className='btn-sm success';
+    setTimeout(()=>{btn.textContent='COPY BLOCK';btn.className='btn-sm';},2000);
+  });
+}
+
+// ══ UTILS ════════════════════════════════════════════════════════════════════
+
+function escHtml(s){ return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+
+// ══ PUBLISH PAGE ════════════════════════════════════════════════════════════
+
+function loadGhConfig() { try { return JSON.parse(localStorage.getItem('lodestone_github')||'null'); } catch { return null; } }
+
+function openGhModal() {
+  const cfg = loadGhConfig();
+  if (cfg) {
+    document.getElementById('gh-owner').value = cfg.owner ?? '';
+    document.getElementById('gh-repo').value  = cfg.repo  ?? 'lodestone';
+    document.getElementById('gh-token').value = cfg.token ?? '';
+  }
+  openModal('gh-modal');
+}
+function closeGhModal() { closeModal('gh-modal'); }
+
+function saveGhConfig() {
+  const cfg = {
+    owner: document.getElementById('gh-owner').value.trim(),
+    repo:  document.getElementById('gh-repo').value.trim(),
+    token: document.getElementById('gh-token').value.trim(),
+  };
+  localStorage.setItem('lodestone_github', JSON.stringify(cfg));
+  closeGhModal();
+  updateGhStatus();
+}
+
+function clearGhConfig() {
+  localStorage.removeItem('lodestone_github');
+  closeGhModal();
+  updateGhStatus();
+}
+
+function updateGhStatus() {
+  const cfg = loadGhConfig();
+  const label = document.getElementById('gh-status-label');
+  const body  = document.getElementById('gh-status-body');
+  if (cfg?.owner && cfg?.token) {
+    label.textContent = `✓ ${cfg.owner}/${cfg.repo}`;
+    label.style.color = 'var(--green)';
+    body.innerHTML = `Connected as <span style="color:var(--text)">${cfg.owner}</span> · repo: <span style="color:var(--text)">${cfg.repo}</span><br>Published files appear at <span style="color:var(--accent)">https://${cfg.owner}.github.io/${cfg.repo}/api/projects/</span>`;
+  } else {
+    label.textContent = 'not configured';
+    label.style.color = '';
+    body.innerHTML = 'Connect your GitHub account to publish project context as a static JSON API.<br>Once published, any model can fetch your project\'s knowledge base from a permanent URL.';
+  }
+}
+
+function pullFromGenerator() {
+  const pre = document.querySelector('#skill-output pre');
+  if (!pre) { alert('Generate a skill first on the Skill Generator page.'); return; }
+  document.getElementById('pub-skill').value = pre.textContent;
+  const profile = window._lastProfile;
+  if (profile) {
+    document.getElementById('pub-name').value  = profile.projectName ?? '';
+    document.getElementById('pub-stack').value = [profile.framework, profile.language, profile.domain].filter(Boolean).join(' · ');
+  }
+  updatePubPreview();
+}
+
+function updatePubPreview() {
+  const name  = document.getElementById('pub-name').value.trim();
+  const stack = document.getElementById('pub-stack').value.trim();
+  const skill = document.getElementById('pub-skill').value.trim();
+  if (!name || !skill) { document.getElementById('pub-preview').textContent = 'Fill in project name and SKILL.md above to preview.'; return; }
+  const slug  = name.toLowerCase().replace(/[^a-z0-9]+/g,'-');
+  const lines = skill.split('\n').length;
+  const bugs  = (skill.match(/symptom|root cause|bug|error|fixed/gi) || []).length;
+  document.getElementById('pub-preview').innerHTML = `
+    <div style="margin-bottom:6px"><span style="color:var(--dim)">slug</span> <span style="color:var(--text)">${slug}</span></div>
+    <div style="margin-bottom:6px"><span style="color:var(--dim)">stack</span> <span style="color:var(--text)">${stack||'unknown'}</span></div>
+    <div style="margin-bottom:6px"><span style="color:var(--dim)">skill lines</span> <span style="color:var(--text)">${lines}</span></div>
+    <div style="margin-bottom:6px"><span style="color:var(--dim)">bug signals</span> <span style="color:var(--text)">${bugs}</span></div>
+    <div style="margin-bottom:12px"><span style="color:var(--dim)">files written</span> <span style="color:var(--text)">${slug}.json · ${slug}-SKILL.md · ${slug}-usage.md · manifest.json</span></div>
+    <div style="font-size:9px;color:var(--dim)">session_start will contain: bug history + session rules + top patterns · ~500 tokens</div>`;
+}
+
+['pub-name','pub-stack'].forEach(id => document.getElementById(id)?.addEventListener('input', updatePubPreview));
+
+async function ghWriteFile(owner, repo, path, content, message, token) {
+  const GITHUB_API = 'https://api.github.com';
+  async function ghFetch(p, opts={}) {
+    const r = await fetch(GITHUB_API+p, { ...opts, headers: { 'Authorization':'Bearer '+token, 'Accept':'application/vnd.github+json', 'X-GitHub-Api-Version':'2022-11-28', 'Content-Type':'application/json', ...(opts.headers??{}) }});
+    const d = await r.json();
+    if (!r.ok) throw new Error(d.message ?? 'GitHub API error '+r.status);
+    return d;
+  }
+  let sha = null;
+  try { sha = (await ghFetch(`/repos/${owner}/${repo}/contents/${path}`)).sha; } catch {}
+  const body = { message, content: btoa(unescape(encodeURIComponent(content))), ...(sha?{sha}:{}) };
+  return ghFetch(`/repos/${owner}/${repo}/contents/${path}`, { method:'PUT', body:JSON.stringify(body) });
+}
+
+async function runPublish() {
+  const cfg   = loadGhConfig();
+  if (!cfg?.owner || !cfg?.token) { openGhModal(); return; }
+
+  const name  = document.getElementById('pub-name').value.trim();
+  const stack = document.getElementById('pub-stack').value.trim();
+  const skillMd = document.getElementById('pub-skill').value.trim();
+
+  if (!name)    { alert('Enter a project name.'); return; }
+  if (!skillMd) { alert('Paste or generate a SKILL.md first.'); return; }
+
+  const { owner, repo, token } = cfg;
+  const slug    = name.toLowerCase().replace(/[^a-z0-9]+/g,'-');
+  const base    = `https://${owner}.github.io/${repo}`;
+  const profile = window._lastProfile ?? { projectName: name, language: stack.split('·')[0]?.trim(), hasBugHistory: /bug|symptom|error/i.test(skillMd) };
+
+  // Build session_start from SKILL.md
+  const sections = {};
+  let cur = null; let buf = [];
+  for (const line of skillMd.split('\n')) {
+    const h2 = line.match(/^##\s+(.+)/);
+    if (h2) { if(cur) sections[cur]=buf.join('\n').trim(); const t=h2[1].toLowerCase(); cur=t.includes('bug')?'bugs':t.includes('rule')?'rules':t.includes('pattern')?'patterns':null; buf=[]; }
+    else if (cur) buf.push(line);
+  }
+  if (cur) sections[cur]=buf.join('\n').trim();
+
+  const sessionStart = [
+    `=== LODESTONE — PROJECT CONTEXT ===`,
+    `Project: ${name} · Stack: ${stack||'unknown'}`,
+    ``,
+    sections.bugs   ? `── Bug history ──\n${sections.bugs.slice(0,1200)}\n`   : null,
+    sections.rules  ? `── Session rules ──\n${sections.rules.slice(0,600)}\n` : null,
+    sections.patterns?`── Patterns ──\n${sections.patterns.slice(0,600)}\n`   : null,
+    `=== END PROJECT CONTEXT ===`,
+  ].filter(Boolean).join('\n');
+
+  const fetchInstructions = `To load context for ${name}, fetch:\n${base}/api/projects/${slug}.json\n\nPaste session_start into CLAUDE.md or Project Instructions for instant context.`;
+
+  const projectAPI = {
+    schema_version: '1.0', slug, name,
+    generated_at: new Date().toISOString(),
+    stack: { language: profile.language??null, framework: profile.framework??null, domain: profile.domain??null, hasBugHistory: profile.hasBugHistory??false },
+    session_start: sessionStart,
+    fetch_instructions: fetchInstructions,
+    chunks: [], skill_md: skillMd,
+    usage: { project_url:`${base}/api/projects/${slug}.json`, skill_url:`${base}/api/projects/${slug}-SKILL.md`, manifest_url:`${base}/api/manifest.json`, fetch_hint:`fetch('${base}/api/projects/${slug}.json').then(r=>r.json())` },
+  };
+
+  const btn = document.getElementById('pub-btn');
+  const progress = document.getElementById('pub-progress');
+  btn.disabled = true; btn.textContent = 'PUBLISHING...';
+
+  const steps = [
+    [`Writing project API...`, `api/projects/${slug}.json`, JSON.stringify(projectAPI, null, 2), `api: publish ${slug} context`],
+    [`Writing SKILL.md...`, `api/projects/${slug}-SKILL.md`, skillMd, `api: publish ${slug} SKILL.md`],
+  ];
+
+  try {
+    for (const [msg, path, content, commitMsg] of steps) {
+      progress.innerHTML += `<span style="color:var(--accent)">▸ ${msg}</span><br>`;
+      await ghWriteFile(owner, repo, path, content, commitMsg, token);
+    }
+
+    // Update manifest
+    progress.innerHTML += `<span style="color:var(--accent)">▸ Updating manifest...</span><br>`;
+    let manifestData = { projects: [] };
+    try {
+      const GITHUB_API = 'https://api.github.com';
+      const r = await fetch(`${GITHUB_API}/repos/${owner}/${repo}/contents/api/manifest.json`, { headers:{'Authorization':'Bearer '+token,'Accept':'application/vnd.github+json'}});
+      if (r.ok) { const d=await r.json(); manifestData=JSON.parse(decodeURIComponent(escape(atob(d.content.replace(/\n/g,''))))); }
+    } catch {}
+    const entry = { slug, name, stack: stack||'unknown', updated_at: projectAPI.generated_at, url: projectAPI.usage.project_url };
+    manifestData.projects = [entry, ...(manifestData.projects??[]).filter(p=>p.slug!==slug)];
+    manifestData.updated_at = new Date().toISOString();
+    manifestData.total = manifestData.projects.length;
+    await ghWriteFile(owner, repo, 'api/manifest.json', JSON.stringify(manifestData, null, 2), `api: update manifest (${manifestData.total} projects)`, token);
+
+    progress.innerHTML += `<span style="color:var(--green)">✓ Done · GitHub Pages rebuilds in ~60s</span>`;
+
+    // Show result
+    const result = document.getElementById('pub-result');
+    result.style.display = 'block';
+    document.getElementById('pub-urls').innerHTML = [
+      `<a href="${projectAPI.usage.project_url}" target="_blank" style="color:var(--accent)">${projectAPI.usage.project_url}</a>`,
+      `<a href="${projectAPI.usage.skill_url}" target="_blank" style="color:var(--muted)">${projectAPI.usage.skill_url}</a>`,
+      `<a href="${projectAPI.usage.manifest_url}" target="_blank" style="color:var(--muted)">${projectAPI.usage.manifest_url}</a>`,
+    ].join('<br>');
+    document.getElementById('pub-claude-hint').innerHTML =
+      `In claude.ai: Settings → Projects → [your project] → Custom Instructions<br>Paste this:<br><br><code style="color:var(--text);font-size:9px">${escHtml(fetchInstructions)}</code>`;
+
+  } catch (e) {
+    progress.innerHTML += `<span style="color:var(--red)">✗ ${escHtml(e.message)}</span>`;
+  }
+
+  btn.disabled = false; btn.textContent = '▸ PUBLISH TO GITHUB PAGES';
+}
+
+// ══ CONTRIBUTE PAGE ════════════════════════════════════════════════════════
+
+const LODESTONE_REPO_OWNER = 'alexbkirby-glitch';
+const LODESTONE_REPO_NAME  = 'Lodestone';
+const SEEDS_BASE = `https://raw.githubusercontent.com/${LODESTONE_REPO_OWNER}/${LODESTONE_REPO_NAME}/main/seeds`;
+
+let _contribProposals = []; // { id, title, content, tags, approved, edited }
+let _existingSeedChunks = [];
+
+// Pull skill from generator if available
+function pullSkillForContrib() {
+  const pre = document.querySelector('#skill-output pre');
+  if (!pre) { alert('Generate a skill first on the Skill Generator page.'); return; }
+  document.getElementById('contrib-skill').value = pre.textContent;
+  if (window._lastProfile?.language) {
+    document.getElementById('contrib-stack').value =
+      window._lastProfile.framework ?? window._lastProfile.language ?? '';
+  }
+  loadExistingSeed();
+}
+
+// Load existing seeds so Claude doesn't propose duplicates
+async function loadExistingSeed() {
+  const stack = getStack();
+  if (!stack) return;
+  const el = document.getElementById('contrib-seed-status');
+  const list = document.getElementById('contrib-seed-list');
+  el.textContent = `// fetching seeds/${stack}.json...`;
+  try {
+    const res = await fetch(`${SEEDS_BASE}/${stack}.json`);
+    if (!res.ok) { el.textContent = `// no existing seed for "${stack}" — your contribution starts it`; _existingSeedChunks = []; return; }
+    _existingSeedChunks = await res.json();
+    el.textContent = `// ${_existingSeedChunks.length} existing seeds loaded`;
+    list.innerHTML = _existingSeedChunks.map(c =>
+      `<div style="color:var(--dim)">· ${escHtml(c.title)}</div>`
+    ).join('');
+  } catch {
+    el.textContent = '// could not fetch seed — will skip duplicate check';
+    _existingSeedChunks = [];
+  }
+}
+
+function getStack() {
+  return document.getElementById('contrib-stack').value.trim().split(/[·\s,]/)[0].trim().toLowerCase() || null;
+}
+
+// Fetch seed when stack field changes
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('contrib-stack')?.addEventListener('change', loadExistingSeed);
+});
+
+// ── Extraction ────────────────────────────────────────────────────────────
+
+const EXTRACTION_PROMPT = (skillMd, stack, existingTitles) => `You are extracting generalizable lessons from a developer's project SKILL.md to contribute to a community knowledge base for the "${stack}" stack.
+
+EXISTING COMMUNITY SEEDS (do not duplicate):
+${existingTitles.length ? existingTitles.map(t => `- ${t}`).join('\n') : '(none yet — this is the first contribution)'}
+
+SKILL.md TO EXTRACT FROM:
+${skillMd}
+
+YOUR JOB:
+Extract 2-6 lessons that would help ANY developer working with ${stack}, not just this specific project.
+
+STRICT SCRUBBING RULES — every proposed seed must pass ALL of these:
+1. No project names, game names, app names, or product names
+2. No scene names, component names, or file names specific to this project
+3. No variable names, function names, or class names specific to this project architecture
+4. No references to "this project", "this game", "this app", or "my implementation"
+5. The lesson must be true for anyone using ${stack}, not just this codebase
+6. Prefer concrete wrong→correct patterns over abstract advice
+
+WHAT MAKES A GOOD CONTRIBUTION:
+- A specific API gotcha (wrong constant name, wrong method syntax)
+- A pattern that is counterintuitive but universally applicable
+- A bug class that affects everyone using this stack
+- A setup or configuration step that is easy to miss
+
+WHAT TO REJECT:
+- Architecture decisions specific to this project
+- Opinions about code organisation
+- Anything that requires knowing this project's context to be useful
+- Vague advice ("always verify your patches", "write complete files")
+
+SCRUBBING EXAMPLES:
+BAD: "In the Unsubscribed game, ServiceApp panels need a ColorRect background"
+GOOD: "Any Control node layered over other content needs a ColorRect as its first child or it renders transparent"
+
+BAD: "The _build_landing() function should clear children before rebuilding"
+GOOD: "When rebuilding a UI container dynamically, call queue_free() on all existing children before adding new ones to avoid ghost nodes"
+
+Respond ONLY with a JSON array (no markdown fences, no preamble):
+[
+  {
+    "id": "unique_snake_case_id_no_project_refs",
+    "title": "Concise title under 8 words",
+    "content": "The lesson — specific, actionable, scrubbed. 2-4 sentences. Include wrong form and correct form where applicable.",
+    "tags": ["relevant", "keywords", "for", "scoring"],
+    "scrubbed": ["list of specific things you removed or generalised from the original"]
+  }
+]
+
+If you cannot extract anything genuinely generalizable after scrubbing, return [].`;
+
+async function runExtraction() {
+  const skill = document.getElementById('contrib-skill').value.trim();
+  const stack = getStack();
+  if (!skill) { alert('Paste your SKILL.md first.'); return; }
+  if (!stack) { alert('Enter your stack (e.g. gdscript, react, python).'); return; }
+
+  const btn = document.getElementById('contrib-extract-btn');
+  const status = document.getElementById('contrib-extract-status');
+  btn.disabled = true; btn.textContent = 'EXTRACTING...';
+  status.textContent = '▸ Claude is reading your skill and extracting generalizable lessons...';
+  _contribProposals = [];
+  renderProposals();
+
+  try {
+    const existingTitles = _existingSeedChunks.map(c => c.title);
+    const raw = await callModel(EXTRACTION_PROMPT(skill.slice(0, 30000), stack, existingTitles));
+    const clean = raw.replace(/```json|```/g, '').trim();
+    const proposals = JSON.parse(clean);
+
+    if (!proposals.length) {
+      status.textContent = '// no generalizable lessons found — try a skill with more bug history';
+      btn.disabled = false; btn.textContent = '▸ EXTRACT LESSONS';
+      return;
+    }
+
+    _contribProposals = proposals.map((p, i) => ({
+      ...p,
+      id: p.id || `contrib_${Date.now()}_${i}`,
+      approved: true,
+      edited: false,
+    }));
+
+    renderProposals();
+    status.textContent = `✓ ${_contribProposals.length} lessons proposed — review each one before submitting`;
+  } catch(e) {
+    status.textContent = `✗ ${e.message}`;
+  }
+
+  btn.disabled = false; btn.textContent = '▸ EXTRACT LESSONS';
+}
+
+// ── Proposal review UI ───────────────────────────────────────────────────
+
+function validateChunkContent(p) {
+  const issues = [];
+  const c = p.content || '';
+  if (!c.includes('WRONG:'))   issues.push('missing WRONG:');
+  if (!c.includes('CORRECT:')) issues.push('missing CORRECT:');
+  if (!c.includes('Symptom:')) issues.push('missing Symptom:');
+  const words = (p.title || '').trim().split(/\s+/).length;
+  if (words > 8)               issues.push(`title ${words} words (max 8)`);
+  if (!/^[a-z][a-z0-9_]*$/.test(p.id || '')) issues.push('id not snake_case');
+  const tagCount = (p.tags || []).length;
+  if (tagCount < 2)            issues.push('need ≥2 tags');
+  if (tagCount > 8)            issues.push(`${tagCount} tags (max 8)`);
+  return issues;
+}
+
+function updateValidation(i, textarea) {
+  _contribProposals[i].content = textarea.value;
+  const issues = validateChunkContent(_contribProposals[i]);
+  const valid  = issues.length === 0;
+  textarea.style.borderColor = valid ? 'var(--border2)' : 'var(--red)';
+  const errDiv = textarea.nextElementSibling;
+  if (errDiv && errDiv.dataset.validationErrors !== undefined) {
+    errDiv.textContent = issues.map(e => `⚠ ${e}`).join(' · ');
+    errDiv.style.display = issues.length ? '' : 'none';
+  }
+  // Update the valid badge in the header
+  const card = textarea.closest('[data-chunk-index]');
+  if (card) {
+    const badge = card.querySelector('[data-valid-badge]');
+    if (badge) {
+      badge.innerHTML = valid
+        ? `<span style="font-size:9px;color:var(--green);margin-left:6px">✓ valid</span>`
+        : `<span style="font-size:9px;color:var(--red);margin-left:6px" title="${issues.join(', ')}">⚠ ${issues[0]}${issues.length > 1 ? ` +${issues.length-1}` : ''}</span>`;
+    }
+  }
+}
+
+function renderProposals() {
+  const container = document.getElementById('contrib-proposals');
+  const count = document.getElementById('contrib-count');
+  const approved = _contribProposals.filter(p => p.approved).length;
+  count.textContent = `${approved} of ${_contribProposals.length} approved`;
+
+  if (!_contribProposals.length) {
+    container.innerHTML = '<div style="padding:16px;color:var(--dim);font-size:10px;line-height:2">// proposed lessons appear here<br>// edit or reject any before submitting<br>// nothing is sent until you click submit</div>';
+    return;
+  }
+
+  container.innerHTML = _contribProposals.map((p, i) => {
+    const issues = validateChunkContent(p);
+    const valid  = issues.length === 0;
+    const validBadge = valid
+      ? `<span style="font-size:9px;color:var(--green);margin-left:6px">✓ valid</span>`
+      : `<span style="font-size:9px;color:var(--red);margin-left:6px" title="${issues.join(', ')}">⚠ ${issues[0]}${issues.length > 1 ? ` +${issues.length-1}` : ''}</span>`;
+    return `
+    <div data-chunk-index="${i}" style="border-bottom:1px solid var(--border);padding:14px 16px;${p.approved ? '' : 'opacity:0.4'}">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;gap:8px">
+        <div style="min-width:0">
+          <div style="display:flex;align-items:center;flex-wrap:wrap;margin-bottom:3px">
+            <span style="font-size:10px;color:${p.approved ? 'var(--accent)' : 'var(--dim)'}">${escHtml(p.title)}</span>
+            <span data-valid-badge>${validBadge}</span>
+          </div>
+          <div style="font-size:9px;color:var(--dim)">id: ${escHtml(p.id)}</div>
+        </div>
+        <button onclick="toggleProposal(${i})" class="btn-sm" style="font-size:9px;padding:3px 8px;flex-shrink:0;${p.approved ? 'color:var(--red);border-color:var(--red)' : 'color:var(--green);border-color:var(--green)'}">
+          ${p.approved ? 'REJECT' : 'APPROVE'}
+        </button>
+      </div>
+      <textarea
+        oninput="updateValidation(${i}, this)"
+        style="width:100%;background:var(--bg);border:1px solid ${valid ? 'var(--border2)' : 'var(--red)'};color:var(--text);font-family:var(--mono);font-size:10px;padding:8px;outline:none;resize:vertical;min-height:80px;box-sizing:border-box;line-height:1.6"
+      >${escHtml(p.content)}</textarea>
+      <div data-validation-errors style="margin-top:4px;font-size:9px;color:var(--red);line-height:1.7;${valid ? 'display:none' : ''}">${issues.map(e => `⚠ ${e}`).join(' · ')}</div>
+      ${p.scrubbed?.length ? `<div style="margin-top:4px;font-size:9px;color:var(--dim)">scrubbed: ${p.scrubbed.map(s => escHtml(s)).join(' · ')}</div>` : ''}
+      <div style="margin-top:4px;font-size:9px;color:var(--dim)">tags: ${(p.tags || []).map(t => escHtml(t)).join(', ')}</div>
+    </div>
+  `;}).join('');
+}
+
+function toggleProposal(i) {
+  _contribProposals[i].approved = !_contribProposals[i].approved;
+  renderProposals();
+}
+
+function editProposal(i, value) {
+  _contribProposals[i].content = value;
+  _contribProposals[i].edited = true;
+}
+
+// ── PR generator ─────────────────────────────────────────────────────────
+
+async function submitPR() {
+  const approved = _contribProposals.filter(p => p.approved);
+  if (!approved.length) { alert('No approved lessons to submit.'); return; }
+
+  const ghUser  = document.getElementById('contrib-gh-user').value.trim();
+  const ghToken = document.getElementById('contrib-gh-token').value.trim();
+  if (!ghUser)  { alert('Enter your GitHub username.'); return; }
+  if (!ghToken) { alert('Enter your GitHub token.'); return; }
+
+  const stack = getStack();
+  const status = document.getElementById('contrib-pr-status');
+  const btn = document.getElementById('contrib-pr-btn');
+  btn.disabled = true; btn.textContent = 'OPENING PR...';
+
+  try {
+    const GITHUB_API = 'https://api.github.com';
+    const headers = {
+      'Authorization': `Bearer ${ghToken}`,
+      'Accept': 'application/vnd.github+json',
+      'X-GitHub-Api-Version': '2022-11-28',
+      'Content-Type': 'application/json',
+    };
+
+    async function gh(path, opts = {}) {
+      const r = await fetch(GITHUB_API + path, { ...opts, headers: { ...headers, ...(opts.headers || {}) } });
+      const d = await r.json();
+      if (!r.ok) throw new Error(d.message || `GitHub error ${r.status}`);
+      return d;
+    }
+
+    status.textContent = '▸ forking repository...';
+
+    // Step 1: Fork the repo (no-op if already forked)
+    await gh(`/repos/${LODESTONE_REPO_OWNER}/${LODESTONE_REPO_NAME}/forks`, {
+      method: 'POST', body: JSON.stringify({ default_branch_only: true })
+    }).catch(() => {}); // may already exist
+
+    // Wait for fork to be ready
+    await new Promise(r => setTimeout(r, 2000));
+
+    // Step 2: Get current seed file from upstream
+    status.textContent = '▸ reading current seed file...';
+    let existingContent = [];
+    let fileSHA = null;
+    try {
+      const fileData = await gh(`/repos/${ghUser}/${LODESTONE_REPO_NAME}/contents/seeds/${stack}.json`);
+      existingContent = JSON.parse(decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, '')))));
+      fileSHA = fileData.sha;
+    } catch { /* file doesn't exist yet */ }
+
+    // Step 3: Merge approved proposals (deduplicate by id)
+    const newChunks = approved.map(p => ({
+      id: p.id,
+      title: p.title,
+      content: p.content,
+      tags: p.tags || [],
+      source: 'community',
+      stack,
+      contributed_by: ghUser,
+      contributed_at: new Date().toISOString().slice(0, 10),
+    }));
+
+    const merged = [...existingContent];
+    for (const c of newChunks) {
+      if (!merged.find(e => e.id === c.id)) merged.push(c);
+    }
+
+    // Step 4: Create branch on fork
+    const branchName = `contrib/${stack}-${Date.now()}`;
+    status.textContent = '▸ creating branch on fork...';
+
+    // Get main SHA from fork
+    const mainRef = await gh(`/repos/${ghUser}/${LODESTONE_REPO_NAME}/git/ref/heads/main`);
+    const mainSHA = mainRef.object.sha;
+
+    await gh(`/repos/${ghUser}/${LODESTONE_REPO_NAME}/git/refs`, {
+      method: 'POST',
+      body: JSON.stringify({ ref: `refs/heads/${branchName}`, sha: mainSHA }),
+    });
+
+    // Step 5: Write updated seed file to branch
+    status.textContent = '▸ writing seed file...';
+    const newContent = JSON.stringify(merged, null, 2);
+    const body = {
+      message: `contrib: add ${newChunks.length} ${stack} lesson${newChunks.length !== 1 ? 's' : ''}`,
+      content: btoa(unescape(encodeURIComponent(newContent))),
+      branch: branchName,
+      ...(fileSHA ? { sha: fileSHA } : {}),
+    };
+    await gh(`/repos/${ghUser}/${LODESTONE_REPO_NAME}/contents/seeds/${stack}.json`, {
+      method: 'PUT', body: JSON.stringify(body),
+    });
+
+    // Step 6: Open PR against upstream
+    status.textContent = '▸ opening pull request...';
+    const prBody = [
+      `## ${newChunks.length} ${stack} lesson${newChunks.length !== 1 ? 's' : ''} contributed by @${ghUser}`,
+      ``,
+      `### Proposed seeds`,
+      ...newChunks.map(c => [
+        `**${c.title}**`,
+        `> ${c.content.slice(0, 200)}${c.content.length > 200 ? '...' : ''}`,
+        `Tags: ${c.tags.join(', ')}`,
+        ``,
+      ].join('\n')),
+      `### Contributor checklist`,
+      `- [x] Project-specific details have been removed`,
+      `- [x] Lessons are generalizable to anyone using ${stack}`,
+      `- [x] No project names, scene names, or file paths`,
+      `- [x] Reviewed and approved each lesson before submitting`,
+      ``,
+      `*Generated by [Lodestone](https://${LODESTONE_REPO_OWNER}.github.io/${LODESTONE_REPO_NAME})*`,
+    ].join('\n');
+
+    const pr = await gh(`/repos/${LODESTONE_REPO_OWNER}/${LODESTONE_REPO_NAME}/pulls`, {
+      method: 'POST',
+      body: JSON.stringify({
+        title: `contrib(${stack}): ${newChunks.length} lesson${newChunks.length !== 1 ? 's' : ''} from @${ghUser}`,
+        body: prBody,
+        head: `${ghUser}:${branchName}`,
+        base: 'main',
+      }),
+    });
+
+    status.innerHTML = `✓ PR opened · <a href="${pr.html_url}" target="_blank" style="color:var(--accent)">${pr.html_url}</a><br><span style="color:var(--dim)">A maintainer will review and merge. Thank you for contributing.</span>`;
+
+  } catch(e) {
+    status.textContent = `✗ ${e.message}`;
+  }
+
+  btn.disabled = false; btn.textContent = '▸ OPEN PULL REQUEST';
+}
+
+// ══ WORKFLOW ENGINE ════════════════════════════════════════════════════════
+
+const WORKFLOW_PROMPT = (intent, context, signals) => `You are a workflow architect for AI-assisted development. A developer has described a task and you must recommend how to break it into multiple focused AI sessions.
+
+TASK: ${intent}
+PROJECT CONTEXT: ${context || 'not provided'}
+TASK SIGNALS:
+${signals.map(s => `- ${s}`).join('\n') || '- none selected'}
+
+Analyse the task and recommend a multi-session workflow. Consider:
+- Is this actually a single-session task? (if so, say so clearly)
+- What pattern fits best: Sequential, Parallel Exploration, Chunked, or Review Loop?
+- How many sessions are genuinely needed?
+- What is the biggest risk of doing this in one session?
+
+Respond ONLY with a JSON object (no markdown fences):
+{
+  "singleSession": true/false,
+  "singleSessionReason": "if true, explain why one session is fine",
+  "pattern": "sequential|parallel|chunked|review-loop",
+  "patternReason": "one sentence explaining why this pattern fits",
+  "riskOfSingleSession": "what goes wrong if someone tries this in one context window",
+  "sessions": [
+    {
+      "number": 1,
+      "name": "Short session name (3-5 words)",
+      "focus": "What this session achieves — one sentence",
+      "contextNeeded": ["what skill/context to load", "what files to reference"],
+      "produces": "What this session outputs or hands off to the next",
+      "promptStarter": "Suggested opening prompt for this session (1-2 sentences)",
+      "warningIfSkipped": "What breaks if this session is skipped"
+    }
+  ],
+  "handoffFormat": "How sessions should pass information to each other",
+  "totalEstimate": "Rough time estimate for the full workflow",
+  "lodestone_tip": "One tip specific to this task for using Lodestone effectively"
+}`;
+
+let _workflowResult = null;
+
+async function runWorkflow() {
+  const intent = document.getElementById('wf-intent').value.trim();
+  if (!intent) { alert('Describe your task first.'); return; }
+
+  const context = document.getElementById('wf-context').value.trim();
+  const signals = [];
+  if (document.getElementById('sig-many-files').checked) signals.push('Touches many files across the project');
+  if (document.getElementById('sig-risky').checked)      signals.push('Breaking change or high risk of regression');
+  if (document.getElementById('sig-unknown').checked)    signals.push('Unclear approach — need to explore options');
+  if (document.getElementById('sig-iterative').checked)  signals.push('Requires multiple rounds of review');
+  if (document.getElementById('sig-external').checked)   signals.push('Depends on external APIs or systems');
+  if (document.getElementById('sig-test').checked)       signals.push('Needs tests written alongside implementation');
+
+  const btn = document.getElementById('wf-btn');
+  const status = document.getElementById('wf-status');
+  btn.disabled = true; btn.textContent = 'ANALYSING...';
+  status.textContent = '▸ analysing task complexity...';
+  document.getElementById('wf-output').innerHTML = '<div style="color:var(--dim);font-size:10px">▸ thinking about your workflow...</div>';
+  document.getElementById('wf-copy-btn').style.display = 'none';
+  document.getElementById('wf-skill-btn').style.display = 'none';
+  document.getElementById('wf-skill-preview').style.display = 'none';
+
+  try {
+    const raw = await callModel(WORKFLOW_PROMPT(intent, context, signals));
+    const clean = raw.replace(/```json|```/g, '').trim();
+    _workflowResult = JSON.parse(clean);
+    renderWorkflow(_workflowResult, intent);
+    status.textContent = `✓ ${_workflowResult.singleSession ? 'single session is fine' : _workflowResult.sessions.length + ' sessions recommended'}`;
+    document.getElementById('wf-copy-btn').style.display = 'block';
+    document.getElementById('wf-skill-btn').style.display = 'block';
+  } catch(e) {
+    status.textContent = `✗ ${e.message}`;
+    document.getElementById('wf-output').innerHTML = `<div style="color:var(--red);font-size:10px">${escHtml(e.message)}</div>`;
+  }
+
+  btn.disabled = false; btn.textContent = '▸ RECOMMEND WORKFLOW';
+}
+
+const PATTERN_LABELS = {
+  'sequential':    'SEQUENTIAL — one session builds on the last',
+  'parallel':      'PARALLEL EXPLORE — sessions explore independently, then synthesise',
+  'chunked':       'SCOPED — split by scope, sessions share a handoff doc',
+  'review-loop':   'REVIEW LOOP — implement then fresh-context review',
+};
+
+function renderWorkflow(r, intent) {
+  const out = document.getElementById('wf-output');
+
+  if (r.singleSession) {
+    out.innerHTML = `
+      <div style="padding:12px;background:var(--bg3);border:1px solid var(--border);margin-bottom:14px">
+        <div style="font-size:10px;color:var(--green);margin-bottom:6px">✓ SINGLE SESSION IS FINE</div>
+        <div style="font-size:11px;color:var(--muted);line-height:1.7">${escHtml(r.singleSessionReason)}</div>
+      </div>
+      <div style="font-size:10px;color:var(--muted);line-height:1.8">${escHtml(r.lodestone_tip || '')}</div>`;
+    return;
+  }
+
+  const sessionsHtml = r.sessions.map(s => `
+    <div style="border:1px solid var(--border);margin-bottom:10px;background:var(--bg3)">
+      <div style="padding:10px 14px;border-bottom:1px solid var(--border);display:flex;gap:10px;align-items:baseline">
+        <span style="font-size:9px;color:var(--accent);font-family:var(--mono)">SESSION ${s.number}</span>
+        <span style="font-size:12px;color:var(--text)">${escHtml(s.name)}</span>
+      </div>
+      <div style="padding:10px 14px;display:grid;gap:8px">
+        <div>
+          <div style="font-size:9px;color:var(--dim);margin-bottom:3px">FOCUS</div>
+          <div style="font-size:11px;color:var(--muted)">${escHtml(s.focus)}</div>
+        </div>
+        <div>
+          <div style="font-size:9px;color:var(--dim);margin-bottom:3px">CONTEXT TO LOAD</div>
+          <div style="font-size:11px;color:var(--muted)">${(s.contextNeeded||[]).map(c=>`· ${escHtml(c)}`).join('<br>')}</div>
+        </div>
+        <div>
+          <div style="font-size:9px;color:var(--dim);margin-bottom:3px">OPENING PROMPT</div>
+          <div style="font-size:11px;color:var(--text);font-style:italic">"${escHtml(s.promptStarter)}"</div>
+        </div>
+        <div style="display:flex;gap:16px">
+          <div style="flex:1">
+            <div style="font-size:9px;color:var(--dim);margin-bottom:3px">PRODUCES</div>
+            <div style="font-size:11px;color:var(--muted)">${escHtml(s.produces)}</div>
+          </div>
+          ${s.warningIfSkipped ? `<div style="flex:1"><div style="font-size:9px;color:var(--red);margin-bottom:3px">IF SKIPPED</div><div style="font-size:10px;color:var(--muted)">${escHtml(s.warningIfSkipped)}</div></div>` : ''}
+        </div>
+      </div>
+    </div>`).join('');
+
+  out.innerHTML = `
+    <div style="padding:10px 12px;background:var(--bg3);border:1px solid var(--border);margin-bottom:14px;display:flex;gap:12px;align-items:baseline">
+      <span style="font-size:9px;color:var(--accent);letter-spacing:0.1em">${escHtml(PATTERN_LABELS[r.pattern] || r.pattern.toUpperCase())}</span>
+    </div>
+    <div style="font-size:10px;color:var(--muted);margin-bottom:6px">${escHtml(r.patternReason)}</div>
+    <div style="font-size:10px;color:var(--red);margin-bottom:14px;padding:8px 10px;border-left:2px solid var(--red);background:var(--bg3)">
+      <span style="color:var(--dim);font-size:9px">RISK OF SINGLE SESSION: </span>${escHtml(r.riskOfSingleSession)}
+    </div>
+    ${sessionsHtml}
+    <div style="display:flex;gap:16px;padding-top:8px;border-top:1px solid var(--border);margin-top:4px">
+      <div style="flex:1"><span style="font-size:9px;color:var(--dim)">HANDOFF FORMAT: </span><span style="font-size:10px;color:var(--muted)">${escHtml(r.handoffFormat||'')}</span></div>
+      <div><span style="font-size:9px;color:var(--dim)">ESTIMATE: </span><span style="font-size:10px;color:var(--muted)">${escHtml(r.totalEstimate||'')}</span></div>
+    </div>
+    ${r.lodestone_tip ? `<div style="margin-top:10px;padding:8px 10px;border-left:2px solid var(--accent);background:var(--bg3);font-size:10px;color:var(--muted)"><span style="color:var(--accent);font-size:9px">LODESTONE TIP: </span>${escHtml(r.lodestone_tip)}</div>` : ''}`;
+}
+
+function buildWorkflowSkillSection(r, intent) {
+  if (!r) return '';
+  if (r.singleSession) {
+    return `## Workflow note\nThis task (${intent}) is suitable for a single session.\n${r.singleSessionReason}\n`;
+  }
+  const lines = [
+    `## Recommended workflow — ${intent}`,
+    ``,
+    `Pattern: ${r.pattern} · ${r.sessions.length} sessions · ${r.totalEstimate || ''}`,
+    `Risk of single session: ${r.riskOfSingleSession}`,
+    ``,
+    ...r.sessions.flatMap(s => [
+      `### Session ${s.number}: ${s.name}`,
+      `**Focus:** ${s.focus}`,
+      `**Context to load:** ${(s.contextNeeded||[]).join(', ')}`,
+      `**Opening prompt:** "${s.promptStarter}"`,
+      `**Produces:** ${s.produces}`,
+      ``,
+    ]),
+    `**Handoff format:** ${r.handoffFormat}`,
+    r.lodestone_tip ? `**Lodestone tip:** ${r.lodestone_tip}` : '',
+  ].filter(l => l !== undefined);
+  return lines.join('\n');
+}
+
+function copyWorkflow() {
+  if (!_workflowResult) return;
+  const intent = document.getElementById('wf-intent').value.trim();
+  navigator.clipboard.writeText(buildWorkflowSkillSection(_workflowResult, intent)).then(() => {
+    const btn = document.getElementById('wf-copy-btn');
+    btn.textContent = '✓ COPIED'; btn.style.color = 'var(--green)';
+    setTimeout(() => { btn.textContent = 'COPY'; btn.style.color = ''; }, 2000);
+  });
+}
+
+function addToSkill() {
+  if (!_workflowResult) return;
+  const intent = document.getElementById('wf-intent').value.trim();
+  const section = buildWorkflowSkillSection(_workflowResult, intent);
+  document.getElementById('wf-skill-text').textContent = section;
+  document.getElementById('wf-skill-preview').style.display = 'block';
+  // If the skill generator has content, offer to append
+  const skillPre = document.querySelector('#skill-output pre');
+  if (skillPre) {
+    skillPre.textContent = skillPre.textContent.trimEnd() + '\n\n' + section;
+    document.getElementById('wf-skill-btn').textContent = '✓ ADDED';
+    setTimeout(() => { document.getElementById('wf-skill-btn').textContent = 'ADD TO SKILL.MD'; }, 2000);
+  }
+}
+
+// ══ END WORKFLOW ENGINE ═════════════════════════════════════════════════════
+window._lastProfile = null;
+
+// Load seed when contribute page is shown
+
+// Init
+updateKeyButton();
+
+// Auto-open key modal if no config
+if(!loadConfig()) {
+  setTimeout(()=>{ if(document.getElementById('page-home').classList.contains('active')) openKeyModal(); }, 800);
+}
+updateGhStatus();
+
+
+// ── Analytics page ────────────────────────────────────────────────────────────
+
+async function loadAnalytics() {
+  const GH_REPO = 'alexbkirby-glitch/lodestone';
+  const BASE    = 'https://alexbkirby-glitch.github.io/lodestone';
+
+  function set(id, val) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = val;
+  }
+
+  function fmt(n) {
+    if (n == null) return '—';
+    if (n >= 1_000_000) return (n/1_000_000).toFixed(1) + 'M';
+    if (n >= 1_000)     return (n/1_000).toFixed(1) + 'k';
+    return n.toLocaleString();
+  }
+
+  // ── Seeds index (live) ─────────────────────────────────────────────────────
+  try {
+    const idx = await fetch(`${BASE}/api/seeds/index.json`).then(r => r.json());
+    const totalSeeds  = idx.stats?.total_seeds ?? idx.stats?.total_chunks ?? 0;
+    const totalStacks = idx.stats?.total_stacks ?? 0;
+    set('an-seeds',  fmt(totalSeeds));
+    set('an-stacks', fmt(totalStacks));
+
+    // Token economy estimate
+    const estSessions  = Math.floor(totalSeeds / 2);
+    const avgSeeds     = 23; // 6–10 stack seeds + 17 universal
+    const savedPerSess = avgSeeds * 400;
+    const totalSaved   = estSessions * savedPerSess;
+    set('an-tokens-saved', fmt(totalSaved));
+    set('an-saved-sub',
+      `Estimated based on ${fmt(estSessions)} sessions × ~${avgSeeds} seeds injected × 400 tokens saved per seed. ` +
+      `Grows with every new install and contribution.`
+    );
+  } catch {}
+
+  // ── GitHub API (live) ──────────────────────────────────────────────────────
+  try {
+    const repo = await fetch(`https://api.github.com/repos/${GH_REPO}`).then(r => r.ok ? r.json() : null);
+    if (repo) {
+      set('an-stars',    fmt(repo.stargazers_count));
+      set('an-forks',    fmt(repo.forks_count));
+      set('an-watchers', fmt(repo.watchers_count));
+    }
+  } catch {}
+
+  try {
+    const contrib = await fetch(`https://api.github.com/repos/${GH_REPO}/contributors?per_page=100`).then(r => r.ok ? r.json() : null);
+    if (Array.isArray(contrib)) set('an-contributors', fmt(contrib.length));
+  } catch {}
+
+  try {
+    const issues = await fetch(`https://api.github.com/repos/${GH_REPO}/issues?state=all&labels=antipattern-proposal&per_page=1`).then(r => r.ok ? r.json() : null);
+    if (Array.isArray(issues)) set('an-issues', issues.length < 30 ? fmt(issues.length) : '30+');
+  } catch {}
+
+  try {
+    const prs = await fetch(`https://api.github.com/repos/${GH_REPO}/pulls?state=closed&per_page=1`).then(r => r.ok ? r.json() : null);
+    if (Array.isArray(prs)) set('an-prs', prs.length < 30 ? fmt(prs.length) : '30+');
+  } catch {}
+
+  // ── Henge count — repos tagged 'lodestone' (live from GitHub search) ────────
+  try {
+    const search = await fetch(
+      `https://api.github.com/search/repositories?q=topic:lodestone&per_page=1`,
+      { headers: { Accept: 'application/vnd.github+json' } }
+    ).then(r => r.ok ? r.json() : null);
+    if (search?.total_count != null) {
+      set('an-henges', fmt(search.total_count));
+    }
+  } catch {}
+
+  // ── npm (live) ─────────────────────────────────────────────────────────────
+  try {
+    const npm = await fetch('https://api.npmjs.org/downloads/point/last-month/lodestone-mcp').then(r => r.json());
+    set('an-npm', fmt(npm.downloads));
+  } catch { set('an-npm', '—'); }
+
+  // ── Extension stats (if extension is installed, it posts to window) ────────
+  // The extension can't directly access the site's JS scope, but we can
+  // check for a postMessage from the extension content script
+  window.addEventListener('message', e => {
+    if (e.data?.type !== 'lodestone-ext-stats') return;
+    const { sessionsEnhanced, totalChunksInjected } = e.data;
+    set('an-ext-sessions', fmt(sessionsEnhanced ?? 0));
+    set('an-ext-seeds',   fmt(totalChunksInjected ?? 0));
+    set('an-ext-saved',    fmt((totalChunksInjected ?? 0) * 400));
+    const sec = document.getElementById('an-ext-section');
+    if (sec) sec.style.display = '';
+  });
+}
+
+// Analytics loaded on tab show — wired into showPage below
+
+// ══ OUTCOMES DASHBOARD ════════════════════════════════════════════════════════
+
+let _outcomesData = null; // cached API response
+let _outcomesFilter = 'all';
+
+async function loadOutcomes() {
+  const statusEl = document.getElementById('outcomes-status');
+  const cardsEl  = document.getElementById('outcomes-cards');
+  const tableEl  = document.getElementById('outcomes-table');
+  if (!statusEl) return;
+
+  statusEl.textContent = '// connecting to local Stone at localhost:3001…';
+  cardsEl.innerHTML = '';
+  tableEl.innerHTML = '';
+
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 2000);
+    const data = await fetch('http://localhost:3001/api/confidence', { signal: controller.signal }).then(r => r.json());
+    clearTimeout(timeout);
+    _outcomesData = data;
+    statusEl.textContent = `// connected · ${data.session_count ?? 0} sessions recorded`;
+    renderOutcomes();
+  } catch (_) {
+    statusEl.innerHTML =
+      '// local Stone not detected at <code style="background:var(--bg3);padding:1px 4px">localhost:3001</code> — ' +
+      'start the MCP server first, then refresh.';
+    cardsEl.innerHTML = '';
+    tableEl.innerHTML = `<div style="color:var(--muted);padding:12px 0;font-size:11px">
+      Start your Stone: <code style="background:var(--bg3);padding:2px 6px">node mcp-server/index.mjs</code>
+      then click ↻ REFRESH above.
+    </div>`;
+  }
+}
+
+function outcomesFilter(filter) {
+  _outcomesFilter = filter;
+  document.querySelectorAll('[id^="outcomes-filter-"]').forEach(b => {
+    const isActive = b.id === 'outcomes-filter-' + filter;
+    b.style.background = isActive ? 'var(--accent)' : '';
+    b.style.color = isActive ? 'var(--bg)' : '';
+  });
+  if (_outcomesData) renderOutcomes();
+}
+
+function renderOutcomes() {
+  const cardsEl = document.getElementById('outcomes-cards');
+  const tableEl = document.getElementById('outcomes-table');
+  if (!_outcomesData || !cardsEl || !tableEl) return;
+
+  const { confidence = {}, last_used = {}, outcome_counts = {}, session_count = 0 } = _outcomesData;
+  const sixMonthsAgo = new Date(Date.now() - 180 * 24 * 60 * 60 * 1000).toISOString();
+
+  // ── Summary cards ──────────────────────────────────────────────────────────
+  const allIds       = new Set([...Object.keys(confidence), ...Object.keys(last_used), ...Object.keys(outcome_counts)]);
+  const totalTracked = allIds.size;
+  const staleIds     = [...allIds].filter(id => !last_used[id] || last_used[id] < sixMonthsAgo);
+  const highClean    = [...allIds].filter(id => {
+    const c = outcome_counts[id];
+    if (!c) return false;
+    const total = c.clean + c.dirty;
+    return total >= 3 && c.clean / total >= 0.8;
+  });
+  const hasReg       = [...allIds].filter(id => (outcome_counts[id]?.dirty ?? 0) > 0);
+
+  cardsEl.innerHTML = [
+    { label: 'sessions recorded', val: session_count },
+    { label: 'seeds tracked',     val: totalTracked },
+    { label: 'high clean rate',   val: highClean.length,  note: '≥80% clean, ≥3 uses' },
+    { label: 'stale seeds',       val: staleIds.length,   note: 'no use in 6 months' },
+    { label: 'with regressions',  val: hasReg.length,     note: 'antipattern fired anyway' },
+  ].map(c => `
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:3px;padding:14px 16px">
+      <div style="font-family:var(--heading);font-size:1.8rem;font-weight:700;color:var(--text);line-height:1;margin-bottom:4px">${c.val}</div>
+      <div style="font-size:9px;letter-spacing:0.08em;color:var(--muted);text-transform:uppercase">${escHtml(c.label)}</div>
+      ${c.note ? `<div style="font-size:9px;color:var(--dim);margin-top:3px">${escHtml(c.note)}</div>` : ''}
+    </div>`).join('');
+
+  // ── Build rows ─────────────────────────────────────────────────────────────
+  let ids = [...allIds];
+
+  if (_outcomesFilter === 'stale')  ids = ids.filter(id => !last_used[id] || last_used[id] < sixMonthsAgo);
+  if (_outcomesFilter === 'clean')  ids = ids.filter(id => highClean.includes(id));
+  if (_outcomesFilter === 'dirty')  ids = ids.filter(id => (outcome_counts[id]?.dirty ?? 0) > 0);
+
+  // Sort: regressions first, then by confidence desc
+  ids.sort((a, b) => {
+    const regA = outcome_counts[a]?.dirty ?? 0;
+    const regB = outcome_counts[b]?.dirty ?? 0;
+    if (regB !== regA) return regB - regA;
+    return (confidence[b]?.score ?? 0.5) - (confidence[a]?.score ?? 0.5);
+  });
+
+  if (ids.length === 0) {
+    tableEl.innerHTML = `<div style="color:var(--muted);padding:12px 0">// no seeds match this filter</div>`;
+    return;
+  }
+
+  const headerStyle = 'padding:6px 10px;font-size:9px;letter-spacing:0.08em;color:var(--muted);text-align:left;border-bottom:1px solid var(--border);white-space:nowrap';
+  const cellStyle   = 'padding:7px 10px;border-bottom:1px solid var(--border);vertical-align:top';
+
+  const rows = ids.map(id => {
+    const conf     = confidence[id];
+    const score    = conf?.score ?? null;
+    const counts   = outcome_counts[id] ?? { clean: 0, dirty: 0 };
+    const total    = counts.clean + counts.dirty;
+    const cleanPct = total > 0 ? Math.round((counts.clean / total) * 100) : null;
+    const lu       = last_used[id];
+    const luStr    = lu ? new Date(lu).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: '2-digit' }) : '—';
+    const isStale  = !lu || lu < sixMonthsAgo;
+    const hasDirty = counts.dirty > 0;
+
+    const scoreColor = score === null ? 'var(--muted)'
+      : score >= 0.65 ? 'var(--low)'
+      : score <= 0.35 ? 'var(--high)'
+      : 'var(--med)';
+
+    const cleanColor = cleanPct === null ? 'var(--muted)'
+      : cleanPct >= 80 ? 'var(--low)'
+      : cleanPct <= 40 ? 'var(--high)'
+      : 'var(--med)';
+
+    return `<tr>
+      <td style="${cellStyle};font-family:var(--mono);color:var(--text);max-width:260px">
+        ${escHtml(id)}
+        ${hasDirty ? `<span style="margin-left:6px;color:var(--high);font-size:9px">● regression</span>` : ''}
+        ${isStale && total === 0 ? `<span style="margin-left:6px;color:var(--dim);font-size:9px">◌ never used</span>` : ''}
+        ${isStale && total > 0  ? `<span style="margin-left:6px;color:var(--med);font-size:9px">⌛ stale</span>` : ''}
+      </td>
+      <td style="${cellStyle};color:${scoreColor};text-align:right;font-family:var(--mono)">
+        ${score !== null ? score.toFixed(2) : '—'}
+      </td>
+      <td style="${cellStyle};text-align:right;font-family:var(--mono)">
+        <span style="color:var(--low)">${counts.clean}✓</span>
+        <span style="color:var(--dim);margin:0 3px">/</span>
+        <span style="color:${counts.dirty>0?'var(--high)':'var(--muted)'}">${counts.dirty}✗</span>
+      </td>
+      <td style="${cellStyle};color:${cleanColor};text-align:right;font-family:var(--mono)">
+        ${cleanPct !== null ? cleanPct + '%' : '—'}
+      </td>
+      <td style="${cellStyle};color:${isStale?'var(--med)':'var(--muted)'};white-space:nowrap">${escHtml(luStr)}</td>
+    </tr>`;
+  }).join('');
+
+  tableEl.innerHTML = `
+    <table style="width:100%;border-collapse:collapse;font-size:11px">
+      <thead>
+        <tr>
+          <th style="${headerStyle}">SEED ID</th>
+          <th style="${headerStyle};text-align:right">CONFIDENCE</th>
+          <th style="${headerStyle};text-align:right">OUTCOMES</th>
+          <th style="${headerStyle};text-align:right">CLEAN RATE</th>
+          <th style="${headerStyle}">LAST USED</th>
+        </tr>
+      </thead>
+      <tbody>${rows}</tbody>
+    </table>
+    <div style="margin-top:10px;font-size:9px;color:var(--dim)">
+      ${ids.length} seeds · confidence &lt;0.35 or untracked seeds can be pruned with
+      <code style="background:var(--bg3);padding:1px 4px">npm run drain</code>
+    </div>`;
+}
+
+
+// ── Live stats — seeds index + GitHub API + Henge count ──────────────────────
+// Defaults shown before any API responds. Updated to current values.
+const _liveStats = { stacks: 88, chunks: 1673, henges: 0, stars: 0 };
+
+const _STATS_CACHE_KEY = 'lodestone_live_stats_v1';
+const _STATS_CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+
+function formatChunks(n) {
+  return typeof n === 'number' ? n.toLocaleString('en-US') : String(n ?? '—');
+}
+
+function applyLiveStats() {
+  document.querySelectorAll('[data-stat="stacks"]').forEach(el => {
+    el.textContent = _liveStats.stacks;
+  });
+  document.querySelectorAll('[data-stat="chunks"],[data-stat="seeds"]').forEach(el => {
+    el.textContent = formatChunks(_liveStats.chunks);
+  });
+  document.querySelectorAll('[data-stat="henges"]').forEach(el => {
+    el.textContent = _liveStats.henges > 0 ? _liveStats.henges : '—';
+  });
+  document.querySelectorAll('[data-stat="stars"]').forEach(el => {
+    el.textContent = _liveStats.stars > 0 ? _liveStats.stars.toLocaleString() : '—';
+  });
+
+  // Conditionally show henges in hero eyebrow if > 0
+  const hengeEyebrow = document.getElementById('eyebrow-henges');
+  if (hengeEyebrow && _liveStats.henges > 0) {
+    hengeEyebrow.textContent = ` · ${_liveStats.henges} HENGES`;
+  }
+}
+
+async function loadLiveStats() {
+  // Try sessionStorage cache first (avoids hammering GitHub API on every reload)
+  try {
+    const raw = sessionStorage.getItem(_STATS_CACHE_KEY);
+    if (raw) {
+      const { ts, data } = JSON.parse(raw);
+      if (Date.now() - ts < _STATS_CACHE_TTL) {
+        Object.assign(_liveStats, data);
+        applyLiveStats();
+        return;
+      }
+    }
+  } catch {}
+
+  const fresh = {};
+
+  // 1. Seeds index — always available from the repo itself
+  try {
+    const idx = await loadSeedsIndex();
+    if (idx?.stats) {
+      fresh.chunks = idx.stats.total_seeds ?? idx.stats.total_chunks ?? _liveStats.chunks;
+      fresh.stacks = idx.stats.total_stacks ?? _liveStats.stacks;
+    }
+  } catch {}
+
+  // 2. GitHub repo stats — stars, forks (gracefully handles repo not yet existing)
+  try {
+    const res = await fetch('https://api.github.com/repos/alexbkirby-glitch/lodestone',
+      { headers: { Accept: 'application/vnd.github+json' } });
+    if (res.ok) {
+      const repo = await res.json();
+      fresh.stars = repo.stargazers_count ?? 0;
+      fresh.forks = repo.forks_count ?? 0;
+    }
+  } catch {}
+
+  // 3. Henge count — repos tagged 'lodestone' on GitHub
+  try {
+    const res = await fetch(
+      'https://api.github.com/search/repositories?q=topic:lodestone&per_page=1',
+      { headers: { Accept: 'application/vnd.github+json' } });
+    if (res.ok) {
+      const data = await res.json();
+      fresh.henges = data.total_count ?? 0;
+    }
+  } catch {}
+
+  Object.assign(_liveStats, fresh);
+  applyLiveStats();
+
+  // Cache for 5 minutes
+  try {
+    sessionStorage.setItem(_STATS_CACHE_KEY, JSON.stringify({ ts: Date.now(), data: fresh }));
+  } catch {}
+}
+
+document.addEventListener('DOMContentLoaded', loadLiveStats);
+
+// Stack search and Project Instructions copy
+function copyProjectInstructions() {
+  const text = document.getElementById('project-instructions-text')?.textContent ?? '';
+  navigator.clipboard.writeText(text).then(() => {
+    const el = document.getElementById('pi-copied');
+    if (el) { el.style.display = 'inline'; setTimeout(() => el.style.display = 'none', 2500); }
+  });
+}
+
+// ── Stack search ──────────────────────────────────────────────────────────────
+let _seedsIndex = null;
+
+async function loadSeedsIndex() {
+  if (_seedsIndex) return _seedsIndex;
+  try {
+    _seedsIndex = await fetch('api/seeds/index.json').then(r => r.json());
+    return _seedsIndex;
+  } catch { return null; }
+}
+
+function searchStacks(query) {
+  const results = document.getElementById('stack-search-results');
+  const hint    = document.getElementById('stack-search-hint');
+  const q = query.trim().toLowerCase();
+
+  if (!q) {
+    results.style.display = 'none';
+    hint.innerHTML = `<span data-stat="stacks">${_liveStats.stacks}</span> stacks · <span data-stat="chunks">${_liveStats.seeds ?? _liveStats.chunks}</span> seeds · type to filter by stack name or topic`;
+    return;
+  }
+
+  loadSeedsIndex().then(idx => {
+    if (!idx) {
+      results.style.display = 'none';
+      return;
+    }
+
+    const matches = idx.stacks.filter(s => {
+      if (s.stack.includes(q)) return true;
+      return (s.top_tags || []).some(t => t.includes(q));
+    }).slice(0, 12);
+
+    if (!matches.length) {
+      results.innerHTML = `<div style="padding:12px 14px;font-size:10px;color:var(--dim)">no stacks match "${escHtml(q)}" — <a href="#" onclick="showPage('contribute')" style="color:var(--accent);text-decoration:none">contribute one ↗</a></div>`;
+      results.style.display = 'block';
+      hint.textContent = '0 matches';
+      return;
+    }
+
+    results.innerHTML = matches.map(s => {
+      const tags = (s.top_tags || []).slice(0, 4).join(', ');
+      return `<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--border);gap:12px">
+        <div style="min-width:0">
+          <span style="font-size:11px;color:var(--text);font-family:var(--mono)">${escHtml(s.stack)}</span>
+          <span style="font-size:9px;color:var(--dim);margin-left:10px">${tags}</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;flex-shrink:0">
+          <span style="font-size:9px;color:var(--accent)">${s.chunks} seeds</span>
+          <a href="seeds/${s.stack}.txt" target="_blank" style="font-size:9px;color:var(--muted);text-decoration:none;white-space:nowrap">txt ↗</a>
+          <a href="seeds/${s.stack}.json" target="_blank" style="font-size:9px;color:var(--dim);text-decoration:none;white-space:nowrap">json ↗</a>
+        </div>
+      </div>`;
+    }).join('');
+    results.style.display = 'block';
+    hint.textContent = `${matches.length} match${matches.length === 1 ? '' : 'es'} for "${q}"`;
+  });
+}
+
+// Close search results when clicking outside
+document.addEventListener('click', e => {
+  const input = document.getElementById('stack-search-input');
+  const results = document.getElementById('stack-search-results');
+  if (results && !results.contains(e.target) && e.target !== input) {
+    results.style.display = 'none';
+  }
+});
+
+// Prefetch seeds index when home is visible for snappy search
+document.getElementById('page-home').addEventListener('click', () => loadSeedsIndex(), { once: true });
+
+// ── Contribute seed form ───────────────────────────────────────────────────
+function generateSeedJson() {
+  const stack   = document.getElementById('contrib-stack')?.value.trim().toLowerCase().replace(/\s+/g,'-') || 'universal';
+  const wrong   = document.getElementById('contrib-wrong')?.value.trim();
+  const correct = document.getElementById('contrib-correct')?.value.trim();
+  const symptom = document.getElementById('contrib-symptom')?.value.trim();
+  if (!wrong || !correct || !symptom) {
+    alert('Please fill in WRONG, CORRECT, and SYMPTOM fields.');
+    return;
+  }
+  const id = stack + '_' + symptom.toLowerCase().replace(/[^a-z0-9]+/g,'_').slice(0,40);
+  const seed = {
+    id, stack, title: symptom.slice(0,60),
+    content: `WRONG: ${wrong}\nCORRECT: ${correct}\nSymptom: ${symptom}`,
+    wrong, correct, symptom,
+    blast_radius: 'medium', source: 'personal', tags: [stack],
+  };
+  const out = document.getElementById('contrib-output');
+  const copy = document.getElementById('contrib-copy');
+  const issue = document.getElementById('contrib-issue-btn');
+  if (!out || !copy) return;
+  out.textContent = JSON.stringify(seed, null, 2);
+  out.style.display = 'block';
+  copy.style.display = 'inline-block';
+  if (issue) issue.style.display = 'inline-block';
+  window._lastSeed = seed;
+}
+function copySeedJson() {
+  const out = document.getElementById('contrib-output');
+  if (!out) return;
+  navigator.clipboard.writeText(out.textContent).then(() => {
+    const btn = document.getElementById('contrib-copy');
+    if (btn) { btn.textContent = '✓ COPIED'; setTimeout(() => btn.textContent = 'COPY JSON', 2000); }
+  });
+}
+function openSeedIssue() {
+  if (!window._lastSeed) return;
+  const body = encodeURIComponent(
+    '### Proposed seed\n\n```json\n' + JSON.stringify(window._lastSeed, null, 2) + '\n```\n\n' +
+    '**Stack:** ' + window._lastSeed.stack + '\n' +
+    '**Symptom:** ' + window._lastSeed.symptom
+  );
+  const url = `https://github.com/alexbkirby-glitch/lodestone/issues/new?labels=seed-proposal&title=${encodeURIComponent('Seed proposal: ' + window._lastSeed.title)}&body=${body}`;
+  window.open(url, '_blank');
+}
+
+// ── Live seed counts in About page ─────────────────────────────────────────
+async function loadAboutCounts() {
+  try {
+    const idx = await fetch('./api/seeds/index.json').then(r => r.json());
+    const stacks = Object.keys(idx || {}).length;
+    const chunks = Object.values(idx || {}).reduce((n, v) => n + (v.count || 0), 0);
+    const chunkEl = document.getElementById('about-chunks');
+    const stackEl = document.getElementById('about-stacks');
+    if (chunkEl) chunkEl.textContent = chunks.toLocaleString();
+    if (stackEl) stackEl.textContent = stacks.toLocaleString();
+  } catch {}
+}
+document.addEventListener('DOMContentLoaded', loadAboutCounts);
+</script>
+<div class="page" id="page-analytics">
+  <div class="hero" style="padding-bottom:0">
+    <div class="hero-eyebrow">▸ LIVE DATA WHERE POSSIBLE · ESTIMATES CLEARLY LABELLED</div>
+    <h1 class="hero-title">What Lodestone has<br><em>accomplished.</em></h1>
+    <p class="hero-sub">The numbers that matter — seeds in the library, community activity, and an honest estimate of the token economy behind the project. Live stats are fetched from the GitHub and npm APIs. Token figures are estimates with visible methodology.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-label">COMMUNITY SEEDBANK — LIVE</div>
+    <div class="analytics-grid">
+      <div class="stat-card">
+        <div class="stat-number" id="an-seeds">—</div>
+        <div class="stat-label">SEEDS IN SEEDBANK</div>
+        <div class="stat-sub">Curated WRONG→CORRECT→Symptom patterns across all stacks</div>
+        <div class="stat-source">live · api/seeds/index.json</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="an-stacks">—</div>
+        <div class="stat-label">STACKS COVERED</div>
+        <div class="stat-sub">Languages, frameworks, and tools with dedicated seed files</div>
+        <div class="stat-source">live · api/seeds/index.json</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="an-universal">17</div>
+        <div class="stat-label">UNIVERSAL PATTERNS</div>
+        <div class="stat-sub">Cross-language antipatterns injected for every session regardless of stack</div>
+        <div class="stat-source">live · seeds/universal.json</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">GITHUB ACTIVITY — LIVE</div>
+    <div class="analytics-grid">
+      <div class="stat-card">
+        <div class="stat-number" id="an-stars">—</div>
+        <div class="stat-label">STARS ⭐</div>
+        <div class="stat-source">live · github api · alexbkirby-glitch/lodestone</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="an-forks">—</div>
+        <div class="stat-label">FORKS</div>
+        <div class="stat-source">live · github api</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="an-henges">—</div>
+        <div class="stat-label">HENGES</div>
+        <div class="stat-sub">Public Stones on GitHub tagged <code style="font-size:8px">lodestone</code></div>
+        <div class="stat-source">live · github search api · topic:lodestone</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="an-contributors">—</div>
+        <div class="stat-label">CONTRIBUTORS</div>
+        <div class="stat-source">live · github api</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="an-issues">—</div>
+        <div class="stat-label">PROPOSALS REVIEWED</div>
+        <div class="stat-sub">Antipattern proposals submitted via the automated pipeline</div>
+        <div class="stat-source">live · github issues api</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="an-prs">—</div>
+        <div class="stat-label">PRS MERGED</div>
+        <div class="stat-source">live · github api</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="an-npm">—</div>
+        <div class="stat-label">MCP INSTALLS</div>
+        <div class="stat-sub">lodestone-mcp npm downloads (last 30 days)</div>
+        <div class="stat-source">live · npm api</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">TOKEN ECONOMY — ESTIMATED</div>
+    <div class="analytics-grid two-col">
+      <div class="stat-card">
+        <div class="stat-number" id="an-tokens-spent">~4.2M</div>
+        <div class="stat-label">TOKENS SPENT BUILDING LODESTONE</div>
+        <div class="stat-sub" id="an-spent-sub">Estimated tokens consumed across all AI conversations used to design, build, debug, and refine this project.</div>
+        <div class="stat-source estimated">⚡ estimated · see methodology below</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="an-tokens-saved">—</div>
+        <div class="stat-label">TOKENS SAVED TO DATE</div>
+        <div class="stat-sub" id="an-saved-sub">Estimated tokens saved across all sessions where Lodestone context was injected instead of being established through back-and-forth.</div>
+        <div class="stat-source estimated">⚡ estimated · grows with each install and session</div>
+      </div>
+    </div>
+    <div class="methodology">
+      <strong style="color:var(--text)">How the estimates work</strong><br><br>
+      <strong>Tokens spent building:</strong> This project was built across a single extended AI conversation. A typical multi-hour build session of this depth uses 3–6M tokens of context. The 4.2M figure is based on the total message count, average response length, and the number of large file outputs generated. It is not measured — there is no API that records conversation token usage after the fact.<br><br>
+      <strong>Tokens saved per session:</strong> Each Lodestone seed is ~120 tokens of context. Without it, establishing the same understanding would take roughly 2–3 turns of Q&A (~300 tokens each way per turn). Conservative estimate: <code>chunk × 400 tokens saved</code>. A typical session injects 6–10 chunks + 17 universal = ~23 chunks → ~9,200 tokens saved per session. This is a rough lower bound; complex sessions save more.<br><br>
+      <strong>Running total:</strong> <code>sessions × 9,200</code>. Sessions are estimated from npm installs + GitHub traffic, both of which undercount significantly — most users load seeds directly without going through npm.
+    </div>
+  </div>
+
+  <div class="section" style="border-bottom:none" id="an-ext-section" style="display:none">
+    <div class="section-label">YOUR EXTENSION STATS — LOCAL</div>
+    <div class="analytics-grid" id="an-ext-grid">
+      <div class="stat-card">
+        <div class="stat-number" id="an-ext-sessions">—</div>
+        <div class="stat-label">SESSIONS ENHANCED</div>
+        <div class="stat-source">exact · extension local storage</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="an-ext-seeds">—</div>
+        <div class="stat-label">CHUNKS INJECTED</div>
+        <div class="stat-source">exact · extension local storage</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="an-ext-saved">—</div>
+        <div class="stat-label">TOKENS SAVED (EST.)</div>
+        <div class="stat-sub">chunks injected × 400</div>
+        <div class="stat-source estimated">⚡ estimated</div>
+      </div>
+    </div>
+    <div style="font-size:9px;color:var(--dim);margin-top:10px">Extension stats are stored locally in your browser. Nothing is sent to any server.</div>
+  </div>
+</div>
+
+<div class="page" id="page-extension">
+  <div class="hero" style="padding-bottom:0">
+    <div class="hero-eyebrow">▸ BROWSER EXTENSION · CHROME · FIREFOX · EDGE</div>
+    <h1 class="hero-title">Every Claude session<br><em>already informed.</em></h1>
+    <p class="hero-sub">The Lodestone extension detects your stack, fetches the most relevant antipattern seeds, and injects them before you send your first message. Automatic. No copy-paste. No manual setup per session.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-label">WHAT IT DOES</div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">DETECT</div>
+        <div class="step-title">Auto-identifies your stack</div>
+        <div class="step-desc">Scans the conversation every few seconds for language keywords, code block types, and stack names. The badge turns copper when context is ready — no interaction needed.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">SCORE</div>
+        <div class="step-title">Injects only what's relevant</div>
+        <div class="step-desc">Instead of dumping the whole seed, it scores each chunk against the current conversation and injects only the top 8 most relevant patterns plus the universal baseline. Keeps context lean.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">GAUGE</div>
+        <div class="step-title">Tracks your context window</div>
+        <div class="step-desc">Estimates token usage from the conversation. The badge ring fills as context grows — amber at 70%, red at 85%. When large, it surfaces a summary prompt and new-chat handoff so nothing is lost when you start fresh.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">INSTALL — CHROME / EDGE / BRAVE</div>
+    <div class="tool-container" style="max-width:600px">
+      <div style="border:1px solid var(--border);background:var(--bg2);padding:24px">
+        <div style="font-size:9px;color:var(--muted);letter-spacing:0.1em;margin-bottom:16px">STEP 1 — DOWNLOAD</div>
+        <a href="https://github.com/alexbkirby-glitch/lodestone/archive/refs/heads/main.zip"
+           target="_blank"
+           style="display:inline-block;background:var(--accent);color:#fff;padding:10px 20px;font-family:var(--mono);font-size:11px;letter-spacing:0.1em;text-decoration:none;margin-bottom:20px">
+          ↓ Download Lodestone (ZIP)
+        </a>
+        <div style="font-size:9px;color:var(--muted);letter-spacing:0.1em;margin-bottom:10px">STEP 2 — EXTRACT</div>
+        <div style="font-size:11px;color:var(--text);margin-bottom:18px;line-height:1.8">Unzip the download. You need the <code style="background:var(--bg3);padding:1px 5px">extension/</code> folder inside it.</div>
+        <div style="font-size:9px;color:var(--muted);letter-spacing:0.1em;margin-bottom:10px">STEP 3 — LOAD IN CHROME</div>
+        <div style="font-size:11px;color:var(--text);line-height:1.9">
+          1. Open <code style="background:var(--bg3);padding:1px 5px">chrome://extensions</code><br>
+          2. Enable <strong>Developer mode</strong> (toggle, top right)<br>
+          3. Click <strong>Load unpacked</strong><br>
+          4. Select the <code style="background:var(--bg3);padding:1px 5px">extension/</code> folder<br>
+          5. Open <a href="https://claude.ai" target="_blank" style="color:var(--accent)">claude.ai</a> — the Lodestone badge appears bottom-right
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">INSTALL — FIREFOX</div>
+    <div class="tool-container" style="max-width:600px">
+      <div style="border:1px solid var(--border);background:var(--bg2);padding:24px;font-size:11px;color:var(--text);line-height:1.9">
+        1. Download and extract (same as above)<br>
+        2. Open <code style="background:var(--bg3);padding:1px 5px">about:debugging#/runtime/this-firefox</code><br>
+        3. Click <strong>Load Temporary Add-on</strong><br>
+        4. Select <code style="background:var(--bg3);padding:1px 5px">extension/manifest.json</code><br>
+        5. Note: temporary installs reset on browser restart. A permanent Firefox listing is coming.
+      </div>
+    </div>
+  </div>
+
+  <div class="section" style="border-bottom:none">
+    <div class="section-label">CONTEXT WINDOW FEATURES</div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">⚡ SUMMARISE</div>
+        <div class="step-title">Appears at 70% context</div>
+        <div class="step-desc">Injects a structured summary prompt — task state, key decisions, working code, next steps. Send it, and Claude writes a handoff document you can carry to a new session.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">↗ NEW CHAT</div>
+        <div class="step-title">One-click fresh session</div>
+        <div class="step-desc">After a summary is captured, "New chat with summary" opens a fresh claude.ai tab and auto-injects the summary plus the original Lodestone context — zero manual copy-paste.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">💡 MODEL REC</div>
+        <div class="step-title">Switch suggestion</div>
+        <div class="step-desc">When context is large, the panel reads the current model and suggests alternatives based on task type — Haiku for wrap-up, Sonnet for code, Opus for complex reasoning.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

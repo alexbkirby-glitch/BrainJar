@@ -1,0 +1,485 @@
+{
+  "topic": "brain-jar",
+  "generated_at": "2026-07-05T19:32:08.799Z",
+  "jar_count": 0,
+  "jars": [],
+  "flagship": {
+    "stack_count": 118,
+    "seed_count": 2156,
+    "stacks": [
+      {
+        "stack": "ab-testing",
+        "seeds": 8
+      },
+      {
+        "stack": "android",
+        "seeds": 20
+      },
+      {
+        "stack": "angular",
+        "seeds": 20
+      },
+      {
+        "stack": "ansible",
+        "seeds": 20
+      },
+      {
+        "stack": "assembly",
+        "seeds": 20
+      },
+      {
+        "stack": "bash",
+        "seeds": 20
+      },
+      {
+        "stack": "bridge",
+        "seeds": 20
+      },
+      {
+        "stack": "c",
+        "seeds": 13
+      },
+      {
+        "stack": "celery",
+        "seeds": 20
+      },
+      {
+        "stack": "cognitive",
+        "seeds": 20
+      },
+      {
+        "stack": "control",
+        "seeds": 22
+      },
+      {
+        "stack": "cpp",
+        "seeds": 20
+      },
+      {
+        "stack": "csharp",
+        "seeds": 20
+      },
+      {
+        "stack": "css",
+        "seeds": 20
+      },
+      {
+        "stack": "data-visualization",
+        "seeds": 11
+      },
+      {
+        "stack": "db-schema",
+        "seeds": 10
+      },
+      {
+        "stack": "distributed-systems",
+        "seeds": 12
+      },
+      {
+        "stack": "django",
+        "seeds": 20
+      },
+      {
+        "stack": "django-celery",
+        "seeds": 12
+      },
+      {
+        "stack": "django-postgresql",
+        "seeds": 15
+      },
+      {
+        "stack": "docker",
+        "seeds": 20
+      },
+      {
+        "stack": "economics",
+        "seeds": 18
+      },
+      {
+        "stack": "elasticsearch",
+        "seeds": 20
+      },
+      {
+        "stack": "elixir",
+        "seeds": 20
+      },
+      {
+        "stack": "evolution",
+        "seeds": 20
+      },
+      {
+        "stack": "express",
+        "seeds": 20
+      },
+      {
+        "stack": "fastapi",
+        "seeds": 20
+      },
+      {
+        "stack": "flask",
+        "seeds": 20
+      },
+      {
+        "stack": "flutter",
+        "seeds": 20
+      },
+      {
+        "stack": "flutter-firebase",
+        "seeds": 12
+      },
+      {
+        "stack": "gamedev",
+        "seeds": 20
+      },
+      {
+        "stack": "gdextension",
+        "seeds": 20
+      },
+      {
+        "stack": "gdscript",
+        "seeds": 30
+      },
+      {
+        "stack": "git",
+        "seeds": 20
+      },
+      {
+        "stack": "github",
+        "seeds": 20
+      },
+      {
+        "stack": "glsl-godot",
+        "seeds": 20
+      },
+      {
+        "stack": "go",
+        "seeds": 20
+      },
+      {
+        "stack": "godot-csharp",
+        "seeds": 20
+      },
+      {
+        "stack": "graphql",
+        "seeds": 20
+      },
+      {
+        "stack": "grpc",
+        "seeds": 15
+      },
+      {
+        "stack": "haskell",
+        "seeds": 20
+      },
+      {
+        "stack": "htmx",
+        "seeds": 15
+      },
+      {
+        "stack": "incident-response",
+        "seeds": 8
+      },
+      {
+        "stack": "ios",
+        "seeds": 8
+      },
+      {
+        "stack": "java",
+        "seeds": 20
+      },
+      {
+        "stack": "jest",
+        "seeds": 20
+      },
+      {
+        "stack": "json",
+        "seeds": 20
+      },
+      {
+        "stack": "kafka",
+        "seeds": 20
+      },
+      {
+        "stack": "kotlin",
+        "seeds": 20
+      },
+      {
+        "stack": "kubernetes",
+        "seeds": 20
+      },
+      {
+        "stack": "laravel",
+        "seeds": 20
+      },
+      {
+        "stack": "legal",
+        "seeds": 8
+      },
+      {
+        "stack": "llm-integration",
+        "seeds": 20
+      },
+      {
+        "stack": "lodestone",
+        "seeds": 28
+      },
+      {
+        "stack": "lua",
+        "seeds": 20
+      },
+      {
+        "stack": "machine-learning",
+        "seeds": 20
+      },
+      {
+        "stack": "mathematics",
+        "seeds": 111
+      },
+      {
+        "stack": "mathematics_category",
+        "seeds": 15
+      },
+      {
+        "stack": "mongodb",
+        "seeds": 20
+      },
+      {
+        "stack": "music",
+        "seeds": 21
+      },
+      {
+        "stack": "mysql",
+        "seeds": 20
+      },
+      {
+        "stack": "negotiation",
+        "seeds": 7
+      },
+      {
+        "stack": "nextjs",
+        "seeds": 20
+      },
+      {
+        "stack": "nextjs-docker",
+        "seeds": 12
+      },
+      {
+        "stack": "nginx",
+        "seeds": 20
+      },
+      {
+        "stack": "numpy",
+        "seeds": 20
+      },
+      {
+        "stack": "oauth",
+        "seeds": 10
+      },
+      {
+        "stack": "observability",
+        "seeds": 9
+      },
+      {
+        "stack": "pandas",
+        "seeds": 20
+      },
+      {
+        "stack": "personal-finance",
+        "seeds": 8
+      },
+      {
+        "stack": "php",
+        "seeds": 20
+      },
+      {
+        "stack": "physics",
+        "seeds": 24
+      },
+      {
+        "stack": "playwright",
+        "seeds": 20
+      },
+      {
+        "stack": "postgresql",
+        "seeds": 20
+      },
+      {
+        "stack": "powerquery",
+        "seeds": 9
+      },
+      {
+        "stack": "prisma",
+        "seeds": 20
+      },
+      {
+        "stack": "prompt-engineering",
+        "seeds": 10
+      },
+      {
+        "stack": "pytest",
+        "seeds": 20
+      },
+      {
+        "stack": "python",
+        "seeds": 20
+      },
+      {
+        "stack": "python-docker",
+        "seeds": 12
+      },
+      {
+        "stack": "pytorch",
+        "seeds": 20
+      },
+      {
+        "stack": "rails",
+        "seeds": 20
+      },
+      {
+        "stack": "react",
+        "seeds": 20
+      },
+      {
+        "stack": "react-apollo",
+        "seeds": 12
+      },
+      {
+        "stack": "react-testing",
+        "seeds": 15
+      },
+      {
+        "stack": "reactnative",
+        "seeds": 20
+      },
+      {
+        "stack": "real-estate",
+        "seeds": 19
+      },
+      {
+        "stack": "redis",
+        "seeds": 20
+      },
+      {
+        "stack": "rust",
+        "seeds": 20
+      },
+      {
+        "stack": "rxjs",
+        "seeds": 20
+      },
+      {
+        "stack": "scala",
+        "seeds": 20
+      },
+      {
+        "stack": "seed-authoring",
+        "seeds": 20
+      },
+      {
+        "stack": "seq-model-internals",
+        "seeds": 18
+      },
+      {
+        "stack": "solidity",
+        "seeds": 15
+      },
+      {
+        "stack": "spring",
+        "seeds": 20
+      },
+      {
+        "stack": "spring-docker",
+        "seeds": 11
+      },
+      {
+        "stack": "sql",
+        "seeds": 20
+      },
+      {
+        "stack": "sqlite",
+        "seeds": 20
+      },
+      {
+        "stack": "statistics",
+        "seeds": 12
+      },
+      {
+        "stack": "svelte",
+        "seeds": 20
+      },
+      {
+        "stack": "swift",
+        "seeds": 20
+      },
+      {
+        "stack": "system-design",
+        "seeds": 8
+      },
+      {
+        "stack": "systems-thinking",
+        "seeds": 10
+      },
+      {
+        "stack": "technical-writing",
+        "seeds": 9
+      },
+      {
+        "stack": "terraform",
+        "seeds": 20
+      },
+      {
+        "stack": "threejs",
+        "seeds": 21
+      },
+      {
+        "stack": "typescript",
+        "seeds": 20
+      },
+      {
+        "stack": "unity",
+        "seeds": 20
+      },
+      {
+        "stack": "universal",
+        "seeds": 20
+      },
+      {
+        "stack": "unreal",
+        "seeds": 20
+      },
+      {
+        "stack": "vue",
+        "seeds": 20
+      },
+      {
+        "stack": "wasm",
+        "seeds": 20
+      },
+      {
+        "stack": "web-a11y",
+        "seeds": 11
+      },
+      {
+        "stack": "web-performance",
+        "seeds": 9
+      },
+      {
+        "stack": "web-privacy",
+        "seeds": 8
+      },
+      {
+        "stack": "web-security",
+        "seeds": 16
+      },
+      {
+        "stack": "web-seo-content",
+        "seeds": 9
+      },
+      {
+        "stack": "zig",
+        "seeds": 20
+      }
+    ],
+    "maintainers_wanted": []
+  }
+}

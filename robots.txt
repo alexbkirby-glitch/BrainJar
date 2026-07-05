@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# LLM clients: see llms.txt for a structured description of this site
+# and how to use its API endpoints.
+# https://llmstxt.org/
+
+Sitemap: https://alexbkirby-glitch.github.io/lodestone/sitemap.xml

@@ -1,0 +1,137 @@
+{
+  "_comment": "Tracks versioned frameworks whose major/minor changes may invalidate seeds. Seeds for these stacks gain a reviewed_at field. Seeds that have not been reviewed since a version bump are flagged as stale candidates by flag-stale-seeds.mjs.",
+  "_volatile_criteria": "A stack is volatile when its API, patterns, or best-practices change materially between major or minor versions — not when patches are released.",
+
+  "react": {
+    "package": "react",
+    "registry": "npm",
+    "volatile": true,
+    "track_major": true,
+    "track_minor": true,
+    "note": "Hooks, concurrent features, StrictMode behaviour, server components"
+  },
+  "next": {
+    "package": "next",
+    "registry": "npm",
+    "volatile": true,
+    "track_major": true,
+    "track_minor": true,
+    "note": "App Router, RSC, routing, data fetching patterns change across minor versions"
+  },
+  "vue": {
+    "package": "vue",
+    "registry": "npm",
+    "volatile": true,
+    "track_major": true,
+    "track_minor": false,
+    "note": "Composition API, reactivity system"
+  },
+  "angular": {
+    "package": "@angular/core",
+    "registry": "npm",
+    "volatile": true,
+    "track_major": true,
+    "track_minor": false,
+    "note": "Standalone components, signals, control flow syntax"
+  },
+  "svelte": {
+    "package": "svelte",
+    "registry": "npm",
+    "volatile": true,
+    "track_major": true,
+    "track_minor": true,
+    "note": "Svelte 5 runes represent a major paradigm shift"
+  },
+  "fastapi": {
+    "package": "fastapi",
+    "registry": "pypi",
+    "volatile": true,
+    "track_major": true,
+    "track_minor": false,
+    "note": "Dependency injection, lifespan, middleware patterns"
+  },
+  "django": {
+    "package": "django",
+    "registry": "pypi",
+    "volatile": true,
+    "track_major": true,
+    "track_minor": false,
+    "note": "ORM, async views, security defaults"
+  },
+  "kubernetes": {
+    "package": "kubernetes/kubernetes",
+    "registry": "github",
+    "volatile": true,
+    "track_major": false,
+    "track_minor": true,
+    "note": "API deprecations, resource versions, admission webhooks"
+  },
+  "terraform": {
+    "package": "hashicorp/terraform",
+    "registry": "github",
+    "volatile": true,
+    "track_major": true,
+    "track_minor": false,
+    "note": "Provider protocol, state format, provider configuration changes"
+  },
+  "pytorch": {
+    "package": "torch",
+    "registry": "pypi",
+    "volatile": true,
+    "track_major": true,
+    "track_minor": false,
+    "note": "Autograd, DataLoader, compile() API"
+  },
+  "typescript": {
+    "package": "typescript",
+    "registry": "npm",
+    "volatile": true,
+    "track_major": true,
+    "track_minor": false,
+    "note": "Type inference improvements, decorator changes, module resolution"
+  },
+  "nodejs": {
+    "package": "node",
+    "registry": "npm",
+    "volatile": true,
+    "track_major": true,
+    "track_minor": false,
+    "note": "ESM interop, fetch, Web Streams, permissions model"
+  },
+  "rust": {
+    "package": "rust-lang/rust",
+    "registry": "github",
+    "volatile": false,
+    "track_major": false,
+    "track_minor": false,
+    "note": "Rust is very stable — edition-level changes only, and those are explicit"
+  },
+  "go": {
+    "volatile": false,
+    "note": "Go compatibility guarantee means patterns rarely invalidate"
+  },
+  "python": {
+    "volatile": false,
+    "note": "Language-level — seeds about stdlib specifics may need minor review"
+  },
+  "sql": {
+    "volatile": false,
+    "note": "Standard SQL semantics are stable"
+  },
+  "universal": {
+    "volatile": false,
+    "note": "Cross-cutting concepts — no version to track"
+  },
+  "math": {
+    "volatile": false,
+    "note": "Mathematical concepts do not version"
+  },
+  "machine-learning": {
+    "volatile": false,
+    "note": "Statistical concepts are stable; specific library seeds (pytorch, sklearn) tracked separately"
+  },
+  "economics": {
+    "volatile": false,
+    "note": "Economic theory does not version"
+  }
+}

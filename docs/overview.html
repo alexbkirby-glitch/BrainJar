@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lodestone — How it works</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:     #0b0c0d;
+    --bg2:    #111315;
+    --bg3:    #171a1c;
+    --border: #252829;
+    --border2:#2e3235;
+    --text:   #c8c4b8;
+    --muted:  #5a5850;
+    --dim:    #3a3830;
+    --accent: #c47a2a;
+    --green:  #4a9a6a;
+    --red:    #9a4a4a;
+    --mono:   'Share Tech Mono', monospace;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: var(--mono); font-size: 13px;
+    line-height: 1.6; padding: 40px 32px 80px;
+    max-width: 860px; margin: 0 auto;
+  }
+
+  /* Nav back */
+  .back {
+    display: inline-flex; align-items: center; gap: 6px;
+    color: var(--muted); font-size: 10px; letter-spacing: 0.12em;
+    text-decoration: none; margin-bottom: 40px;
+    transition: color 0.15s;
+  }
+  .back:hover { color: var(--accent); }
+
+  /* Hero */
+  .eyebrow { font-size: 10px; letter-spacing: 0.18em; color: var(--accent); margin-bottom: 12px; }
+  h1 { font-size: 32px; line-height: 1.15; color: #e8e4d8; font-weight: 400; margin-bottom: 14px; }
+  h1 em { font-style: italic; color: var(--accent); }
+  .lead { font-size: 13px; color: var(--muted); line-height: 1.85; max-width: 620px; margin-bottom: 48px; }
+
+  /* Section */
+  .section { margin-bottom: 48px; }
+  .section-label {
+    font-size: 9px; letter-spacing: 0.18em; color: var(--accent);
+    border-bottom: 1px solid var(--border); padding-bottom: 8px;
+    margin-bottom: 20px;
+  }
+
+  /* Flow */
+  .flow { display: flex; flex-wrap: wrap; gap: 1px; background: var(--border); margin-bottom: 20px; }
+  .flow-step {
+    background: var(--bg2); padding: 14px 16px; flex: 1;
+    min-width: 130px;
+  }
+  .flow-num { font-size: 9px; color: var(--muted); letter-spacing: 0.1em; margin-bottom: 6px; }
+  .flow-title { font-size: 12px; color: #e8e4d8; margin-bottom: 4px; }
+  .flow-desc { font-size: 11px; color: var(--muted); line-height: 1.6; }
+  .flow-arrow {
+    background: var(--bg3); display: flex; align-items: center;
+    justify-content: center; padding: 0 8px; color: var(--dim);
+    font-size: 14px; flex-shrink: 0;
+  }
+
+  /* Tool cards */
+  .tools { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); margin-bottom: 20px; }
+  .tool { background: var(--bg2); padding: 18px; }
+  .tool-num { font-size: 9px; color: var(--dim); letter-spacing: 0.1em; margin-bottom: 8px; }
+  .tool-name { font-size: 13px; color: #e8e4d8; margin-bottom: 6px; }
+  .tool-desc { font-size: 11px; color: var(--muted); line-height: 1.7; }
+  .tool-file { font-size: 10px; color: var(--accent); margin-top: 10px; }
+
+  /* Output box */
+  .output-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); }
+  .output-cell { background: var(--bg2); padding: 16px; }
+  .output-label { font-size: 9px; color: var(--muted); letter-spacing: 0.1em; margin-bottom: 8px; }
+  .output-title { font-size: 12px; color: #e8e4d8; margin-bottom: 4px; }
+  .output-desc { font-size: 11px; color: var(--muted); line-height: 1.65; }
+  .output-badge {
+    display: inline-block; font-size: 9px; letter-spacing: 0.08em;
+    padding: 2px 7px; border-radius: 2px; margin-top: 8px;
+  }
+  .badge-local { background: rgba(74,154,106,0.15); color: var(--green); border: 1px solid rgba(74,154,106,0.3); }
+  .badge-optin { background: rgba(196,122,42,0.12); color: var(--accent); border: 1px solid rgba(196,122,42,0.3); }
+
+  /* File tree */
+  .tree {
+    background: var(--bg2); border: 1px solid var(--border);
+    padding: 16px; font-size: 11px; line-height: 2.1;
+  }
+  .tree .dir { color: var(--muted); }
+  .tree .file { color: var(--text); }
+  .tree .hl { color: var(--accent); }
+  .tree .note { color: var(--dim); }
+
+  /* Interaction table */
+  table { width: 100%; border-collapse: collapse; font-size: 11px; }
+  th {
+    text-align: left; font-size: 9px; letter-spacing: 0.1em;
+    color: var(--muted); padding: 8px 12px;
+    border-bottom: 1px solid var(--border); font-weight: 400;
+  }
+  td { padding: 10px 12px; border-bottom: 1px solid var(--border); color: var(--muted); vertical-align: top; }
+  td:first-child { color: var(--text); }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: var(--bg2); }
+
+  /* Privacy note */
+  .privacy {
+    border: 1px solid var(--border2); border-left: 2px solid var(--accent);
+    padding: 14px 16px; background: var(--bg2);
+    font-size: 11px; color: var(--muted); line-height: 1.8;
+    margin-bottom: 20px;
+  }
+  .privacy strong { color: var(--text); }
+
+  /* URL blocks */
+  .url-row { display: flex; gap: 10px; margin-bottom: 8px; align-items: baseline; }
+  .url-label2 { font-size: 9px; color: var(--dim); min-width: 100px; letter-spacing: 0.08em; }
+  .url-val { font-size: 11px; color: var(--accent); word-break: break-all; }
+
+  footer {
+    margin-top: 60px; padding-top: 16px;
+    border-top: 1px solid var(--border);
+    font-size: 9px; color: var(--dim); letter-spacing: 0.1em;
+    display: flex; gap: 20px;
+  }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+
+  @media (max-width: 600px) {
+    body { padding: 24px 16px 60px; }
+    .tools { grid-template-columns: 1fr; }
+    .output-grid { grid-template-columns: 1fr; }
+    .flow { flex-direction: column; }
+    .flow-arrow { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<a class="back" href="../index.html">← back to Lodestone</a>
+
+<div class="eyebrow">▸ LODESTONE — HOW IT WORKS</div>
+<h1>Your AI starts every session<br><em>already informed.</em></h1>
+<p class="lead">
+  Lodestone is a personal seed library that grows through your real coding sessions. Each seed encodes one mistake — the wrong approach, the correct fix, and the exact symptom — so your AI never repeats it. Seeds are injected into each session automatically via MCP, or manually via Project Instructions. No accounts. No cloud sync. Offline by default.
+</p>
+
+<!-- The core model -->
+<div class="section">
+  <div class="section-label">THE CORE MODEL — HOW LODESTONE WORKS</div>
+  <div class="flow">
+    <div class="flow-step">
+      <div class="flow-num">01</div>
+      <div class="flow-title">Start small</div>
+      <div class="flow-desc">Your seedbank starts with ~70 universal and stack-specific seeds about how to build good seeds. Nearly empty is correct — monoculture starts from adopting someone else's full library.</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <div class="flow-num">02</div>
+      <div class="flow-title">Capture fixes</div>
+      <div class="flow-desc">When you solve a bug, call <code>capture_fix</code> from your MCP-connected AI. One call saves the wrong pattern, correct fix, and symptom as a new seed. Your library grows from what you actually encounter.</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <div class="flow-num">03</div>
+      <div class="flow-title">Score before inject</div>
+      <div class="flow-desc">Before a seed enters your context, Lodestone scores it: relevance to your current task, severity, and context pressure. Critical patterns stay in even under pressure. Cosmetic ones need a strong match.</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <div class="flow-num">04</div>
+      <div class="flow-title">Inject via MCP</div>
+      <div class="flow-desc">The MCP server connects to Claude Desktop, Cursor, Windsurf, Continue, and any MCP-compatible tool. Seeds are surfaced automatically when you hit a matching symptom — no copy-paste required.</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <div class="flow-num">05</div>
+      <div class="flow-title">Graft selectively</div>
+      <div class="flow-desc">Browse Stonehub for stones from others working in your stack. Review and approve individual seeds before they enter your library. You control what grows in your seedbank.</div>
+    </div>
+  </div>
+</div>
+
+<!-- Three injection paths -->
+<div class="section">
+  <div class="section-label">THREE WAYS TO INJECT SEEDS</div>
+  <div class="tools">
+    <div class="tool">
+      <div class="tool-num">MCP SERVER</div>
+      <div class="tool-name">Automatic — Claude Desktop &amp; Claude Code</div>
+      <div class="tool-desc">The MCP server exposes <code>lookup_symptom</code>, <code>capture_fix</code>, <code>get_seed</code>, and more. Your AI calls these automatically. Seeds surface when relevant without you doing anything.</div>
+      <div class="tool-file">npx -y lodestone-mcp · or: claude mcp add lodestone</div>
+    </div>
+    <div class="tool">
+      <div class="tool-num">PROJECT INSTRUCTIONS</div>
+      <div class="tool-name">Paste-and-go — Claude.ai chat</div>
+      <div class="tool-desc">Paste one block into your Claude Project's instructions. Claude fetches the public symptom index and stack seeds on-demand. No MCP server required — works entirely with Claude's web access.</div>
+      <div class="tool-file">alexbkirby-glitch.github.io/lodestone → Home → "USE WITH CLAUDE"</div>
+    </div>
+    <div class="tool">
+      <div class="tool-num">PREFLIGHT CLI</div>
+      <div class="tool-name">Before Claude Code sessions</div>
+      <div class="tool-desc">Run <code>lodestone-preflight.mjs</code> before Claude Code starts. It scores your seedbank against current git context and injects the top seeds into CLAUDE.md automatically.</div>
+      <div class="tool-file">alias claude='node ~/tools/lodestone-preflight.mjs &amp;&amp; claude'</div>
+    </div>
+  </div>
+</div>
+
+<!-- Key files -->
+<div class="section">
+  <div class="section-label">KEY FILES IN YOUR SEEDBANK</div>
+  <div class="output-grid">
+    <div class="output-cell">
+      <div class="output-label">CONTEXT FILE — ALWAYS IN CLAUDE PROJECTS</div>
+      <div class="output-title">lodestone-nano.md</div>
+      <div class="output-desc">~1,600 tokens. Critical seeds + full symptom index. Upload to any Claude Project or paste into CLAUDE.md. The front door to your seedbank for any AI session.</div>
+      <span class="output-badge badge-local">LOCAL · ALWAYS IN CONTEXT</span>
+    </div>
+    <div class="output-cell">
+      <div class="output-label">EXTENDED CONTEXT — FOR TOKEN-HEAVY STACKS</div>
+      <div class="output-title">lodestone-critical.md</div>
+      <div class="output-desc">Every critical and high-severity seed in full. Use this for stacks where you have dense seed coverage. Pairs with lodestone-nano.md or replaces it for critical sessions.</div>
+      <span class="output-badge badge-local">LOCAL · UPLOAD TO PROJECT</span>
+    </div>
+    <div class="output-cell">
+      <div class="output-label">SEED DATA — FULL LIBRARY</div>
+      <div class="output-title">seeds/{stack}.json</div>
+      <div class="output-desc">Complete seed data per stack including relationships, blast radius, confidence scores, and provenance. Used by the MCP server for BM25 + graph-expanded lookup. Also fetchable from alexbkirby-glitch.github.io/lodestone/seeds/{stack}.json.</div>
+      <span class="output-badge badge-local">LOCAL + PUBLIC MIRROR</span>
+    </div>
+    <div class="output-cell">
+      <div class="output-label">SYMPTOM INDEX — FOR FAST LOOKUP</div>
+      <div class="output-title">api/symptom-index.json</div>
+      <div class="output-desc">Reverse index mapping error message tokens to seed IDs. O(1) lookup without embeddings. The MCP server uses this for initial candidate selection before BM25 re-scoring.</div>
+      <span class="output-badge badge-optin">PUBLIC · alexbkirby-glitch.github.io/lodestone/api/symptom-index.json</span>
+    </div>
+  </div>
+</div>
+
+<!-- How AI interacts -->
+<div class="section">
+  <div class="section-label">HOW YOUR AI USES LODESTONE</div>
+  <table>
+    <thead>
+      <tr>
+        <th>WHERE YOU'RE WORKING</th>
+        <th>HOW LODESTONE HELPS</th>
+        <th>WHAT YOU DO</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Claude Desktop</td>
+        <td>MCP server runs in background. Seeds surface when you hit a matching symptom. <code>capture_fix</code> saves new patterns with one command.</td>
+        <td>Install MCP → automatic from then on</td>
+      </tr>
+      <tr>
+        <td>Claude Code (CLI)</td>
+        <td>MCP server or preflight script injects top seeds into CLAUDE.md before each session. Alias <code>claude</code> to run it automatically.</td>
+        <td>Alias once → automatic every session</td>
+      </tr>
+      <tr>
+        <td>Claude.ai Projects</td>
+        <td>Paste the project instructions block into your Project. Claude fetches seeds from alexbkirby-glitch.github.io/lodestone on demand — no local server needed.</td>
+        <td>Paste once → every conversation benefits</td>
+      </tr>
+      <tr>
+        <td>Cursor / Windsurf / Continue</td>
+        <td>Any MCP-compatible editor works with the lodestone-mcp package. Seeds inject the same way as Claude Desktop.</td>
+        <td>Add MCP config → automatic</td>
+      </tr>
+      <tr>
+        <td>Any AI (manual)</td>
+        <td>Upload lodestone-nano.md or a stack SKILL.md. Works with any model that accepts text context — no MCP required.</td>
+        <td>Upload file → use normally</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Privacy -->
+<div class="section">
+  <div class="section-label">PRIVACY — WHAT GOES WHERE</div>
+  <div class="privacy">
+    <strong>Your seedbank is local by default.</strong> Seeds live in your filesystem under <code>seeds/</code>. The MCP server reads them at query time. Nothing is uploaded anywhere unless you explicitly publish a stone to Stonehub.<br><br>
+    <strong>The Skill Generator runs entirely in your browser.</strong> File contents are sent only to your chosen model endpoint (Anthropic, OpenAI, or a local Ollama instance) for analysis — not to any Lodestone server, because there is no Lodestone server. The site is hosted on GitHub Pages.<br><br>
+    <strong>Stonehub publishing is explicitly opt-in.</strong> When you publish a stone, its seeds become publicly readable at your Stonehub profile URL. Seeds are patterns about code mistakes, not about your codebase itself — but review before publishing if you're cautious.
+  </div>
+</div>
+
+<!-- Repo structure -->
+<div class="section">
+  <div class="section-label">REPO STRUCTURE</div>
+  <div class="tree">
+    <span class="dir">lodestone/</span><br>
+    <span class="dir">├── </span><span class="hl">lodestone-nano.md</span><span class="note">       ← always-in-context: critical seeds + symptom index</span><br>
+    <span class="dir">├── </span><span class="hl">lodestone-critical.md</span><span class="note">   ← all critical + high seeds in full</span><br>
+    <span class="dir">├── seeds/</span><span class="note">                   ← your seed library (one file per stack)</span><br>
+    <span class="dir">│   ├── </span><span class="hl">react.json</span><br>
+    <span class="dir">│   └── </span><span class="file">...</span><br>
+    <span class="dir">├── mcp-server/</span><br>
+    <span class="dir">│   └── </span><span class="hl">index.mjs</span><span class="note">           ← MCP server (lookup_symptom, capture_fix, etc.)</span><br>
+    <span class="dir">├── scripts/</span><br>
+    <span class="dir">│   ├── </span><span class="file">build-nano.mjs</span><span class="note">      ← regenerates lodestone-nano.md</span><br>
+    <span class="dir">│   ├── </span><span class="file">auto-seed.mjs</span><span class="note">       ← discovers + grafts seeds from Stonehub</span><br>
+    <span class="dir">│   ├── </span><span class="file">detect-relationships.mjs</span><br>
+    <span class="dir">│   └── </span><span class="file">init.mjs</span><span class="note">            ← one-command setup wizard</span><br>
+    <span class="dir">├── gui/</span><br>
+    <span class="dir">│   └── </span><span class="hl">index.html</span><span class="note">          ← local GUI: seed browser, health ring, capture UI</span><br>
+    <span class="dir">├── api/</span><br>
+    <span class="dir">│   └── </span><span class="file">symptom-index.json</span><span class="note">  ← token→seed reverse index for fast lookup</span><br>
+    <span class="dir">└── </span><span class="file">README.md · LICENSE · .gitignore</span>
+  </div>
+</div>
+
+<!-- URLs -->
+<div class="section">
+  <div class="section-label">KEY URLS</div>
+  <div class="url-row">
+    <span class="url-label2">SITE</span>
+    <span class="url-val">https://alexbkirby-glitch.github.io/lodestone</span>
+  </div>
+  <div class="url-row">
+    <span class="url-label2">SEEDS INDEX</span>
+    <span class="url-val">https://alexbkirby-glitch.github.io/lodestone/api/seeds/index.json</span>
+  </div>
+  <div class="url-row">
+    <span class="url-label2">SYMPTOM INDEX</span>
+    <span class="url-val">https://alexbkirby-glitch.github.io/lodestone/api/symptom-index.json</span>
+  </div>
+  <div class="url-row">
+    <span class="url-label2">STACK SEEDS</span>
+    <span class="url-val">https://alexbkirby-glitch.github.io/lodestone/seeds/{stack}.json</span>
+  </div>
+  <div class="url-row">
+    <span class="url-label2">NANO CONTEXT</span>
+    <span class="url-val">https://alexbkirby-glitch.github.io/lodestone/lodestone-nano.md</span>
+  </div>
+  <div class="url-row">
+    <span class="url-label2">STONEHUB</span>
+    <span class="url-val">https://alexbkirby-glitch.github.io/lodestone/stonehub/</span>
+  </div>
+</div>
+
+<footer>
+  <span>▸ LODESTONE</span>
+  <span>MIT LICENSE</span>
+  <a href="../index.html">← back to site</a>
+  <a href="https://github.com/alexbkirby-glitch/lodestone" target="_blank">github ↗</a>
+</footer>
+
+</body>
+</html>
+
+</body>
+</html>
+
+</body>
+</html>

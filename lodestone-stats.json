@@ -1,0 +1,102 @@
+{
+  "schema_version": "1",
+  "generated_at": "2026-06-11T20:20:14.618Z",
+  "owner": "unknown",
+  "repo": "unknown",
+  "stats": {
+    "total_seeds": 1745,
+    "personal_seeds": 0,
+    "stacks_covered": 89,
+    "seeds_with_doc_ref": 1697,
+    "seeds_with_provenance": 0,
+    "blast_distribution": {
+      "critical": 45,
+      "high": 202,
+      "medium": 1449,
+      "low": 49,
+      "unset": 0
+    },
+    "has_universal_stack": true,
+    "has_outcome_data": false,
+    "tracked_seeds": 0,
+    "avg_confidence": 0,
+    "has_drift_check": false,
+    "drift_stale": 0,
+    "seeds_with_symptom_ratio": 1,
+    "grafted_seeds_ratio": 0
+  },
+  "achievements": [
+    {
+      "id": "first_stone",
+      "name": "First Stone",
+      "description": "Published 10+ seeds",
+      "icon": "🪨",
+      "tier": "bronze",
+      "earned_at": "2026-06-11"
+    },
+    {
+      "id": "chiseled",
+      "name": "Chiseled",
+      "description": "50+ seeds published",
+      "icon": "⛏",
+      "tier": "silver",
+      "earned_at": "2026-06-11"
+    },
+    {
+      "id": "geologist",
+      "name": "Geologist",
+      "description": "200+ seeds published",
+      "icon": "🏔",
+      "tier": "gold",
+      "earned_at": "2026-06-11"
+    },
+    {
+      "id": "polymath",
+      "name": "Polymath",
+      "description": "Seeds across 5+ stacks",
+      "icon": "🗺",
+      "tier": "silver",
+      "earned_at": "2026-06-11"
+    },
+    {
+      "id": "well_sourced",
+      "name": "Well Sourced",
+      "description": "50%+ of seeds link to official documentation",
+      "icon": "📚",
+      "tier": "bronze",
+      "earned_at": "2026-06-11"
+    },
+    {
+      "id": "fully_documented",
+      "name": "Fully Documented",
+      "description": "90%+ of seeds have doc references",
+      "icon": "📖",
+      "tier": "gold",
+      "earned_at": "2026-06-11"
+    },
+    {
+      "id": "precise",
+      "name": "Precise",
+      "description": "All seeds have explicit Symptom fields",
+      "icon": "🎯",
+      "tier": "silver",
+      "earned_at": "2026-06-11"
+    },
+    {
+      "id": "universal_contributor",
+      "name": "Universal Contributor",
+      "description": "Has universal seeds (cross-language patterns)",
+      "icon": "🌐",
+      "tier": "bronze",
+      "earned_at": "2026-06-11"
+    }
+  ],
+  "reputation_score": 59,
+  "reputation_grade": "C",
+  "verification": {
+    "github_identity": false,
+    "has_personal_seeds": false,
+    "has_outcome_data": false,
+    "has_provenance": false
+  }
+}

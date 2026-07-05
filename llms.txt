@@ -1,0 +1,220 @@
+# Brain Jar
+
+> A decentralized antipattern seed library that feeds second brains.
+
+Brain Jar is a decentralized antipattern seed library. This flagship Jar holds **2156 knowledge chunks** across **118 technology stacks**, each encoding a specific antipattern as a structured WRONG → CORRECT → Symptom triple. Chunks are injected into AI sessions based on semantic similarity to the developer's current intent, reducing context waste and preventing known failure modes.
+
+This file is auto-generated. Do not edit it by hand.
+
+## How to use Brain Jar as an LLM
+
+If you are an LLM assistant helping a developer, you can use Brain Jar seeds in three ways:
+
+**1. Fetch project-specific context (recommended)**
+```
+GET /api/projects/{slug}-min.json
+```
+Returns a minimal JSON object with `session_start` (ready-to-use context block) and the top 5 pre-scored chunks for the project. Inject `session_start` into your system prompt.
+
+**2. Fetch full project context**
+```
+GET /api/projects/{slug}.json
+```
+Returns all knowledge chunks, pre-scored against common developer intents. Filter by `base_score >= 0.35` and take the top 5–10 chunks.
+
+**3. Look up by error symptom**
+```
+GET /api/symptom-index.json
+```
+Returns a token index mapping error message words to chunk IDs. Tokenize the developer's error message, look up tokens in the index, and surface matching chunks directly. No embedding required.
+
+**4. Fetch a stack seed directly**
+```
+GET /seeds/{stack}.json
+```
+Returns all community knowledge chunks for a specific technology stack. Use when project-specific context is unavailable.
+
+## API endpoints
+
+| Endpoint | Description |
+|---|---|
+| `/api/manifest.json` | Index of all published project contexts |
+| `/api/seeds/index.json` | Index of all community seed stacks with chunk counts and tags |
+| `/api/symptom-index.json` | Error token → chunk reverse index (2156 chunks, 8377 tokens) |
+| `/api/projects/{slug}.json` | Full scored project context |
+| `/api/projects/{slug}-min.json` | Minimal context: session_start + top 5 chunks |
+| `/api/projects/{slug}.txt` | Plain text context for direct injection |
+| `/api/projects/{slug}-SKILL.md` | Installable Claude skill file |
+| `/seeds/{stack}.json` | Community seed chunks for a stack (JSON) |
+| `/seeds/{stack}.txt` | Community seed chunks for a stack (plain text, no parsing needed) |
+
+## Universal chunks (injected for all stacks)
+
+These patterns apply regardless of language or framework:
+
+- **Verify every edit actually landed** — edit_verify_landed
+- **Write complete files not partial fragments** — write_complete_files
+- **Commit working state before refactoring** — commit_before_large_refactor
+- **Test after each change not in batches** — test_one_change_at_a_time
+- **Guard null before accessing any member** — null_check_before_member_access
+- **Environment variables must exist before process starts** — env_var_read_order
+- **Await every async call or chain the promise** — missing_await_on_async
+- **Log errors before catching and continuing** — log_errors_before_swallowing
+- **Integer division truncates toward zero** — integer_division_truncates
+- **Never compare floats with exact equality** — floating_point_exact_equality
+- **Off-by-one from mixed inclusive and exclusive bounds** — off_by_one_bounds
+- **Inner scope assignment does not affect outer variable** — inner_scope_does_not_mutate_outer
+- **Hardcoded path separators break cross-platform** — path_separator_platform
+- **Mutable shared state requires synchronization** — mutable_shared_state_concurrency
+- **Side effects inside conditions cause silent bugs** — side_effect_in_condition
+- **Count braces after any code insertion** — insertion_brace_imbalance
+- **Second same-named function silently overwrites first** — duplicate_function_name_overwrites
+- **path.join Does Not Sanitise User-Controlled Input Against Directory Traversal** — path_join_user_input_traversal
+- **execSync With Interpolated User Input Enables Shell Command Injection** — execsync_shell_string_injection
+- **.endsWith('.json') Is Not a Path Traversal Guard** — extension_check_insufficient_path_guard
+
+## Available stacks
+
+- **ab-testing** — 8 chunks — `/seeds/ab-testing.json`
+- **android** — 20 chunks — `/seeds/android.json`
+- **angular** — 20 chunks — `/seeds/angular.json`
+- **ansible** — 20 chunks — `/seeds/ansible.json`
+- **assembly** — 20 chunks — `/seeds/assembly.json`
+- **bash** — 20 chunks — `/seeds/bash.json`
+- **bridge** — 20 chunks — `/seeds/bridge.json`
+- **c** — 13 chunks — `/seeds/c.json`
+- **celery** — 20 chunks — `/seeds/celery.json`
+- **cognitive** — 20 chunks — `/seeds/cognitive.json`
+- **control** — 22 chunks — `/seeds/control.json`
+- **cpp** — 20 chunks — `/seeds/cpp.json`
+- **csharp** — 20 chunks — `/seeds/csharp.json`
+- **css** — 20 chunks — `/seeds/css.json`
+- **data-visualization** — 11 chunks — `/seeds/data-visualization.json`
+- **db-schema** — 10 chunks — `/seeds/db-schema.json`
+- **distributed-systems** — 12 chunks — `/seeds/distributed-systems.json`
+- **django** — 20 chunks — `/seeds/django.json`
+- **django-celery** — 12 chunks — `/seeds/django-celery.json`
+- **django-postgresql** — 15 chunks — `/seeds/django-postgresql.json`
+- **docker** — 20 chunks — `/seeds/docker.json`
+- **economics** — 18 chunks — `/seeds/economics.json`
+- **elasticsearch** — 20 chunks — `/seeds/elasticsearch.json`
+- **elixir** — 20 chunks — `/seeds/elixir.json`
+- **evolution** — 20 chunks — `/seeds/evolution.json`
+- **express** — 20 chunks — `/seeds/express.json`
+- **fastapi** — 20 chunks — `/seeds/fastapi.json`
+- **flask** — 20 chunks — `/seeds/flask.json`
+- **flutter** — 20 chunks — `/seeds/flutter.json`
+- **flutter-firebase** — 12 chunks — `/seeds/flutter-firebase.json`
+- **gamedev** — 20 chunks — `/seeds/gamedev.json`
+- **gdextension** — 20 chunks — `/seeds/gdextension.json`
+- **gdscript** — 30 chunks — `/seeds/gdscript.json`
+- **git** — 20 chunks — `/seeds/git.json`
+- **github** — 20 chunks — `/seeds/github.json`
+- **glsl-godot** — 20 chunks — `/seeds/glsl-godot.json`
+- **go** — 20 chunks — `/seeds/go.json`
+- **godot-csharp** — 20 chunks — `/seeds/godot-csharp.json`
+- **graphql** — 20 chunks — `/seeds/graphql.json`
+- **grpc** — 15 chunks — `/seeds/grpc.json`
+- **haskell** — 20 chunks — `/seeds/haskell.json`
+- **htmx** — 15 chunks — `/seeds/htmx.json`
+- **incident-response** — 8 chunks — `/seeds/incident-response.json`
+- **ios** — 8 chunks — `/seeds/ios.json`
+- **java** — 20 chunks — `/seeds/java.json`
+- **jest** — 20 chunks — `/seeds/jest.json`
+- **json** — 20 chunks — `/seeds/json.json`
+- **kafka** — 20 chunks — `/seeds/kafka.json`
+- **kotlin** — 20 chunks — `/seeds/kotlin.json`
+- **kubernetes** — 20 chunks — `/seeds/kubernetes.json`
+- **laravel** — 20 chunks — `/seeds/laravel.json`
+- **legal** — 8 chunks — `/seeds/legal.json`
+- **llm-integration** — 20 chunks — `/seeds/llm-integration.json`
+- **lodestone** — 28 chunks — `/seeds/lodestone.json`
+- **lua** — 20 chunks — `/seeds/lua.json`
+- **machine-learning** — 20 chunks — `/seeds/machine-learning.json`
+- **mathematics** — 111 chunks — `/seeds/mathematics.json`
+- **mathematics_category** — 15 chunks — `/seeds/mathematics_category.json`
+- **mongodb** — 20 chunks — `/seeds/mongodb.json`
+- **music** — 21 chunks — `/seeds/music.json`
+- **mysql** — 20 chunks — `/seeds/mysql.json`
+- **negotiation** — 7 chunks — `/seeds/negotiation.json`
+- **nextjs** — 20 chunks — `/seeds/nextjs.json`
+- **nextjs-docker** — 12 chunks — `/seeds/nextjs-docker.json`
+- **nginx** — 20 chunks — `/seeds/nginx.json`
+- **numpy** — 20 chunks — `/seeds/numpy.json`
+- **oauth** — 10 chunks — `/seeds/oauth.json`
+- **observability** — 9 chunks — `/seeds/observability.json`
+- **pandas** — 20 chunks — `/seeds/pandas.json`
+- **personal-finance** — 8 chunks — `/seeds/personal-finance.json`
+- **php** — 20 chunks — `/seeds/php.json`
+- **physics** — 24 chunks — `/seeds/physics.json`
+- **playwright** — 20 chunks — `/seeds/playwright.json`
+- **postgresql** — 20 chunks — `/seeds/postgresql.json`
+- **powerquery** — 9 chunks — `/seeds/powerquery.json`
+- **prisma** — 20 chunks — `/seeds/prisma.json`
+- **prompt-engineering** — 10 chunks — `/seeds/prompt-engineering.json`
+- **pytest** — 20 chunks — `/seeds/pytest.json`
+- **python** — 20 chunks — `/seeds/python.json`
+- **python-docker** — 12 chunks — `/seeds/python-docker.json`
+- **pytorch** — 20 chunks — `/seeds/pytorch.json`
+- **rails** — 20 chunks — `/seeds/rails.json`
+- **react** — 20 chunks — `/seeds/react.json`
+- **react-apollo** — 12 chunks — `/seeds/react-apollo.json`
+- **react-testing** — 15 chunks — `/seeds/react-testing.json`
+- **reactnative** — 20 chunks — `/seeds/reactnative.json`
+- **real-estate** — 19 chunks — `/seeds/real-estate.json`
+- **redis** — 20 chunks — `/seeds/redis.json`
+- **rust** — 20 chunks — `/seeds/rust.json`
+- **rxjs** — 20 chunks — `/seeds/rxjs.json`
+- **scala** — 20 chunks — `/seeds/scala.json`
+- **seed-authoring** — 20 chunks — `/seeds/seed-authoring.json`
+- **seq-model-internals** — 18 chunks — `/seeds/seq-model-internals.json`
+- **solidity** — 15 chunks — `/seeds/solidity.json`
+- **spring** — 20 chunks — `/seeds/spring.json`
+- **spring-docker** — 11 chunks — `/seeds/spring-docker.json`
+- **sql** — 20 chunks — `/seeds/sql.json`
+- **sqlite** — 20 chunks — `/seeds/sqlite.json`
+- **statistics** — 12 chunks — `/seeds/statistics.json`
+- **svelte** — 20 chunks — `/seeds/svelte.json`
+- **swift** — 20 chunks — `/seeds/swift.json`
+- **system-design** — 8 chunks — `/seeds/system-design.json`
+- **systems-thinking** — 10 chunks — `/seeds/systems-thinking.json`
+- **technical-writing** — 9 chunks — `/seeds/technical-writing.json`
+- **terraform** — 20 chunks — `/seeds/terraform.json`
+- **threejs** — 21 chunks — `/seeds/threejs.json`
+- **typescript** — 20 chunks — `/seeds/typescript.json`
+- **unity** — 20 chunks — `/seeds/unity.json`
+- **unreal** — 20 chunks — `/seeds/unreal.json`
+- **vue** — 20 chunks — `/seeds/vue.json`
+- **wasm** — 20 chunks — `/seeds/wasm.json`
+- **web-a11y** — 11 chunks — `/seeds/web-a11y.json`
+- **web-performance** — 9 chunks — `/seeds/web-performance.json`
+- **web-privacy** — 8 chunks — `/seeds/web-privacy.json`
+- **web-security** — 16 chunks — `/seeds/web-security.json`
+- **web-seo-content** — 9 chunks — `/seeds/web-seo-content.json`
+- **zig** — 20 chunks — `/seeds/zig.json`
+
+## Chunk schema
+
+Every chunk follows this structure:
+```json
+{
+  "id": "snake_case_antipattern_name",
+  "title": "Under Eight Words",
+  "content": "WRONG: what was done wrong. CORRECT: specific fix. Symptom: exact observable failure.",
+  "wrong": "Short description of the antipattern (optional structured field)",
+  "correct": "Short description of the fix (optional structured field)",
+  "tags": ["tag1", "tag2"],
+  "source": "community",
+  "stack": "stackname",
+  "framework_version": ">=4.0",
+  "valid_through": "2027-01-01",
+  "deprecated": false
+}
+```
+
+## Source
+
+MIT License — https://github.com/alexbkirby-glitch/lodestone
+
+Generated: 2026-07-05T19:33:52.555Z
+Stacks: 118 · Chunks: 2156 · Indexed: 2156

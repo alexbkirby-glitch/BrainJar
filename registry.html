@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brain Jar — Public Jar Registry</title>
+<meta name="description" content="Registry of Public Brain Jars: decentralized antipattern seed libraries discoverable via the brain-jar GitHub topic.">
+<style>
+  :root {
+    --bg: #f5f4f0; --bg2: #ffffff; --bg3: #eceae5;
+    --border: #dddbd5; --border2: #c8c5be;
+    --text: #1a1917; --muted: #5c5a54; --dim: #64615e;
+    --accent: #97651f; --accent2: #7a4a10; --green: #2a6e46; --red: #8a2828;
+    --mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--mono); font-size: 14px; line-height: 1.55; }
+  main { max-width: 960px; margin: 0 auto; padding: 32px 20px 80px; }
+  h1 { font-size: 20px; letter-spacing: 0.04em; }
+  h1 .dim, .dim { color: var(--dim); font-weight: normal; }
+  h2 { font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-top: 44px; }
+  a { color: var(--accent2); }
+  table { width: 100%; border-collapse: collapse; background: var(--bg2); border: 1px solid var(--border); }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); background: var(--bg3); }
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .tag { display: inline-block; background: var(--bg3); border: 1px solid var(--border); border-radius: 3px; padding: 0 5px; font-size: 12px; margin: 1px 0; }
+  .cold { background: var(--bg2); border: 1px dashed var(--border2); padding: 18px 20px; }
+  .cold code { background: var(--bg3); padding: 1px 5px; border-radius: 3px; }
+  .stacks { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 6px; }
+  .stack { display: flex; align-items: baseline; gap: 8px; background: var(--bg2); border: 1px solid var(--border); padding: 5px 9px; }
+  .stack-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .stack-count { margin-left: auto; color: var(--dim); font-size: 12px; font-variant-numeric: tabular-nums; }
+  .stack.wanted { border-color: var(--accent); }
+  .badge { display: block; width: 100%; color: var(--accent2); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; }
+  .stack.wanted { flex-wrap: wrap; }
+  footer { margin-top: 56px; color: var(--dim); font-size: 12px; border-top: 1px solid var(--border); padding-top: 14px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Brain Jar <span class="dim">— Public Jar Registry</span></h1>
+  <p>Public Jars are GitHub repos of <a href="SCHEMA.md">canonical antipattern seeds</a> tagged with the
+  <code>brain-jar</code> topic. Tagging is the consent act: it makes a Jar discoverable here and
+  grazeable by anyone. Being listed is the attribution reward.
+  <a href="demo.html">Try the corpus in your browser</a> — paste an error, no install.</p>
+
+  <h2>Public Jars (0)</h2>
+
+  <div class="cold">
+    <strong>No Public Jars tagged yet — be the first.</strong><br><br>
+    1. Keep your seeds in <code>seeds/&lt;stack&gt;.json</code> per <a href="SCHEMA.md">SCHEMA.md</a><br>
+    2. Run <code>npm run publish</code> to generate a privacy-gated <code>brain-jar-manifest.json</code><br>
+    3. Add the <code>brain-jar</code> topic to your GitHub repo<br><br>
+    The next scheduled registry build will list you here.
+  </div>
+
+  <h2>Flagship corpus — 118 stacks</h2>
+  <p class="dim">Seed counts from the flagship Jar this registry is built from. Stacks marked
+  <span class="badge" style="display:inline">wants a maintainer</span> are open callout slots —
+  claim one by opening an issue.</p>
+  <div class="stacks">
+<div class="stack" >
+      <span class="stack-name">ab-testing</span><span class="stack-count">8</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">android</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">angular</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">ansible</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">assembly</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">bash</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">bridge</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">c</span><span class="stack-count">13</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">celery</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">cognitive</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">control</span><span class="stack-count">22</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">cpp</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">csharp</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">css</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">data-visualization</span><span class="stack-count">11</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">db-schema</span><span class="stack-count">10</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">distributed-systems</span><span class="stack-count">12</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">django</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">django-celery</span><span class="stack-count">12</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">django-postgresql</span><span class="stack-count">15</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">docker</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">economics</span><span class="stack-count">18</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">elasticsearch</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">elixir</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">evolution</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">express</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">fastapi</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">flask</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">flutter</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">flutter-firebase</span><span class="stack-count">12</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">gamedev</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">gdextension</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">gdscript</span><span class="stack-count">30</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">git</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">github</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">glsl-godot</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">go</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">godot-csharp</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">graphql</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">grpc</span><span class="stack-count">15</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">haskell</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">htmx</span><span class="stack-count">15</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">incident-response</span><span class="stack-count">8</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">ios</span><span class="stack-count">8</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">java</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">jest</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">json</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">kafka</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">kotlin</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">kubernetes</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">laravel</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">legal</span><span class="stack-count">8</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">llm-integration</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">lodestone</span><span class="stack-count">28</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">lua</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">machine-learning</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">mathematics</span><span class="stack-count">111</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">mathematics_category</span><span class="stack-count">15</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">mongodb</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">music</span><span class="stack-count">21</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">mysql</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">negotiation</span><span class="stack-count">7</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">nextjs</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">nextjs-docker</span><span class="stack-count">12</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">nginx</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">numpy</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">oauth</span><span class="stack-count">10</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">observability</span><span class="stack-count">9</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">pandas</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">personal-finance</span><span class="stack-count">8</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">php</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">physics</span><span class="stack-count">24</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">playwright</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">postgresql</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">powerquery</span><span class="stack-count">9</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">prisma</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">prompt-engineering</span><span class="stack-count">10</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">pytest</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">python</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">python-docker</span><span class="stack-count">12</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">pytorch</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">rails</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">react</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">react-apollo</span><span class="stack-count">12</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">react-testing</span><span class="stack-count">15</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">reactnative</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">real-estate</span><span class="stack-count">19</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">redis</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">rust</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">rxjs</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">scala</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">seed-authoring</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">seq-model-internals</span><span class="stack-count">18</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">solidity</span><span class="stack-count">15</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">spring</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">spring-docker</span><span class="stack-count">11</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">sql</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">sqlite</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">statistics</span><span class="stack-count">12</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">svelte</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">swift</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">system-design</span><span class="stack-count">8</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">systems-thinking</span><span class="stack-count">10</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">technical-writing</span><span class="stack-count">9</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">terraform</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">threejs</span><span class="stack-count">21</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">typescript</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">unity</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">universal</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">unreal</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">vue</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">wasm</span><span class="stack-count">20</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">web-a11y</span><span class="stack-count">11</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">web-performance</span><span class="stack-count">9</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">web-privacy</span><span class="stack-count">8</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">web-security</span><span class="stack-count">16</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">web-seo-content</span><span class="stack-count">9</span>
+    </div>
+<div class="stack" >
+      <span class="stack-name">zig</span><span class="stack-count">20</span>
+    </div>
+  </div>
+
+  <footer>
+    Generated 2026-07-05 19:32 UTC by <code>scripts/build-registry.mjs</code> ·
+    <a href="registry.json">registry.json</a> ·
+    <a href="https://github.com/alexbkirby-glitch/lodestone">source</a> ·
+    rebuilt weekly by GitHub Actions
+  </footer>
+</main>
+</body>
+</html>

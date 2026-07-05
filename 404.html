@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page not found — Lodestone</title>
+  <link rel="icon" type="image/svg+xml" href="/lodestone/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:     #f5f4f0;
+      --text:   #1a1917;
+      --muted:  #5c5a54;
+      --dim:    #64615e;
+      --accent: #97651f;
+      --border: #dddbd5;
+      --mono:   'Share Tech Mono', monospace;
+      --serif:  'Instrument Serif', serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: var(--mono); min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 32px; text-align: center;
+    }
+    .logo {
+      font-family: var(--serif); font-size: 28px;
+      color: var(--accent); font-style: italic; margin-bottom: 32px;
+    }
+    .code {
+      font-size: 72px; font-family: var(--serif);
+      color: var(--accent); font-style: italic;
+      line-height: 1; margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 14px; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--dim);
+      margin-bottom: 20px;
+    }
+    p {
+      color: var(--muted); font-size: 13px;
+      max-width: 420px; line-height: 1.7; margin-bottom: 32px;
+    }
+    .search { margin-bottom: 32px; }
+    label { display: block; font-size: 11px; color: var(--dim); margin-bottom: 8px; letter-spacing: 0.06em; }
+    input {
+      background: #fff; border: 1px solid var(--border);
+      color: var(--text); font-family: var(--mono);
+      font-size: 13px; padding: 10px 16px;
+      width: 320px; max-width: 100%; outline: none;
+    }
+    input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-color: var(--accent); }
+    .links { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+    a {
+      color: var(--accent); text-decoration: none;
+      font-size: 12px; border: 1px solid var(--border);
+      padding: 8px 16px;
+    }
+    a:hover, a:focus { border-color: var(--accent); background: rgba(151,101,31,0.06); }
+    a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="logo">Lodestone</div>
+    <div class="code">404</div>
+    <h1>Page not found</h1>
+    <p>That page doesn't exist. If you followed a link that should work, please <a href="https://github.com/alexbkirby-glitch/lodestone/issues" style="border:none;padding:0">open an issue</a>.</p>
+    <div class="search">
+      <label for="search-404">Search the seed library</label>
+      <input id="search-404" type="search" placeholder="Paste an error message or symptom…"
+             onkeydown="if(event.key==='Enter')window.location='/lodestone/demo.html?q='+encodeURIComponent(this.value)">
+    </div>
+    <nav class="links" aria-label="Return to site">
+      <a href="/lodestone/">Home</a>
+      <a href="/lodestone/demo.html">Try it — paste an error</a>
+      <a href="/lodestone/registry.html">Registry</a>
+      <a href="https://github.com/alexbkirby-glitch/lodestone">GitHub</a>
+    </nav>
+  </main>
+</body>
+</html>

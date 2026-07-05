@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — Lodestone</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:     #f5f4f0;
+      --text:   #1a1917;
+      --muted:  #5c5a54;
+      --dim:    #64615e;
+      --accent: #97651f;
+      --border: #dddbd5;
+      --bg2:    #ffffff;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: 'Share Tech Mono', monospace;
+      max-width: 720px; margin: 0 auto;
+      padding: 40px 24px 80px; line-height: 1.75;
+    }
+    a { color: var(--accent); }
+    a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .back { font-size: 11px; color: var(--dim); text-decoration: none; letter-spacing: 0.08em; }
+    .back:hover { color: var(--accent); }
+    h1 {
+      font-family: 'Instrument Serif', serif; font-size: 32px;
+      font-style: italic; color: var(--accent);
+      margin: 24px 0 8px;
+    }
+    .meta { color: var(--dim); font-size: 12px; margin-bottom: 40px; letter-spacing: 0.04em; }
+    h2 {
+      font-size: 11px; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--dim);
+      margin: 32px 0 12px;
+      border-bottom: 1px solid var(--border); padding-bottom: 6px;
+    }
+    p { font-size: 13px; color: var(--muted); margin-bottom: 14px; }
+    ul { font-size: 13px; color: var(--muted); padding-left: 20px; margin-bottom: 14px; }
+    li { margin-bottom: 8px; }
+    .note {
+      background: var(--bg2); border-left: 2px solid var(--accent);
+      padding: 12px 16px; margin: 24px 0;
+      font-size: 12px; color: var(--dim);
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <a href="/" class="back">← Back to Lodestone</a>
+    <h1>Privacy Policy</h1>
+    <p class="meta">Last updated: June 2026 · Applies to alexbkirby-glitch.github.io/lodestone</p>
+
+    <div class="note">Lodestone is a client-side-only tool. It has no server, no database, and sets no cookies. All processing happens in your browser.</div>
+
+    <h2>Who we are</h2>
+    <p>Lodestone is an open-source project maintained by Alex Kirby and the community. Source code: <a href="https://github.com/alexbkirby-glitch/lodestone">github.com/alexbkirby-glitch/lodestone</a>. For privacy-related questions, please open an issue on GitHub.</p>
+
+    <h2>What data we collect</h2>
+    <p>Lodestone itself collects no personal data. We do not use analytics, do not set cookies, and do not log any user activity.</p>
+    <p>The following data is stored locally in your browser (localStorage) when you use certain features:</p>
+    <ul>
+      <li><strong>API keys</strong> — Anthropic, OpenAI, and GitHub tokens you enter are stored in your browser's localStorage. They do not leave your device except when used to make API calls to the respective provider.</li>
+      <li><strong>User preferences</strong> — UI settings and session state.</li>
+    </ul>
+    <p>You can clear all locally stored data at any time using your browser's Developer Tools (Application → Local Storage → Clear) or via the Settings panel in the app.</p>
+
+    <h2>Third-party services</h2>
+    <p>When you use Lodestone's AI-powered features, your intent text and API key are sent directly from your browser to the following providers:</p>
+    <ul>
+      <li><strong>Anthropic</strong> — when using Claude models. See <a href="https://www.anthropic.com/privacy">Anthropic's privacy policy</a>. API data is not used for training by default.</li>
+      <li><strong>OpenAI</strong> — when using OpenAI models. See <a href="https://openai.com/policies/privacy-policy">OpenAI's privacy policy</a>.</li>
+      <li><strong>GitHub</strong> — when using the Publisher or StoneHub features. Your GitHub Personal Access Token is used only to create files in repositories you specify. See <a href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement">GitHub's privacy statement</a>.</li>
+      <li><strong>Google Fonts</strong> — fonts are loaded from Google's servers. See <a href="https://policies.google.com/privacy">Google's privacy policy</a>.</li>
+    </ul>
+    <p>Lodestone does not sell, share, or broker any user data. We have no visibility into what data you send to third-party APIs.</p>
+
+    <h2>Hosting</h2>
+    <p>This site is hosted on GitHub Pages. GitHub may collect server logs including IP addresses as part of operating the hosting service. See <a href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement">GitHub's privacy statement</a>.</p>
+
+    <h2>Your rights</h2>
+    <p>You can delete all data Lodestone stores by clearing your browser's localStorage. For data held by third-party providers (Anthropic, OpenAI, GitHub, Google), refer to their respective privacy policies and data deletion procedures.</p>
+
+    <h2>Changes to this policy</h2>
+    <p>This policy may be updated. The "last updated" date at the top reflects the most recent revision. Significant changes will be noted in the project's <a href="https://github.com/alexbkirby-glitch/lodestone/blob/main/CHANGELOG.md">changelog</a>.</p>
+  </main>
+</body>
+</html>

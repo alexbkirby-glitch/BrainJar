@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brain Jar — paste your error</title>
+<meta name="description" content="Paste an error message and search 2,000+ WRONG→CORRECT→Symptom antipattern seeds — the same BM25-lite lookup the Brain Jar MCP server runs, in your browser.">
+<style>
+  :root {
+    --bg: #f5f4f0; --bg2: #ffffff; --bg3: #eceae5;
+    --border: #dddbd5; --border2: #c8c5be;
+    --text: #1a1917; --muted: #5c5a54; --dim: #64615e;
+    --accent: #97651f; --accent2: #7a4a10; --green: #2a6e46; --red: #8a2828;
+    --mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--mono); font-size: 14px; line-height: 1.55; }
+  main { max-width: 860px; margin: 0 auto; padding: 32px 20px 80px; }
+  h1 { font-size: 20px; letter-spacing: 0.04em; }
+  .dim { color: var(--dim); font-weight: normal; }
+  h2 { font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-top: 40px; }
+  a { color: var(--accent2); }
+  textarea {
+    width: 100%; min-height: 96px; resize: vertical;
+    background: var(--bg2); color: var(--text); border: 1px solid var(--border2);
+    font-family: var(--mono); font-size: 14px; padding: 12px; line-height: 1.5;
+  }
+  textarea:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+  .status { color: var(--dim); font-size: 12px; min-height: 18px; margin: 6px 0 0; }
+  .examples { margin: 10px 0 0; display: flex; flex-wrap: wrap; gap: 6px; }
+  .examples button {
+    background: var(--bg3); border: 1px solid var(--border); color: var(--muted);
+    font-family: var(--mono); font-size: 12px; padding: 3px 9px; cursor: pointer;
+  }
+  .examples button:hover { border-color: var(--accent); color: var(--text); }
+  .card { background: var(--bg2); border: 1px solid var(--border); margin-top: 14px; padding: 14px 16px; }
+  .card h3 { margin: 0 0 4px; font-size: 14px; }
+  .meta { font-size: 11px; color: var(--dim); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 10px; }
+  .meta .blast-high, .meta .blast-critical { color: var(--red); }
+  .meta .blast-medium { color: var(--accent2); }
+  .meta .blast-low { color: var(--green); }
+  .row { margin: 6px 0; }
+  .lbl { display: inline-block; width: 84px; font-size: 11px; letter-spacing: 0.1em; vertical-align: top; }
+  .lbl.wrong { color: var(--red); } .lbl.correct { color: var(--green); } .lbl.sym { color: var(--muted); }
+  .txt { display: inline-block; width: calc(100% - 92px); }
+  .score { float: right; color: var(--dim); font-size: 11px; }
+  .empty { background: var(--bg2); border: 1px dashed var(--border2); padding: 16px 18px; margin-top: 14px; color: var(--muted); }
+  .cta { background: var(--bg3); border: 1px solid var(--border); padding: 14px 18px; margin-top: 44px; }
+  .cta code { background: var(--bg2); border: 1px solid var(--border); padding: 1px 6px; }
+  footer { margin-top: 56px; color: var(--dim); font-size: 12px; border-top: 1px solid var(--border); padding-top: 14px; }
+  nav.top { margin-bottom: 18px; font-size: 12px; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="top"><a href="index.html">← home</a> · <a href="registry.html">registry</a></nav>
+  <h1>Paste your error <span class="dim">— search the seed corpus</span></h1>
+  <p>The same BM25-lite lookup the <a href="https://github.com/alexbkirby-glitch/lodestone">Brain Jar MCP server</a>
+  runs as <code>lookup_symptom</code>, ported to your browser. Nothing you paste leaves this page —
+  the index downloads once, scoring happens locally.</p>
+
+  <textarea id="q" placeholder="Paste an error message, stack trace line, or describe the symptom…" autocomplete="off" spellcheck="false"></textarea>
+  <div class="status" id="status">Index loads on first focus (~0.5 MB).</div>
+  <div class="examples" id="examples">
+    <button>useEffect shows stale state value</button>
+    <button>panic: assignment to entry in nil map</button>
+    <button>TypeError: unhashable type: 'list'</button>
+    <button>hydration mismatch server client</button>
+    <button>CORS preflight blocked by policy</button>
+  </div>
+
+  <div id="results"></div>
+
+  <div class="cta">
+    <strong>Want this inside your AI coding sessions?</strong><br><br>
+    <code>npx brain-jar-mcp</code> — nine MCP tools: this lookup plus capture, validate,
+    publish, discover, and graze. Serves whatever Jar you point it at
+    (<code>--jar=/path</code> or run it from your Jar's directory).
+    Schema and contracts: <a href="SCHEMA.md">SCHEMA.md</a>.
+  </div>
+
+  <footer>
+    Index built from the flagship corpus (privacy-gated) by <code>scripts/build-demo-index.mjs</code> ·
+    scoring: token idf + tag overlap, identical math to the server's <code>lookup_symptom</code>
+  </footer>
+</main>
+<script>
+(function () {
+  'use strict';
+  // ── Ports of mcp-server/tools.mjs — keep the math IDENTICAL ──────────────
+  var STOPWORDS = new Set(['the','and','for','not','with','this','that','from','are','was','but',
+    'all','can','its','has','have','when','been','does','did','will','would',
+    'could','should','than','then','into','over','after','out','due','per',
+    'via','any','each','even','also','may','use','used','set','just','let']);
+
+  function tokenize(str) {
+    return String(str == null ? '' : str).toLowerCase().replace(/[^a-z0-9\s]/g, ' ').split(/\s+/)
+      .filter(function (t) { return t.length > 2 && !STOPWORDS.has(t); });
+  }
+
+  var index = null;   // { docs:[{e, tokens:Set, tags:Set}], df:{}, n }
+  var loading = null;
+
+  function buildIndex(data) {
+    var docs = data.seeds.map(function (e) {
+      return {
+        e: e,
+        tokens: new Set(tokenize(e.w + ' ' + e.c + ' ' + e.s + ' ' + e.t)),
+        tags: new Set((e.g || []).map(function (t) { return String(t).toLowerCase(); })),
+      };
+    });
+    var df = Object.create(null);
+    docs.forEach(function (d) { d.tokens.forEach(function (t) { df[t] = (df[t] || 0) + 1; }); });
+    return { docs: docs, df: df, n: docs.length };
+  }
+
+  function lookup(errorText, limit) {
+    var qTokens = Array.from(new Set(tokenize(errorText)));
+    if (!qTokens.length) return [];
+    var n = index.n, df = index.df;
+    function idf(t) { return Math.log(1 + n / (1 + (df[t] || 0))); }
+    var qMass = qTokens.reduce(function (s, t) { return s + idf(t); }, 0) || 1;
+    var scored = [];
+    index.docs.forEach(function (d) {
+      var s = 0, tagHits = 0;
+      qTokens.forEach(function (t) {
+        if (d.tokens.has(t)) s += idf(t);
+        if (d.tags.has(t)) tagHits += 1;
+      });
+      var score = s / qMass + 0.5 * Math.min(tagHits, 4) / 4;
+      if (score > 0.05) scored.push({ score: score, e: d.e });
+    });
+    scored.sort(function (a, b) { return b.score - a.score; });
+    return scored.slice(0, limit || 5);
+  }
+
+  // ── UI ────────────────────────────────────────────────────────────────────
+  var q = document.getElementById('q');
+  var status = document.getElementById('status');
+  var results = document.getElementById('results');
+
+  var prefill = new URLSearchParams(location.search).get('q');
+  if (prefill) { q.value = prefill; }
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  function ensureIndex() {
+    if (index || loading) return loading;
+    status.textContent = 'Loading index…';
+    loading = fetch('api/demo-index.json')
+      .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(function (data) {
+        index = buildIndex(data);
+        status.textContent = index.n + ' seeds indexed — type to search.';
+        if (q.value.trim()) render();
+      })
+      .catch(function (e) {
+        status.textContent = 'Index failed to load (' + e.message + '). Refresh to retry.';
+        loading = null;
+      });
+    return loading;
+  }
+
+  function render() {
+    if (!index) return;
+    var text = q.value.trim();
+    if (text.length < 4) { results.innerHTML = ''; status.textContent = index.n + ' seeds indexed — type to search.'; return; }
+    var hits = lookup(text, 5);
+    status.textContent = hits.length ? hits.length + ' match(es)' : '';
+    if (!hits.length) {
+      results.innerHTML = '<div class="empty">No seed matches this symptom yet. That gap is exactly what ' +
+        '<code>capture_seed</code> is for — fix it once, seed it, never re-debug it.</div>';
+      return;
+    }
+    results.innerHTML = hits.map(function (h) {
+      var e = h.e;
+      return '<div class="card">' +
+        '<span class="score">' + h.score.toFixed(3) + '</span>' +
+        '<h3>' + esc(e.t) + '</h3>' +
+        '<div class="meta">' + esc(e.k) + ' · <span class="blast-' + esc(e.b) + '">' + esc(e.b) + ' blast radius</span> · ' + esc(e.id) + '</div>' +
+        '<div class="row"><span class="lbl wrong">WRONG</span><span class="txt">' + esc(e.w) + '</span></div>' +
+        '<div class="row"><span class="lbl correct">CORRECT</span><span class="txt">' + esc(e.c) + '</span></div>' +
+        '<div class="row"><span class="lbl sym">SYMPTOM</span><span class="txt">' + esc(e.s) + '</span></div>' +
+        '</div>';
+    }).join('');
+  }
+
+  var t = null;
+  q.addEventListener('focus', ensureIndex);
+  q.addEventListener('input', function () {
+    ensureIndex();
+    clearTimeout(t);
+    t = setTimeout(render, 120);
+  });
+  document.getElementById('examples').addEventListener('click', function (ev) {
+    if (ev.target.tagName !== 'BUTTON') return;
+    q.value = ev.target.textContent;
+    q.focus();
+    ensureIndex();
+    if (index) render();
+  });
+  if (prefill) { ensureIndex(); }
+})();
+</script>
+</body>
+</html>

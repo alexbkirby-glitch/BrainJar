@@ -1,0 +1,230 @@
+{
+  "_note": "Built-in Stone profiles. Each profile activates a set of facets and domains, scoping seed injection to the user's context. active_facets:[] and active_domains:[] means no filter (generalist mode).",
+  "generalist": {
+    "label": "Generalist",
+    "description": "All seeds active \u2014 no context filtering. Current default.",
+    "active_facets": [],
+    "active_domains": []
+  },
+  "software-engineer": {
+    "label": "Software Engineer",
+    "description": "All coding seeds across any domain.",
+    "active_facets": [
+      "coding",
+      "universal"
+    ],
+    "active_domains": []
+  },
+  "web-developer": {
+    "label": "Web Developer",
+    "description": "Frontend and full-stack web development.",
+    "active_facets": [
+      "coding",
+      "universal"
+    ],
+    "active_domains": [
+      "bridge",
+      "web",
+      "language",
+      "security",
+      "tooling",
+      "api"
+    ]
+  },
+  "backend-developer": {
+    "label": "Backend Developer",
+    "description": "Server-side, APIs, and infrastructure.",
+    "active_facets": [
+      "coding",
+      "universal"
+    ],
+    "active_domains": [
+      "bridge",
+      "backend",
+      "database",
+      "api",
+      "devops",
+      "language",
+      "tooling"
+    ]
+  },
+  "systems-programmer": {
+    "label": "Systems Programmer",
+    "description": "Low-level, embedded, and systems programming.",
+    "active_facets": [
+      "coding",
+      "universal"
+    ],
+    "active_domains": [
+      "bridge",
+      "systems",
+      "language",
+      "tooling"
+    ]
+  },
+  "game-developer": {
+    "label": "Game Developer",
+    "description": "Game development with mathematical foundations.",
+    "active_facets": [
+      "coding",
+      "mathematics",
+      "universal"
+    ],
+    "active_domains": [
+      "bridge",
+      "game",
+      "systems",
+      "language",
+      "applied",
+      "dynamical",
+      "evolution"
+    ]
+  },
+  "data-scientist": {
+    "label": "Data Scientist",
+    "description": "Data science, ML, and statistical analysis.",
+    "active_facets": [
+      "coding",
+      "mathematics",
+      "universal"
+    ],
+    "active_domains": [
+      "bridge",
+      "data",
+      "ai",
+      "language",
+      "database",
+      "applied",
+      "statistics",
+      "evolution",
+      "cognitive"
+    ]
+  },
+  "ml-engineer": {
+    "label": "ML Engineer",
+    "description": "Machine learning engineering and deployment.",
+    "active_facets": [
+      "coding",
+      "mathematics",
+      "universal"
+    ],
+    "active_domains": [
+      "bridge",
+      "ai",
+      "data",
+      "backend",
+      "devops",
+      "language",
+      "applied",
+      "numerical",
+      "evolution",
+      "cognitive",
+      "control"
+    ]
+  },
+  "devops-engineer": {
+    "label": "DevOps Engineer",
+    "description": "Infrastructure, deployment, and platform engineering.",
+    "active_facets": [
+      "coding",
+      "universal"
+    ],
+    "active_domains": [
+      "bridge",
+      "devops",
+      "systems",
+      "tooling",
+      "database",
+      "control"
+    ]
+  },
+  "mobile-developer": {
+    "label": "Mobile Developer",
+    "description": "iOS, Android, and cross-platform mobile.",
+    "active_facets": [
+      "coding",
+      "universal"
+    ],
+    "active_domains": [
+      "bridge",
+      "mobile",
+      "language",
+      "tooling"
+    ]
+  },
+  "full-stack": {
+    "label": "Full-Stack Developer",
+    "description": "Web, backend, database, and deployment.",
+    "active_facets": [
+      "coding",
+      "universal"
+    ],
+    "active_domains": [
+      "bridge",
+      "web",
+      "backend",
+      "database",
+      "language",
+      "tooling",
+      "api",
+      "security"
+    ]
+  },
+  "mathematician": {
+    "label": "Mathematician",
+    "description": "Mathematical reasoning across all sub-domains.",
+    "active_facets": [
+      "mathematics",
+      "universal"
+    ],
+    "active_domains": []
+  },
+  "scientist": {
+    "label": "Scientist",
+    "description": "Scientific computing and physics.",
+    "active_facets": [
+      "science",
+      "mathematics",
+      "universal"
+    ],
+    "active_domains": []
+  },
+  "seed-author": {
+    "label": "Seed Author",
+    "description": "Writing and curating Lodestone seeds.",
+    "active_facets": [
+      "meta",
+      "universal"
+    ],
+    "active_domains": []
+  },
+  "musician": {
+    "label": "Musician / Audio Engineer",
+    "description": "Music software, algorithmic composition, audio DSP, MIDI processing.",
+    "active_facets": [
+      "arts",
+      "coding",
+      "universal"
+    ],
+    "active_domains": [
+      "music",
+      "language",
+      "tooling"
+    ]
+  },
+  "designer": {
+    "label": "Designer / UX Engineer",
+    "description": "Interface design, user research, product decisions, cognitive design.",
+    "active_facets": [
+      "science",
+      "coding",
+      "universal"
+    ],
+    "active_domains": [
+      "cognitive",
+      "web",
+      "language",
+      "tooling"
+    ]
+  }
+}

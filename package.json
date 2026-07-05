@@ -1,0 +1,95 @@
+{
+  "name": "brain-jar",
+  "version": "2.0.0",
+  "description": "A decentralized antipattern seed library that feeds second brains. Canonical WRONG\u2192CORRECT\u2192Symptom seed schema, privacy-gated publishing, GitHub-topic discovery, offline grazing with human review, and a nine-tool MCP server.",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-index.mjs",
+    "detect-relationships": "node scripts/detect-relationships.mjs",
+    "detect-relationships:write": "node scripts/detect-relationships.mjs --write",
+    "compute-clusters": "node research/compute-clusters.mjs",
+    "compute-clusters:write": "node research/compute-clusters.mjs --write",
+    "build-stats": "node scripts/build-stats.mjs",
+    "borromean": "node research/detect-borromean.mjs",
+    "borromean:write": "node research/detect-borromean.mjs --write",
+    "cascade": "node research/compute-clusters.mjs",
+    "cascade:write": "node research/compute-clusters.mjs --write",
+    "promote": "node scripts/manage-personal.mjs promote",
+    "loops:homology": "node research/detect-homology.mjs",
+    "loops:stability": "node research/measure-injection-stability.mjs",
+    "loops:nash": "node research/compute-nash-equilibrium.mjs",
+    "loops:all": "node scripts/build-stats.mjs && node research/detect-homology.mjs && node research/measure-injection-stability.mjs && node research/compute-nash-equilibrium.mjs",
+    "build-stats:full": "node scripts/build-stats.mjs --full",
+    "verify": "node scripts/verify-complete.mjs",
+    "verify:strict": "node scripts/verify-complete.mjs --strict",
+    "build:embeddings": "node scripts/build-embeddings.mjs",
+    "build:embeddings:force": "node scripts/build-embeddings.mjs --force",
+    "build:synonyms": "node scripts/build-synonym-map.mjs",
+    "metrics": "node research/compute-rag-metrics.mjs",
+    "metrics:baseline": "node research/compute-rag-metrics.mjs --baseline",
+    "metrics:compare": "node research/compute-rag-metrics.mjs --compare",
+    "fine-tune": "python3 research/fine-tune-embeddings.py",
+    "build:negative-cache": "node scripts/build-negative-cache.mjs",
+    "build:raptor": "node scripts/build-raptor-index.mjs",
+    "build:raptor:embed": "node scripts/build-raptor-index.mjs --embed",
+    "build:raptor:llm": "node scripts/build-raptor-index.mjs --embed --llm",
+    "build:communities": "node scripts/build-graph-communities.mjs",
+    "build:communities:llm": "node scripts/build-graph-communities.mjs --llm",
+    "build:splade": "node scripts/build-splade-index.mjs",
+    "check:versions": "node scripts/check-framework-versions.mjs",
+    "check:versions:update": "node scripts/check-framework-versions.mjs --update",
+    "flag:stale": "node scripts/flag-stale-seeds.mjs",
+    "migrate:schema": "node scripts/migrate-seed-schema.mjs",
+    "migrate:schema:llm": "node scripts/migrate-seed-schema.mjs --llm",
+    "export:claude-projects": "node scripts/export-to-claude-projects.mjs",
+    "export:gbrain": "node scripts/export-to-gbrain.mjs",
+    "graze": "node scripts/graze.mjs",
+    "graze:review": "node scripts/review-graze.mjs",
+    "publish:check": "node scripts/generate-manifest.mjs --check",
+    "publish": "node scripts/generate-manifest.mjs",
+    "registry": "node scripts/build-registry.mjs",
+    "demo:index": "node scripts/build-demo-index.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "zod": "^3.22.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "bin": {
+    "brain-jar-mcp": "mcp-server/index.mjs"
+  },
+  "files": [
+    "lib/",
+    "mcp-server/index.mjs",
+    "mcp-server/tools.mjs",
+    "mcp-server/privacy-lint.mjs",
+    "mcp-server/README.md",
+    "scripts/graze.mjs",
+    "scripts/review-graze.mjs",
+    "scripts/generate-manifest.mjs",
+    "SCHEMA.md",
+    "MANIFEST.md",
+    "MAINTENANCE.md"
+  ],
+  "devDependencies": {
+    "@xenova/transformers": "^2.17.2"
+  },
+  "keywords": [
+    "mcp",
+    "claude",
+    "llm",
+    "coding-assistant",
+    "brain-jar",
+    "antipatterns",
+    "seeds",
+    "knowledge-library"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alexbkirby-glitch/lodestone"
+  },
+  "homepage": "https://alexbkirby-glitch.github.io/lodestone"
+}
