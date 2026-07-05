@@ -1,0 +1,1124 @@
+{
+  "kelly_allocation": [
+    {
+      "id": "kelly_criterion_resource_allocation",
+      "stack": "bridge",
+      "facet": "coding",
+      "domain": "bridge"
+    },
+    {
+      "id": "loss_aversion_feature_removal_disproportionate_resistance",
+      "stack": "cognitive",
+      "facet": "science",
+      "domain": "cognitive"
+    },
+    {
+      "id": "hamiltons_rule_cooperation_relatedness_threshold",
+      "stack": "evolution",
+      "facet": "science",
+      "domain": "evolution"
+    },
+    {
+      "id": "exploration_exploitation_population_diversity",
+      "stack": "evolution",
+      "facet": "science",
+      "domain": "evolution"
+    },
+    {
+      "id": "kelly_criterion_full_vs_fractional",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "financial"
+    },
+    {
+      "id": "black_scholes_volatility_smile_violation",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "financial"
+    },
+    {
+      "id": "put_call_parity_model_free",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "financial"
+    },
+    {
+      "id": "optional_stopping_theorem_fair_games",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "financial"
+    }
+  ],
+  "phase_transition": [
+    {
+      "id": "phase_transition_sudden_system_collapse",
+      "stack": "bridge",
+      "facet": "coding",
+      "domain": "bridge"
+    },
+    {
+      "id": "dunbar_number_communication_overhead_phase_transition",
+      "stack": "cognitive",
+      "facet": "science",
+      "domain": "cognitive"
+    },
+    {
+      "id": "pid_integral_windup_saturation_overshoot",
+      "stack": "control",
+      "facet": "science",
+      "domain": "control"
+    },
+    {
+      "id": "punctuated_equilibrium_stasis_then_rapid_change",
+      "stack": "evolution",
+      "facet": "science",
+      "domain": "evolution"
+    },
+    {
+      "id": "adaptive_radiation_burst_after_niche_opening",
+      "stack": "evolution",
+      "facet": "science",
+      "domain": "evolution"
+    },
+    {
+      "id": "niche_construction_system_changes_its_own_selection_pressure",
+      "stack": "evolution",
+      "facet": "science",
+      "domain": "evolution"
+    },
+    {
+      "id": "evolvability_capacitor_hidden_variation_stress_release",
+      "stack": "evolution",
+      "facet": "science",
+      "domain": "evolution"
+    },
+    {
+      "id": "latent_heat_phase_transition_energy_flow",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "applied"
+    },
+    {
+      "id": "hysteresis_threshold_direction_dependence",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "applied"
+    },
+    {
+      "id": "supercooling_metastable_phase_nucleation",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "applied"
+    },
+    {
+      "id": "two_phase_coexistence_not_uncertainty",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "applied"
+    },
+    {
+      "id": "boltzmann_partition_function_normalization",
+      "stack": "physics",
+      "facet": "science",
+      "domain": "physics"
+    },
+    {
+      "id": "equipartition_theorem_quantum_freezeout",
+      "stack": "physics",
+      "facet": "science",
+      "domain": "physics"
+    }
+  ],
+  "cascade": [
+    {
+      "id": "cascade_failure_criticality_propagation",
+      "stack": "bridge",
+      "facet": "coding",
+      "domain": "bridge"
+    }
+  ],
+  "fixed_point": [
+    {
+      "id": "fixed_point_iteration_convergence_failure",
+      "stack": "bridge",
+      "facet": "coding",
+      "domain": "bridge"
+    },
+    {
+      "id": "ess_protocol_standard_lock_in",
+      "stack": "bridge",
+      "facet": "coding",
+      "domain": "bridge"
+    },
+    {
+      "id": "pid_proportional_only_steady_state_error",
+      "stack": "control",
+      "facet": "science",
+      "domain": "control"
+    },
+    {
+      "id": "ziegler_nichols_step_response_systematic_tuning",
+      "stack": "control",
+      "facet": "science",
+      "domain": "control"
+    },
+    {
+      "id": "transfer_function_poles_stability_time_response",
+      "stack": "control",
+      "facet": "science",
+      "domain": "control"
+    },
+    {
+      "id": "cascade_control_inner_outer_loop_timescale",
+      "stack": "control",
+      "facet": "science",
+      "domain": "control"
+    },
+    {
+      "id": "observer_separation_principle_control_estimation",
+      "stack": "control",
+      "facet": "science",
+      "domain": "control"
+    },
+    {
+      "id": "ess_stability_not_optimality",
+      "stack": "evolution",
+      "facet": "science",
+      "domain": "evolution"
+    },
+    {
+      "id": "gradient_descent_lipschitz_step_size",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "numerical"
+    },
+    {
+      "id": "newton_iteration_cycle_detection",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "applied"
+    },
+    {
+      "id": "nova_fixed_point_detection_c_nonzero",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "dynamical"
+    },
+    {
+      "id": "nova_over_relaxation_basin_escape",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "dynamical"
+    },
+    {
+      "id": "halley_denominator_catastrophic_cancellation",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "dynamical"
+    },
+    {
+      "id": "nova_relaxation_optimal_tuning",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "dynamical"
+    },
+    {
+      "id": "steffensen_method_derivative_free_newton",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "dynamical"
+    },
+    {
+      "id": "aberth_ehrlich_vs_durand_kerner",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "dynamical"
+    },
+    {
+      "id": "multiple_roots_degrade_convergence",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "dynamical"
+    },
+    {
+      "id": "convex_optimization_global_minimum_guarantee",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "numerical"
+    },
+    {
+      "id": "newtons_method_quadratic_convergence_only_near_root",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "numerical"
+    },
+    {
+      "id": "adjoint_functors_unit_counit",
+      "stack": "mathematics_category",
+      "facet": "mathematics",
+      "domain": "category"
+    },
+    {
+      "id": "monad_monoid_in_endofunctors",
+      "stack": "mathematics_category",
+      "facet": "mathematics",
+      "domain": "category"
+    },
+    {
+      "id": "cartesian_closed_currying_exponential",
+      "stack": "mathematics_category",
+      "facet": "mathematics",
+      "domain": "category"
+    },
+    {
+      "id": "free_forgetful_adjunction",
+      "stack": "mathematics_category",
+      "facet": "mathematics",
+      "domain": "category"
+    },
+    {
+      "id": "modes_have_own_tonal_center_not_rotations",
+      "stack": "music",
+      "facet": "arts",
+      "domain": "music"
+    },
+    {
+      "id": "secondary_dominant_tonicization",
+      "stack": "music",
+      "facet": "arts",
+      "domain": "music"
+    },
+    {
+      "id": "voice_leading_tendency_tones",
+      "stack": "music",
+      "facet": "arts",
+      "domain": "music"
+    },
+    {
+      "id": "perfect_authentic_cadence_strict_requirements",
+      "stack": "music",
+      "facet": "arts",
+      "domain": "music"
+    }
+  ],
+  "boundary_sensitivity": [
+    {
+      "id": "boundary_sensitivity_structural_instability",
+      "stack": "bridge",
+      "facet": "coding",
+      "domain": "bridge"
+    },
+    {
+      "id": "fitness_landscape_ml_flat_vs_sharp_minima",
+      "stack": "bridge",
+      "facet": "coding",
+      "domain": "bridge"
+    },
+    {
+      "id": "epistasis_feature_interaction_cannot_test_in_isolation",
+      "stack": "bridge",
+      "facet": "coding",
+      "domain": "bridge"
+    },
+    {
+      "id": "change_blindness_users_miss_obvious_interface_changes",
+      "stack": "cognitive",
+      "facet": "science",
+      "domain": "cognitive"
+    },
+    {
+      "id": "exponential_moving_average_lowpass_phase_lag",
+      "stack": "control",
+      "facet": "science",
+      "domain": "control"
+    },
+    {
+      "id": "bode_plot_gain_crossover_phase_margin",
+      "stack": "control",
+      "facet": "science",
+      "domain": "control"
+    },
+    {
+      "id": "dead_time_loop_delay_phase_margin_erosion",
+      "stack": "control",
+      "facet": "science",
+      "domain": "control"
+    },
+    {
+      "id": "gain_phase_margin_stability_is_quantitative",
+      "stack": "control",
+      "facet": "science",
+      "domain": "control"
+    },
+    {
+      "id": "z_transform_discrete_stability_unit_circle",
+      "stack": "control",
+      "facet": "science",
+      "domain": "control"
+    },
+    {
+      "id": "quasispecies_flat_optima_generalize_better",
+      "stack": "evolution",
+      "facet": "science",
+      "domain": "evolution"
+    },
+    {
+      "id": "dobzhansky_muller_integration_incompatibility",
+      "stack": "evolution",
+      "facet": "science",
+      "domain": "evolution"
+    },
+    {
+      "id": "error_catastrophe_mutation_rate_threshold",
+      "stack": "evolution",
+      "facet": "science",
+      "domain": "evolution"
+    },
+    {
+      "id": "frequency_dependent_selection_minority_advantage",
+      "stack": "evolution",
+      "facet": "science",
+      "domain": "evolution"
+    },
+    {
+      "id": "remote_seed_stack_field_path_traversal",
+      "stack": "lodestone",
+      "facet": "meta",
+      "domain": "lodestone"
+    },
+    {
+      "id": "github_api_listing_filename_traversal",
+      "stack": "lodestone",
+      "facet": "meta",
+      "domain": "lodestone"
+    },
+    {
+      "id": "lyapunov_exponent_chaos_interpretation",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "dynamical"
+    },
+    {
+      "id": "edge_of_chaos_criticality",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "dynamical"
+    },
+    {
+      "id": "holomorphic_fatou_julia_stability_dichotomy",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "dynamical"
+    },
+    {
+      "id": "log_sum_exp_numerical_stability",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "numerical"
+    },
+    {
+      "id": "log_determinant_not_raw_determinant",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "numerical"
+    },
+    {
+      "id": "laplace_transform_vs_fourier_causality_domain",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "numerical"
+    },
+    {
+      "id": "softmax_subtract_max_before_exp",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "numerical"
+    },
+    {
+      "id": "graph_laplacian_spectrum_connectivity",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "numerical"
+    },
+    {
+      "id": "contravariant_functor_op_category",
+      "stack": "mathematics_category",
+      "facet": "mathematics",
+      "domain": "category"
+    },
+    {
+      "id": "pullback_not_same_as_product",
+      "stack": "mathematics_category",
+      "facet": "mathematics",
+      "domain": "category"
+    },
+    {
+      "id": "enharmonic_equivalence_not_functional_equivalence",
+      "stack": "music",
+      "facet": "arts",
+      "domain": "music"
+    },
+    {
+      "id": "interval_quality_vs_semitone_count",
+      "stack": "music",
+      "facet": "arts",
+      "domain": "music"
+    },
+    {
+      "id": "concert_pitch_vs_written_pitch_transposing_instruments",
+      "stack": "music",
+      "facet": "arts",
+      "domain": "music"
+    },
+    {
+      "id": "relative_vs_parallel_key_relationships",
+      "stack": "music",
+      "facet": "arts",
+      "domain": "music"
+    },
+    {
+      "id": "chord_inversion_vs_voicing",
+      "stack": "music",
+      "facet": "arts",
+      "domain": "music"
+    },
+    {
+      "id": "major_seventh_vs_dominant_seventh",
+      "stack": "music",
+      "facet": "arts",
+      "domain": "music"
+    },
+    {
+      "id": "syncopation_vs_hemiola",
+      "stack": "music",
+      "facet": "arts",
+      "domain": "music"
+    },
+    {
+      "id": "swing_ratio_not_exact_triplet",
+      "stack": "music",
+      "facet": "arts",
+      "domain": "music"
+    },
+    {
+      "id": "equal_temperament_only_octaves_are_pure",
+      "stack": "music",
+      "facet": "arts",
+      "domain": "music"
+    },
+    {
+      "id": "path_join_user_input_traversal",
+      "stack": "universal",
+      "facet": "universal",
+      "domain": "universal"
+    },
+    {
+      "id": "fetch_ssrf_no_url_validation",
+      "stack": "web-security",
+      "facet": "coding",
+      "domain": "security"
+    }
+  ],
+  "stochastic_ordering": [
+    {
+      "id": "stochastic_ordering_convention_dependency",
+      "stack": "bridge",
+      "facet": "coding",
+      "domain": "bridge"
+    },
+    {
+      "id": "ito_vs_stratonovich_stochastic_integral",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "financial"
+    },
+    {
+      "id": "gbm_log_return_ito_correction",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "financial"
+    },
+    {
+      "id": "melodic_minor_ascending_descending_differ",
+      "stack": "music",
+      "facet": "arts",
+      "domain": "music"
+    }
+  ],
+  "dimensionality": [
+    {
+      "id": "dimensionality_feature_explosion",
+      "stack": "bridge",
+      "facet": "coding",
+      "domain": "bridge"
+    },
+    {
+      "id": "svd_rank_from_singular_values",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "numerical"
+    },
+    {
+      "id": "bias_variance_decomposition",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "statistics"
+    },
+    {
+      "id": "curse_of_dimensionality_distance",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "applied"
+    }
+  ],
+  "dissipative_stability": [
+    {
+      "id": "dissipative_feedback_stability_requirement",
+      "stack": "bridge",
+      "facet": "coding",
+      "domain": "bridge"
+    },
+    {
+      "id": "red_queen_security_no_permanent_advantage",
+      "stack": "bridge",
+      "facet": "coding",
+      "domain": "bridge"
+    },
+    {
+      "id": "pid_controller_three_terms_software_systems",
+      "stack": "control",
+      "facet": "science",
+      "domain": "control"
+    },
+    {
+      "id": "limit_cycle_nonlinear_distinct_from_transient",
+      "stack": "control",
+      "facet": "science",
+      "domain": "control"
+    },
+    {
+      "id": "negative_feedback_sign_error_positive_runaway",
+      "stack": "control",
+      "facet": "science",
+      "domain": "control"
+    },
+    {
+      "id": "resonance_periodic_load_natural_frequency_avoid",
+      "stack": "control",
+      "facet": "science",
+      "domain": "control"
+    },
+    {
+      "id": "red_queen_arms_race_relative_fitness",
+      "stack": "evolution",
+      "facet": "science",
+      "domain": "evolution"
+    },
+    {
+      "id": "runaway_selection_positive_feedback_amplification",
+      "stack": "evolution",
+      "facet": "science",
+      "domain": "evolution"
+    },
+    {
+      "id": "parallel_fifths_octaves_avoided",
+      "stack": "music",
+      "facet": "arts",
+      "domain": "music"
+    },
+    {
+      "id": "noether_theorem_continuous_symmetry_conservation",
+      "stack": "physics",
+      "facet": "science",
+      "domain": "physics"
+    },
+    {
+      "id": "liouville_theorem_phase_volume_preservation",
+      "stack": "physics",
+      "facet": "science",
+      "domain": "physics"
+    }
+  ],
+  "ergodicity": [
+    {
+      "id": "ergodicity_failure_testing_production_mismatch",
+      "stack": "bridge",
+      "facet": "coding",
+      "domain": "bridge"
+    },
+    {
+      "id": "confirmation_bias_testing_confirming_cases",
+      "stack": "cognitive",
+      "facet": "science",
+      "domain": "cognitive"
+    },
+    {
+      "id": "sunk_cost_fallacy_past_investment_not_future_signal",
+      "stack": "cognitive",
+      "facet": "science",
+      "domain": "cognitive"
+    },
+    {
+      "id": "hyperbolic_discounting_technical_debt_always_later",
+      "stack": "cognitive",
+      "facet": "science",
+      "domain": "cognitive"
+    },
+    {
+      "id": "hindsight_bias_postmortem_outcome_known_distorts",
+      "stack": "cognitive",
+      "facet": "science",
+      "domain": "cognitive"
+    },
+    {
+      "id": "desirability_bias_results_confirm_what_we_want",
+      "stack": "cognitive",
+      "facet": "science",
+      "domain": "cognitive"
+    },
+    {
+      "id": "ergodicity_time_vs_ensemble_average",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "financial"
+    },
+    {
+      "id": "markov_chain_mixing_thinning_ineffective",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "statistics"
+    },
+    {
+      "id": "inspection_paradox_length_biased_sampling",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "statistics"
+    }
+  ],
+  "saddle_point": [
+    {
+      "id": "saddle_point_optimizer_false_convergence",
+      "stack": "bridge",
+      "facet": "coding",
+      "domain": "bridge"
+    },
+    {
+      "id": "fitness_landscape_local_optima_trap",
+      "stack": "evolution",
+      "facet": "science",
+      "domain": "evolution"
+    },
+    {
+      "id": "group_selection_individual_collective_tension",
+      "stack": "evolution",
+      "facet": "science",
+      "domain": "evolution"
+    },
+    {
+      "id": "lagrange_multiplier_constraint_qualification",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "numerical"
+    },
+    {
+      "id": "saddle_points_dominate_high_dimensional_loss",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "numerical"
+    },
+    {
+      "id": "stationary_action_principle",
+      "stack": "physics",
+      "facet": "science",
+      "domain": "physics"
+    }
+  ],
+  "mean_reversion": [
+    {
+      "id": "mean_reversion_intervention_illusion",
+      "stack": "bridge",
+      "facet": "coding",
+      "domain": "bridge"
+    },
+    {
+      "id": "neutral_drift_small_ab_test_results",
+      "stack": "bridge",
+      "facet": "coding",
+      "domain": "bridge"
+    },
+    {
+      "id": "anchoring_first_estimate_distorts_all_subsequent",
+      "stack": "cognitive",
+      "facet": "science",
+      "domain": "cognitive"
+    },
+    {
+      "id": "planning_fallacy_systematic_underestimation",
+      "stack": "cognitive",
+      "facet": "science",
+      "domain": "cognitive"
+    },
+    {
+      "id": "social_proof_herding_metrics_become_targets",
+      "stack": "cognitive",
+      "facet": "science",
+      "domain": "cognitive"
+    },
+    {
+      "id": "neutral_evolution_drift_dominates_selection",
+      "stack": "evolution",
+      "facet": "science",
+      "domain": "evolution"
+    },
+    {
+      "id": "genetic_drift_population_bottleneck_capacity_loss",
+      "stack": "evolution",
+      "facet": "science",
+      "domain": "evolution"
+    },
+    {
+      "id": "multiple_comparisons_familywise_error",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "statistics"
+    },
+    {
+      "id": "simpsons_paradox_aggregation",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "statistics"
+    },
+    {
+      "id": "regression_to_mean_intervention_bias",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "statistics"
+    }
+  ],
+  "power_law": [
+    {
+      "id": "power_law_few_dominate_many",
+      "stack": "bridge",
+      "facet": "coding",
+      "domain": "bridge"
+    },
+    {
+      "id": "availability_heuristic_incident_overrepresents_monitoring",
+      "stack": "cognitive",
+      "facet": "science",
+      "domain": "cognitive"
+    },
+    {
+      "id": "scope_insensitivity_impact_not_perceived_linearly",
+      "stack": "cognitive",
+      "facet": "science",
+      "domain": "cognitive"
+    },
+    {
+      "id": "weber_fechner_log_scale_for_linear_perception",
+      "stack": "cognitive",
+      "facet": "science",
+      "domain": "cognitive"
+    },
+    {
+      "id": "benford_law_first_digit_distribution",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "statistics"
+    },
+    {
+      "id": "power_law_vs_log_normal_tail_confusion",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "statistics"
+    },
+    {
+      "id": "kolmogorov_cascade_power_law_distribution",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "applied"
+    },
+    {
+      "id": "clt_requires_finite_variance",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "statistics"
+    }
+  ],
+  "information_density": [
+    {
+      "id": "information_entropy_high_noise_response",
+      "stack": "bridge",
+      "facet": "coding",
+      "domain": "bridge"
+    },
+    {
+      "id": "working_memory_chunk_limit_api_surface",
+      "stack": "cognitive",
+      "facet": "science",
+      "domain": "cognitive"
+    },
+    {
+      "id": "framing_gains_vs_losses_same_information",
+      "stack": "cognitive",
+      "facet": "science",
+      "domain": "cognitive"
+    },
+    {
+      "id": "cognitive_tunneling_expert_fixation_misses_obvious",
+      "stack": "cognitive",
+      "facet": "science",
+      "domain": "cognitive"
+    },
+    {
+      "id": "pid_derivative_measurement_noise_amplification",
+      "stack": "control",
+      "facet": "science",
+      "domain": "control"
+    },
+    {
+      "id": "nyquist_sampling_monitoring_undersampling_aliasing",
+      "stack": "control",
+      "facet": "science",
+      "domain": "control"
+    },
+    {
+      "id": "aliasing_aggregated_metrics_hide_distribution",
+      "stack": "control",
+      "facet": "science",
+      "domain": "control"
+    },
+    {
+      "id": "shannon_channel_capacity_fundamental_limit",
+      "stack": "control",
+      "facet": "science",
+      "domain": "control"
+    },
+    {
+      "id": "kalman_filter_optimal_estimate_model_measurement",
+      "stack": "control",
+      "facet": "science",
+      "domain": "control"
+    },
+    {
+      "id": "gibbs_phenomenon_fourier_series",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "numerical"
+    },
+    {
+      "id": "kl_divergence_asymmetry_direction",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "applied"
+    },
+    {
+      "id": "zero_correlation_does_not_imply_independence",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "statistics"
+    },
+    {
+      "id": "conditional_probability_direction_asymmetry",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "statistics"
+    },
+    {
+      "id": "cross_entropy_decomposes_entropy_plus_kl",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "numerical"
+    },
+    {
+      "id": "fisher_information_cramer_rao_bound",
+      "stack": "mathematics",
+      "facet": "mathematics",
+      "domain": "statistics"
+    },
+    {
+      "id": "yoneda_lemma_represented_by_hom_functor",
+      "stack": "mathematics_category",
+      "facet": "mathematics",
+      "domain": "category"
+    },
+    {
+      "id": "kan_extension_left_right_not_interchangeable",
+      "stack": "mathematics_category",
+      "facet": "mathematics",
+      "domain": "category"
+    },
+    {
+      "id": "add9_chord_vs_ninth_chord",
+      "stack": "music",
+      "facet": "arts",
+      "domain": "music"
+    },
+    {
+      "id": "compound_meter_beat_division_not_six_beats",
+      "stack": "music",
+      "facet": "arts",
+      "domain": "music"
+    },
+    {
+      "id": "harmonic_series_determines_timbre",
+      "stack": "music",
+      "facet": "arts",
+      "domain": "music"
+    },
+    {
+      "id": "fermi_golden_rule_density_of_states",
+      "stack": "physics",
+      "facet": "science",
+      "domain": "physics"
+    },
+    {
+      "id": "information_entropy_boltzmann_shannon",
+      "stack": "physics",
+      "facet": "science",
+      "domain": "physics"
+    }
+  ],
+  "universality": [
+    {
+      "id": "universality_same_pattern_different_vocabulary",
+      "stack": "bridge",
+      "facet": "coding",
+      "domain": "bridge"
+    },
+    {
+      "id": "dual_process_system1_dominates_under_load",
+      "stack": "cognitive",
+      "facet": "science",
+      "domain": "cognitive"
+    },
+    {
+      "id": "fundamental_attribution_error_bugs_are_systemic",
+      "stack": "cognitive",
+      "facet": "science",
+      "domain": "cognitive"
+    },
+    {
+      "id": "software_feedback_pid_identification_template",
+      "stack": "control",
+      "facet": "science",
+      "domain": "control"
+    },
+    {
+      "id": "superposition_linear_system_decompose_analyse",
+      "stack": "control",
+      "facet": "science",
+      "domain": "control"
+    },
+    {
+      "id": "epistasis_interaction_effects_nonlinear",
+      "stack": "evolution",
+      "facet": "science",
+      "domain": "evolution"
+    },
+    {
+      "id": "price_equation_multilevel_selection_conflict",
+      "stack": "evolution",
+      "facet": "science",
+      "domain": "evolution"
+    },
+    {
+      "id": "category_morphisms_not_necessarily_functions",
+      "stack": "mathematics_category",
+      "facet": "mathematics",
+      "domain": "category"
+    },
+    {
+      "id": "functor_preserves_composition_and_identity",
+      "stack": "mathematics_category",
+      "facet": "mathematics",
+      "domain": "category"
+    },
+    {
+      "id": "natural_transformation_naturality_square",
+      "stack": "mathematics_category",
+      "facet": "mathematics",
+      "domain": "category"
+    },
+    {
+      "id": "limits_colimits_universal_cones",
+      "stack": "mathematics_category",
+      "facet": "mathematics",
+      "domain": "category"
+    },
+    {
+      "id": "universal_property_unique_up_to_isomorphism",
+      "stack": "mathematics_category",
+      "facet": "mathematics",
+      "domain": "category"
+    },
+    {
+      "id": "monoidal_category_coherence_not_strict",
+      "stack": "mathematics_category",
+      "facet": "mathematics",
+      "domain": "category"
+    },
+    {
+      "id": "functor_category_objects_are_functors",
+      "stack": "mathematics_category",
+      "facet": "mathematics",
+      "domain": "category"
+    },
+    {
+      "id": "interval_inversion_sum_to_nine",
+      "stack": "music",
+      "facet": "arts",
+      "domain": "music"
+    },
+    {
+      "id": "tritone_substitution_shared_tritone",
+      "stack": "music",
+      "facet": "arts",
+      "domain": "music"
+    },
+    {
+      "id": "critical_phenomena_universality_class",
+      "stack": "physics",
+      "facet": "science",
+      "domain": "physics"
+    },
+    {
+      "id": "spontaneous_symmetry_breaking_goldstone",
+      "stack": "physics",
+      "facet": "science",
+      "domain": "physics"
+    },
+    {
+      "id": "renormalization_group_relevant_operators",
+      "stack": "physics",
+      "facet": "science",
+      "domain": "physics"
+    }
+  ],
+  "entropy_accumulation": [
+    {
+      "id": "entropy_accumulation_change_cost_growth",
+      "stack": "bridge",
+      "facet": "coding",
+      "domain": "bridge"
+    },
+    {
+      "id": "attention_residue_context_switching_deep_work",
+      "stack": "cognitive",
+      "facet": "science",
+      "domain": "cognitive"
+    },
+    {
+      "id": "mullers_ratchet_irreversible_defect_accumulation",
+      "stack": "evolution",
+      "facet": "science",
+      "domain": "evolution"
+    },
+    {
+      "id": "entropy_second_law_gibbs",
+      "stack": "physics",
+      "facet": "science",
+      "domain": "physics"
+    }
+  ]
+}

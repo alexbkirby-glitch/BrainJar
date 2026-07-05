@@ -1,0 +1,3314 @@
+{
+  "schema_version": "1.0",
+  "built_at": "2026-07-05T19:33:52.508Z",
+  "stats": {
+    "total_stacks": 118,
+    "total_chunks": 2156
+  },
+  "usage": {
+    "description": "Index of all available community seed files. Use to discover which stacks this Jar has coverage for before fetching a full seed.",
+    "fetch_seed": "GET /seeds/{stack}.json  — full JSON seed with all chunks",
+    "fetch_txt": "GET /seeds/{stack}.txt   — plain-text seed for direct injection (no parsing needed)",
+    "this_url": "/api/seeds/index.json"
+  },
+  "domains": {
+    "frontend": [
+      {
+        "stack": "angular",
+        "chunks": 20,
+        "top_tags": [
+          "performance",
+          "subscriptions",
+          "signals",
+          "lazy-loading",
+          "routing",
+          "dependency-injection"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/angular.json",
+          "txt": "/seeds/angular.txt"
+        }
+      },
+      {
+        "stack": "css",
+        "chunks": 20,
+        "top_tags": [
+          "specificity",
+          "architecture",
+          "positioning",
+          "layout",
+          "performance",
+          "responsive"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/css.json",
+          "txt": "/seeds/css.txt"
+        }
+      },
+      {
+        "stack": "htmx",
+        "chunks": 15,
+        "top_tags": [
+          "navigation",
+          "events",
+          "forms",
+          "javascript",
+          "204",
+          "422"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/htmx.json",
+          "txt": "/seeds/htmx.txt"
+        }
+      },
+      {
+        "stack": "nextjs",
+        "chunks": 20,
+        "top_tags": [
+          "App Router",
+          "server component",
+          "async",
+          "Next.js 15",
+          "server action",
+          "bundle"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/nextjs.json",
+          "txt": "/seeds/nextjs.txt"
+        }
+      },
+      {
+        "stack": "react",
+        "chunks": 20,
+        "top_tags": [
+          "useEffect",
+          "async",
+          "cleanup",
+          "performance",
+          "stale",
+          "dependency"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/react.json",
+          "txt": "/seeds/react.txt"
+        }
+      },
+      {
+        "stack": "rxjs",
+        "chunks": 20,
+        "top_tags": [
+          "shareReplay",
+          "memory-leaks",
+          "error-handling",
+          "combineLatest",
+          "combining",
+          "cold-observable"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/rxjs.json",
+          "txt": "/seeds/rxjs.txt"
+        }
+      },
+      {
+        "stack": "svelte",
+        "chunks": 20,
+        "top_tags": [
+          "store",
+          "DOM",
+          "subscribe",
+          "cleanup",
+          "onMount",
+          "reactivity"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/svelte.json",
+          "txt": "/seeds/svelte.txt"
+        }
+      },
+      {
+        "stack": "typescript",
+        "chunks": 20,
+        "top_tags": [
+          "narrowing",
+          "union",
+          "tsconfig",
+          "type",
+          "interface",
+          "extends"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/typescript.json",
+          "txt": "/seeds/typescript.txt"
+        }
+      },
+      {
+        "stack": "vue",
+        "chunks": 20,
+        "top_tags": [
+          "script setup",
+          "ref",
+          "lazy",
+          "reactive",
+          "readonly",
+          "watch"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/vue.json",
+          "txt": "/seeds/vue.txt"
+        }
+      }
+    ],
+    "backend": [
+      {
+        "stack": "django",
+        "chunks": 20,
+        "top_tags": [
+          "orm",
+          "performance",
+          "security",
+          "views",
+          "concurrency",
+          "testing"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/django.json",
+          "txt": "/seeds/django.txt"
+        }
+      },
+      {
+        "stack": "elixir",
+        "chunks": 20,
+        "top_tags": [
+          "pattern matching",
+          "guard",
+          "when",
+          "pattern match",
+          "pipeline",
+          "Ecto"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/elixir.json",
+          "txt": "/seeds/elixir.txt"
+        }
+      },
+      {
+        "stack": "express",
+        "chunks": 20,
+        "top_tags": [
+          "middleware",
+          "security",
+          "configuration",
+          "performance",
+          "error-handling",
+          "express-api"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/express.json",
+          "txt": "/seeds/express.txt"
+        }
+      },
+      {
+        "stack": "fastapi",
+        "chunks": 20,
+        "top_tags": [
+          "pydantic",
+          "architecture",
+          "configuration",
+          "dependencies",
+          "security",
+          "api-design"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/fastapi.json",
+          "txt": "/seeds/fastapi.txt"
+        }
+      },
+      {
+        "stack": "flask",
+        "chunks": 20,
+        "top_tags": [
+          "security",
+          "headers",
+          "app-factory",
+          "testing",
+          "production",
+          "routing"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/flask.json",
+          "txt": "/seeds/flask.txt"
+        }
+      },
+      {
+        "stack": "go",
+        "chunks": 20,
+        "top_tags": [
+          "goroutine",
+          "error",
+          "loop",
+          "defer",
+          "sync",
+          "race"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/go.json",
+          "txt": "/seeds/go.txt"
+        }
+      },
+      {
+        "stack": "laravel",
+        "chunks": 20,
+        "top_tags": [
+          "eloquent",
+          "authorization",
+          "testing",
+          "reusability",
+          "performance",
+          "api"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/laravel.json",
+          "txt": "/seeds/laravel.txt"
+        }
+      },
+      {
+        "stack": "php",
+        "chunks": 20,
+        "top_tags": [
+          "php8",
+          "php81",
+          "security",
+          "type-safety",
+          "gotchas",
+          "readability"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/php.json",
+          "txt": "/seeds/php.txt"
+        }
+      },
+      {
+        "stack": "python",
+        "chunks": 20,
+        "top_tags": [
+          "dict",
+          "loop",
+          "list",
+          "mutation",
+          "NameError",
+          "parallel"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/python.json",
+          "txt": "/seeds/python.txt"
+        }
+      },
+      {
+        "stack": "rails",
+        "chunks": 20,
+        "top_tags": [
+          "rollback",
+          "performance",
+          "joins",
+          "association",
+          "query",
+          "security"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/rails.json",
+          "txt": "/seeds/rails.txt"
+        }
+      },
+      {
+        "stack": "scala",
+        "chunks": 20,
+        "top_tags": [
+          "functional",
+          "pattern-matching",
+          "immutability",
+          "typeclass",
+          "domain-modeling",
+          "collections"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/scala.json",
+          "txt": "/seeds/scala.txt"
+        }
+      },
+      {
+        "stack": "spring",
+        "chunks": 20,
+        "top_tags": [
+          "configuration",
+          "transactions",
+          "jpa",
+          "performance",
+          "testing",
+          "transactional"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/spring.json",
+          "txt": "/seeds/spring.txt"
+        }
+      }
+    ],
+    "mobile": [
+      {
+        "stack": "android",
+        "chunks": 20,
+        "top_tags": [
+          "compose",
+          "memory-leaks",
+          "lifecycle",
+          "room",
+          "database",
+          "recomposition"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/android.json",
+          "txt": "/seeds/android.txt"
+        }
+      },
+      {
+        "stack": "flutter",
+        "chunks": 20,
+        "top_tags": [
+          "performance",
+          "lifecycle",
+          "state-management",
+          "async",
+          "widgets",
+          "state"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/flutter.json",
+          "txt": "/seeds/flutter.txt"
+        }
+      },
+      {
+        "stack": "kotlin",
+        "chunks": 20,
+        "top_tags": [
+          "val",
+          "let",
+          "data class",
+          "immutable",
+          "dispatcher",
+          "Dispatchers.Main"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/kotlin.json",
+          "txt": "/seeds/kotlin.txt"
+        }
+      },
+      {
+        "stack": "reactnative",
+        "chunks": 20,
+        "top_tags": [
+          "performance",
+          "flatlist",
+          "android",
+          "navigation",
+          "keys",
+          "stylesheet"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/reactnative.json",
+          "txt": "/seeds/reactnative.txt"
+        }
+      },
+      {
+        "stack": "swift",
+        "chunks": 20,
+        "top_tags": [
+          "async",
+          "SwiftUI",
+          "optional",
+          "guard",
+          "crash",
+          "retain cycle"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/swift.json",
+          "txt": "/seeds/swift.txt"
+        }
+      }
+    ],
+    "systems": [
+      {
+        "stack": "assembly",
+        "chunks": 20,
+        "top_tags": [
+          "registers",
+          "alignment",
+          "memory",
+          "cache",
+          "latency",
+          "throughput"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/assembly.json",
+          "txt": "/seeds/assembly.txt"
+        }
+      },
+      {
+        "stack": "cpp",
+        "chunks": 20,
+        "top_tags": [
+          "C++17",
+          "C++20",
+          "auto",
+          "RAII",
+          "unique_ptr",
+          "destructor"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/cpp.json",
+          "txt": "/seeds/cpp.txt"
+        }
+      },
+      {
+        "stack": "haskell",
+        "chunks": 20,
+        "top_tags": [
+          "performance",
+          "syntax",
+          "error-handling",
+          "newtype",
+          "stm",
+          "lazy-evaluation"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/haskell.json",
+          "txt": "/seeds/haskell.txt"
+        }
+      },
+      {
+        "stack": "rust",
+        "chunks": 20,
+        "top_tags": [
+          "borrow",
+          "reference",
+          "panic",
+          "Result",
+          "Option",
+          "error"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/rust.json",
+          "txt": "/seeds/rust.txt"
+        }
+      },
+      {
+        "stack": "wasm",
+        "chunks": 20,
+        "top_tags": [
+          "memory",
+          "performance",
+          "interop",
+          "javascript",
+          "emscripten",
+          "limits"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/wasm.json",
+          "txt": "/seeds/wasm.txt"
+        }
+      },
+      {
+        "stack": "zig",
+        "chunks": 20,
+        "top_tags": [
+          "types",
+          "memory",
+          "error-handling",
+          "comptime",
+          "generics",
+          "slices"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/zig.json",
+          "txt": "/seeds/zig.txt"
+        }
+      }
+    ],
+    "gamedev": [
+      {
+        "stack": "gamedev",
+        "chunks": 20,
+        "top_tags": [
+          "performance",
+          "collision",
+          "transition",
+          "camera",
+          "input",
+          "timing"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/gamedev.json",
+          "txt": "/seeds/gamedev.txt"
+        }
+      },
+      {
+        "stack": "gdextension",
+        "chunks": 20,
+        "top_tags": [
+          "editor",
+          "signal",
+          "inspector",
+          "ClassDB",
+          "property",
+          "RefCounted"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/gdextension.json",
+          "txt": "/seeds/gdextension.txt"
+        }
+      },
+      {
+        "stack": "gdscript",
+        "chunks": 30,
+        "top_tags": [
+          "input",
+          "array",
+          "type",
+          "export",
+          "godot4",
+          "godot3"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/gdscript.json",
+          "txt": "/seeds/gdscript.txt"
+        }
+      },
+      {
+        "stack": "glsl-godot",
+        "chunks": 20,
+        "top_tags": [
+          "fragment",
+          "canvas_item",
+          "spatial",
+          "uniform",
+          "interpolation",
+          "performance"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/glsl-godot.json",
+          "txt": "/seeds/glsl-godot.txt"
+        }
+      },
+      {
+        "stack": "godot-csharp",
+        "chunks": 20,
+        "top_tags": [
+          "scene tree",
+          "Export",
+          "GetNode",
+          "attribute",
+          "NodePath",
+          "async"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/godot-csharp.json",
+          "txt": "/seeds/godot-csharp.txt"
+        }
+      },
+      {
+        "stack": "unity",
+        "chunks": 20,
+        "top_tags": [
+          "performance",
+          "Update",
+          "cache",
+          "Awake",
+          "Start",
+          "GetComponent"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/unity.json",
+          "txt": "/seeds/unity.txt"
+        }
+      },
+      {
+        "stack": "unreal",
+        "chunks": 20,
+        "top_tags": [
+          "performance",
+          "memory",
+          "ue5",
+          "rendering",
+          "networking",
+          "uproperties"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/unreal.json",
+          "txt": "/seeds/unreal.txt"
+        }
+      }
+    ],
+    "data_ml": [
+      {
+        "stack": "elasticsearch",
+        "chunks": 20,
+        "top_tags": [
+          "performance",
+          "mapping",
+          "operations",
+          "indexing",
+          "aggregations",
+          "relevance"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/elasticsearch.json",
+          "txt": "/seeds/elasticsearch.txt"
+        }
+      },
+      {
+        "stack": "numpy",
+        "chunks": 20,
+        "top_tags": [
+          "views",
+          "memory",
+          "performance",
+          "vectorisation",
+          "operations",
+          "shape"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/numpy.json",
+          "txt": "/seeds/numpy.txt"
+        }
+      },
+      {
+        "stack": "pandas",
+        "chunks": 20,
+        "top_tags": [
+          "performance",
+          "memory",
+          "copy",
+          "readability",
+          "settingwithcopywarning",
+          "assignment"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/pandas.json",
+          "txt": "/seeds/pandas.txt"
+        }
+      },
+      {
+        "stack": "python",
+        "chunks": 20,
+        "top_tags": [
+          "dict",
+          "loop",
+          "list",
+          "mutation",
+          "NameError",
+          "parallel"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/python.json",
+          "txt": "/seeds/python.txt"
+        }
+      },
+      {
+        "stack": "pytorch",
+        "chunks": 20,
+        "top_tags": [
+          "gradients",
+          "memory",
+          "inference",
+          "training",
+          "performance",
+          "eval"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/pytorch.json",
+          "txt": "/seeds/pytorch.txt"
+        }
+      }
+    ],
+    "infra": [
+      {
+        "stack": "ansible",
+        "chunks": 20,
+        "top_tags": [
+          "idempotency",
+          "roles",
+          "tasks",
+          "performance",
+          "variables",
+          "jinja2"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/ansible.json",
+          "txt": "/seeds/ansible.txt"
+        }
+      },
+      {
+        "stack": "docker",
+        "chunks": 20,
+        "top_tags": [
+          "compose",
+          "security",
+          "BuildKit",
+          "non-root",
+          "PID 1",
+          "SIGTERM"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/docker.json",
+          "txt": "/seeds/docker.txt"
+        }
+      },
+      {
+        "stack": "git",
+        "chunks": 20,
+        "top_tags": [
+          "workflow",
+          "history",
+          "reset",
+          "commit-hygiene",
+          "push",
+          "collaboration"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/git.json",
+          "txt": "/seeds/git.txt"
+        }
+      },
+      {
+        "stack": "github",
+        "chunks": 20,
+        "top_tags": [
+          "commit",
+          "branch",
+          "workflow",
+          "history",
+          "secret",
+          "rebase"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/github.json",
+          "txt": "/seeds/github.txt"
+        }
+      },
+      {
+        "stack": "kubernetes",
+        "chunks": 20,
+        "top_tags": [
+          "availability",
+          "security",
+          "scheduling",
+          "resources",
+          "configmap",
+          "namespaces"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/kubernetes.json",
+          "txt": "/seeds/kubernetes.txt"
+        }
+      },
+      {
+        "stack": "nginx",
+        "chunks": 20,
+        "top_tags": [
+          "configuration",
+          "performance",
+          "security",
+          "routing",
+          "tls",
+          "logging"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/nginx.json",
+          "txt": "/seeds/nginx.txt"
+        }
+      },
+      {
+        "stack": "terraform",
+        "chunks": 20,
+        "top_tags": [
+          "state",
+          "security",
+          "lifecycle",
+          "modules",
+          "provider",
+          "outputs"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/terraform.json",
+          "txt": "/seeds/terraform.txt"
+        }
+      }
+    ],
+    "databases": [
+      {
+        "stack": "kafka",
+        "chunks": 20,
+        "top_tags": [
+          "reliability",
+          "durability",
+          "producer",
+          "exactly-once",
+          "consumer-groups",
+          "partitions"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/kafka.json",
+          "txt": "/seeds/kafka.txt"
+        }
+      },
+      {
+        "stack": "mongodb",
+        "chunks": 20,
+        "top_tags": [
+          "performance",
+          "schema-design",
+          "indexes",
+          "queries",
+          "arrays",
+          "aggregation"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/mongodb.json",
+          "txt": "/seeds/mongodb.txt"
+        }
+      },
+      {
+        "stack": "mysql",
+        "chunks": 20,
+        "top_tags": [
+          "indexes",
+          "performance",
+          "innodb",
+          "concurrency",
+          "charset",
+          "unicode"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/mysql.json",
+          "txt": "/seeds/mysql.txt"
+        }
+      },
+      {
+        "stack": "postgresql",
+        "chunks": 20,
+        "top_tags": [
+          "GIN",
+          "SERIAL",
+          "IDENTITY",
+          "sequence",
+          "performance",
+          "jsonb"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/postgresql.json",
+          "txt": "/seeds/postgresql.txt"
+        }
+      },
+      {
+        "stack": "prisma",
+        "chunks": 20,
+        "top_tags": [
+          "performance",
+          "schema",
+          "include",
+          "migrations",
+          "atomicity",
+          "data-integrity"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/prisma.json",
+          "txt": "/seeds/prisma.txt"
+        }
+      },
+      {
+        "stack": "redis",
+        "chunks": 20,
+        "top_tags": [
+          "atomic",
+          "race condition",
+          "SCAN",
+          "Sorted Set",
+          "ZADD",
+          "TTL"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/redis.json",
+          "txt": "/seeds/redis.txt"
+        }
+      },
+      {
+        "stack": "sql",
+        "chunks": 20,
+        "top_tags": [
+          "performance",
+          "NULL",
+          "WHERE",
+          "COALESCE",
+          "index",
+          "COUNT"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/sql.json",
+          "txt": "/seeds/sql.txt"
+        }
+      },
+      {
+        "stack": "sqlite",
+        "chunks": 20,
+        "top_tags": [
+          "performance",
+          "wal",
+          "concurrency",
+          "primary-key",
+          "indexes",
+          "threading"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/sqlite.json",
+          "txt": "/seeds/sqlite.txt"
+        }
+      }
+    ],
+    "testing": [
+      {
+        "stack": "jest",
+        "chunks": 20,
+        "top_tags": [
+          "async",
+          "mocking",
+          "assertions",
+          "mock-reset",
+          "cleanup",
+          "jest.mock"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/jest.json",
+          "txt": "/seeds/jest.txt"
+        }
+      },
+      {
+        "stack": "playwright",
+        "chunks": 20,
+        "top_tags": [
+          "performance",
+          "debugging",
+          "flaky-tests",
+          "selectors",
+          "accessibility",
+          "ci"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/playwright.json",
+          "txt": "/seeds/playwright.txt"
+        }
+      },
+      {
+        "stack": "pytest",
+        "chunks": 20,
+        "top_tags": [
+          "fixtures",
+          "test-design",
+          "assertions",
+          "organisation",
+          "mocking",
+          "exceptions"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/pytest.json",
+          "txt": "/seeds/pytest.txt"
+        }
+      },
+      {
+        "stack": "react-testing",
+        "chunks": 15,
+        "top_tags": [
+          "queries",
+          "async",
+          "getByRole",
+          "user-event",
+          "providers",
+          "accessibility"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/react-testing.json",
+          "txt": "/seeds/react-testing.txt"
+        }
+      }
+    ],
+    "universal": [
+      {
+        "stack": "universal",
+        "chunks": 20,
+        "top_tags": [
+          "edit",
+          "concurrency",
+          "float",
+          "scope",
+          "javascript",
+          "path-traversal"
+        ],
+        "has_version_pinning": false,
+        "has_deprecated": false,
+        "urls": {
+          "json": "/seeds/universal.json",
+          "txt": "/seeds/universal.txt"
+        }
+      }
+    ]
+  },
+  "stacks": [
+    {
+      "stack": "ab-testing",
+      "chunks": 8,
+      "top_tags": [
+        "primary-metric",
+        "seasonality",
+        "bias",
+        "peeking",
+        "sample-size",
+        "early-stopping"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/ab-testing.json",
+        "txt": "/seeds/ab-testing.txt"
+      }
+    },
+    {
+      "stack": "android",
+      "chunks": 20,
+      "top_tags": [
+        "compose",
+        "memory-leaks",
+        "lifecycle",
+        "room",
+        "database",
+        "recomposition"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/android.json",
+        "txt": "/seeds/android.txt"
+      }
+    },
+    {
+      "stack": "angular",
+      "chunks": 20,
+      "top_tags": [
+        "performance",
+        "subscriptions",
+        "signals",
+        "lazy-loading",
+        "routing",
+        "dependency-injection"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/angular.json",
+        "txt": "/seeds/angular.txt"
+      }
+    },
+    {
+      "stack": "ansible",
+      "chunks": 20,
+      "top_tags": [
+        "idempotency",
+        "roles",
+        "tasks",
+        "performance",
+        "variables",
+        "jinja2"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/ansible.json",
+        "txt": "/seeds/ansible.txt"
+      }
+    },
+    {
+      "stack": "assembly",
+      "chunks": 20,
+      "top_tags": [
+        "registers",
+        "alignment",
+        "memory",
+        "cache",
+        "latency",
+        "throughput"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/assembly.json",
+        "txt": "/seeds/assembly.txt"
+      }
+    },
+    {
+      "stack": "bash",
+      "chunks": 20,
+      "top_tags": [
+        "variable",
+        "scope",
+        "while",
+        "set -e",
+        "pipefail",
+        "error handling"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/bash.json",
+        "txt": "/seeds/bash.txt"
+      }
+    },
+    {
+      "stack": "bridge",
+      "chunks": 20,
+      "top_tags": [
+        "circuit-breaker",
+        "diverge",
+        "noise",
+        "retry",
+        "capacity",
+        "converge"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/bridge.json",
+        "txt": "/seeds/bridge.txt"
+      }
+    },
+    {
+      "stack": "c",
+      "chunks": 13,
+      "top_tags": [
+        "stack",
+        "local-variable",
+        "malloc",
+        "strncpy",
+        "free",
+        "pointer"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/c.json",
+        "txt": "/seeds/c.txt"
+      }
+    },
+    {
+      "stack": "celery",
+      "chunks": 20,
+      "top_tags": [
+        "reliability",
+        "performance",
+        "monitoring",
+        "serialisation",
+        "retry",
+        "idempotency"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/celery.json",
+        "txt": "/seeds/celery.txt"
+      }
+    },
+    {
+      "stack": "cognitive",
+      "chunks": 20,
+      "top_tags": [
+        "error",
+        "decision",
+        "blind-spot",
+        "incident",
+        "bias",
+        "migration"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/cognitive.json",
+        "txt": "/seeds/cognitive.txt"
+      }
+    },
+    {
+      "stack": "control",
+      "chunks": 22,
+      "top_tags": [
+        "feedback",
+        "pid-controller",
+        "stability",
+        "oscillation",
+        "auto-scaling",
+        "control"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/control.json",
+        "txt": "/seeds/control.txt"
+      }
+    },
+    {
+      "stack": "cpp",
+      "chunks": 20,
+      "top_tags": [
+        "C++17",
+        "C++20",
+        "auto",
+        "RAII",
+        "unique_ptr",
+        "destructor"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/cpp.json",
+        "txt": "/seeds/cpp.txt"
+      }
+    },
+    {
+      "stack": "csharp",
+      "chunks": 20,
+      "top_tags": [
+        "async",
+        "await",
+        "deadlock",
+        "stream",
+        "resource",
+        "record"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/csharp.json",
+        "txt": "/seeds/csharp.txt"
+      }
+    },
+    {
+      "stack": "css",
+      "chunks": 20,
+      "top_tags": [
+        "specificity",
+        "architecture",
+        "positioning",
+        "layout",
+        "performance",
+        "responsive"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/css.json",
+        "txt": "/seeds/css.txt"
+      }
+    },
+    {
+      "stack": "data-visualization",
+      "chunks": 11,
+      "top_tags": [
+        "bar-chart",
+        "misleading",
+        "comparison",
+        "3D",
+        "y-axis",
+        "truncation"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/data-visualization.json",
+        "txt": "/seeds/data-visualization.txt"
+      }
+    },
+    {
+      "stack": "db-schema",
+      "chunks": 10,
+      "top_tags": [
+        "JSONB",
+        "schema",
+        "foreign-key",
+        "JOIN",
+        "normalization",
+        "NULL"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/db-schema.json",
+        "txt": "/seeds/db-schema.txt"
+      }
+    },
+    {
+      "stack": "distributed-systems",
+      "chunks": 12,
+      "top_tags": [
+        "retry",
+        "coupling",
+        "event",
+        "message-broker",
+        "idempotency",
+        "webhook"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/distributed-systems.json",
+        "txt": "/seeds/distributed-systems.txt"
+      }
+    },
+    {
+      "stack": "django-celery",
+      "chunks": 12,
+      "top_tags": [
+        "transaction",
+        "orm",
+        "on-commit",
+        "timing",
+        "shared-task",
+        "reusable-apps"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/django-celery.json",
+        "txt": "/seeds/django-celery.txt"
+      }
+    },
+    {
+      "stack": "django-postgresql",
+      "chunks": 15,
+      "top_tags": [
+        "performance",
+        "full-text-search",
+        "pg-trgm",
+        "arrayfield",
+        "gin-index",
+        "jsonfield"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/django-postgresql.json",
+        "txt": "/seeds/django-postgresql.txt"
+      }
+    },
+    {
+      "stack": "django",
+      "chunks": 20,
+      "top_tags": [
+        "orm",
+        "performance",
+        "security",
+        "views",
+        "concurrency",
+        "testing"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/django.json",
+        "txt": "/seeds/django.txt"
+      }
+    },
+    {
+      "stack": "docker",
+      "chunks": 20,
+      "top_tags": [
+        "compose",
+        "security",
+        "BuildKit",
+        "non-root",
+        "PID 1",
+        "SIGTERM"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/docker.json",
+        "txt": "/seeds/docker.txt"
+      }
+    },
+    {
+      "stack": "economics",
+      "chunks": 18,
+      "top_tags": [
+        "mechanism-design",
+        "economics",
+        "auctions",
+        "social-choice",
+        "game-theory",
+        "nash-equilibrium"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/economics.json",
+        "txt": "/seeds/economics.txt"
+      }
+    },
+    {
+      "stack": "elasticsearch",
+      "chunks": 20,
+      "top_tags": [
+        "performance",
+        "mapping",
+        "operations",
+        "indexing",
+        "aggregations",
+        "relevance"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/elasticsearch.json",
+        "txt": "/seeds/elasticsearch.txt"
+      }
+    },
+    {
+      "stack": "elixir",
+      "chunks": 20,
+      "top_tags": [
+        "pattern matching",
+        "guard",
+        "when",
+        "pattern match",
+        "pipeline",
+        "Ecto"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/elixir.json",
+        "txt": "/seeds/elixir.txt"
+      }
+    },
+    {
+      "stack": "evolution",
+      "chunks": 20,
+      "top_tags": [
+        "noise",
+        "integration",
+        "feature-flag",
+        "team",
+        "plateau",
+        "competitive"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/evolution.json",
+        "txt": "/seeds/evolution.txt"
+      }
+    },
+    {
+      "stack": "express",
+      "chunks": 20,
+      "top_tags": [
+        "middleware",
+        "security",
+        "configuration",
+        "performance",
+        "error-handling",
+        "express-api"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/express.json",
+        "txt": "/seeds/express.txt"
+      }
+    },
+    {
+      "stack": "fastapi",
+      "chunks": 20,
+      "top_tags": [
+        "pydantic",
+        "architecture",
+        "configuration",
+        "dependencies",
+        "security",
+        "api-design"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/fastapi.json",
+        "txt": "/seeds/fastapi.txt"
+      }
+    },
+    {
+      "stack": "flask",
+      "chunks": 20,
+      "top_tags": [
+        "security",
+        "headers",
+        "app-factory",
+        "testing",
+        "production",
+        "routing"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/flask.json",
+        "txt": "/seeds/flask.txt"
+      }
+    },
+    {
+      "stack": "flutter-firebase",
+      "chunks": 12,
+      "top_tags": [
+        "firestore",
+        "listeners",
+        "dispose",
+        "streambuilder",
+        "real-time",
+        "security-rules"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/flutter-firebase.json",
+        "txt": "/seeds/flutter-firebase.txt"
+      }
+    },
+    {
+      "stack": "flutter",
+      "chunks": 20,
+      "top_tags": [
+        "performance",
+        "lifecycle",
+        "state-management",
+        "async",
+        "widgets",
+        "state"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/flutter.json",
+        "txt": "/seeds/flutter.txt"
+      }
+    },
+    {
+      "stack": "gamedev",
+      "chunks": 20,
+      "top_tags": [
+        "performance",
+        "collision",
+        "transition",
+        "camera",
+        "input",
+        "timing"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/gamedev.json",
+        "txt": "/seeds/gamedev.txt"
+      }
+    },
+    {
+      "stack": "gdextension",
+      "chunks": 20,
+      "top_tags": [
+        "editor",
+        "signal",
+        "inspector",
+        "ClassDB",
+        "property",
+        "RefCounted"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/gdextension.json",
+        "txt": "/seeds/gdextension.txt"
+      }
+    },
+    {
+      "stack": "gdscript",
+      "chunks": 30,
+      "top_tags": [
+        "input",
+        "array",
+        "type",
+        "export",
+        "godot4",
+        "godot3"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/gdscript.json",
+        "txt": "/seeds/gdscript.txt"
+      }
+    },
+    {
+      "stack": "git",
+      "chunks": 20,
+      "top_tags": [
+        "workflow",
+        "history",
+        "reset",
+        "commit-hygiene",
+        "push",
+        "collaboration"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/git.json",
+        "txt": "/seeds/git.txt"
+      }
+    },
+    {
+      "stack": "github",
+      "chunks": 20,
+      "top_tags": [
+        "commit",
+        "branch",
+        "workflow",
+        "history",
+        "secret",
+        "rebase"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/github.json",
+        "txt": "/seeds/github.txt"
+      }
+    },
+    {
+      "stack": "glsl-godot",
+      "chunks": 20,
+      "top_tags": [
+        "fragment",
+        "canvas_item",
+        "spatial",
+        "uniform",
+        "interpolation",
+        "performance"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/glsl-godot.json",
+        "txt": "/seeds/glsl-godot.txt"
+      }
+    },
+    {
+      "stack": "go",
+      "chunks": 20,
+      "top_tags": [
+        "goroutine",
+        "error",
+        "loop",
+        "defer",
+        "sync",
+        "race"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/go.json",
+        "txt": "/seeds/go.txt"
+      }
+    },
+    {
+      "stack": "godot-csharp",
+      "chunks": 20,
+      "top_tags": [
+        "scene tree",
+        "Export",
+        "GetNode",
+        "attribute",
+        "NodePath",
+        "async"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/godot-csharp.json",
+        "txt": "/seeds/godot-csharp.txt"
+      }
+    },
+    {
+      "stack": "graphql",
+      "chunks": 20,
+      "top_tags": [
+        "schema-design",
+        "security",
+        "performance",
+        "resolvers",
+        "mutations",
+        "error-handling"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/graphql.json",
+        "txt": "/seeds/graphql.txt"
+      }
+    },
+    {
+      "stack": "grpc",
+      "chunks": 15,
+      "top_tags": [
+        "context",
+        "performance",
+        "kubernetes",
+        "deadlines",
+        "propagation",
+        "status-codes"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/grpc.json",
+        "txt": "/seeds/grpc.txt"
+      }
+    },
+    {
+      "stack": "haskell",
+      "chunks": 20,
+      "top_tags": [
+        "performance",
+        "syntax",
+        "error-handling",
+        "newtype",
+        "stm",
+        "lazy-evaluation"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/haskell.json",
+        "txt": "/seeds/haskell.txt"
+      }
+    },
+    {
+      "stack": "htmx",
+      "chunks": 15,
+      "top_tags": [
+        "navigation",
+        "events",
+        "forms",
+        "javascript",
+        "204",
+        "422"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/htmx.json",
+        "txt": "/seeds/htmx.txt"
+      }
+    },
+    {
+      "stack": "incident-response",
+      "chunks": 8,
+      "top_tags": [
+        "incident-commander",
+        "communication",
+        "postmortem",
+        "root-cause",
+        "SRE",
+        "detection"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/incident-response.json",
+        "txt": "/seeds/incident-response.txt"
+      }
+    },
+    {
+      "stack": "ios",
+      "chunks": 8,
+      "top_tags": [
+        "lifecycle",
+        "retain-cycle",
+        "ARC",
+        "async",
+        "SwiftUI",
+        "weak-self"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/ios.json",
+        "txt": "/seeds/ios.txt"
+      }
+    },
+    {
+      "stack": "java",
+      "chunks": 20,
+      "top_tags": [
+        "collections",
+        "concurrency",
+        "exceptions",
+        "api-design",
+        "null",
+        "performance"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/java.json",
+        "txt": "/seeds/java.txt"
+      }
+    },
+    {
+      "stack": "jest",
+      "chunks": 20,
+      "top_tags": [
+        "async",
+        "mocking",
+        "assertions",
+        "mock-reset",
+        "cleanup",
+        "jest.mock"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/jest.json",
+        "txt": "/seeds/jest.txt"
+      }
+    },
+    {
+      "stack": "json",
+      "chunks": 20,
+      "top_tags": [
+        "api-design",
+        "serialization",
+        "parsing",
+        "validation",
+        "syntax",
+        "config"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/json.json",
+        "txt": "/seeds/json.txt"
+      }
+    },
+    {
+      "stack": "kafka",
+      "chunks": 20,
+      "top_tags": [
+        "reliability",
+        "durability",
+        "producer",
+        "exactly-once",
+        "consumer-groups",
+        "partitions"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/kafka.json",
+        "txt": "/seeds/kafka.txt"
+      }
+    },
+    {
+      "stack": "kotlin",
+      "chunks": 20,
+      "top_tags": [
+        "val",
+        "let",
+        "data class",
+        "immutable",
+        "dispatcher",
+        "Dispatchers.Main"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/kotlin.json",
+        "txt": "/seeds/kotlin.txt"
+      }
+    },
+    {
+      "stack": "kubernetes",
+      "chunks": 20,
+      "top_tags": [
+        "availability",
+        "security",
+        "scheduling",
+        "resources",
+        "configmap",
+        "namespaces"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/kubernetes.json",
+        "txt": "/seeds/kubernetes.txt"
+      }
+    },
+    {
+      "stack": "laravel",
+      "chunks": 20,
+      "top_tags": [
+        "eloquent",
+        "authorization",
+        "testing",
+        "reusability",
+        "performance",
+        "api"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/laravel.json",
+        "txt": "/seeds/laravel.txt"
+      }
+    },
+    {
+      "stack": "legal",
+      "chunks": 8,
+      "top_tags": [
+        "contract",
+        "IP",
+        "intellectual-property",
+        "contractor",
+        "copyright",
+        "assignment"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/legal.json",
+        "txt": "/seeds/legal.txt"
+      }
+    },
+    {
+      "stack": "llm-integration",
+      "chunks": 20,
+      "top_tags": [
+        "context",
+        "tokens",
+        "system prompt",
+        "security",
+        "testing",
+        "model version"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/llm-integration.json",
+        "txt": "/seeds/llm-integration.txt"
+      }
+    },
+    {
+      "stack": "lodestone",
+      "chunks": 28,
+      "top_tags": [
+        "workflow",
+        "authoring",
+        "linter",
+        "seeds",
+        "schema",
+        "quality"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/lodestone.json",
+        "txt": "/seeds/lodestone.txt"
+      }
+    },
+    {
+      "stack": "lua",
+      "chunks": 20,
+      "top_tags": [
+        "tables",
+        "strings",
+        "modules",
+        "patterns",
+        "indexing",
+        "arrays"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/lua.json",
+        "txt": "/seeds/lua.txt"
+      }
+    },
+    {
+      "stack": "machine-learning",
+      "chunks": 20,
+      "top_tags": [
+        "machine-learning",
+        "evaluation",
+        "training",
+        "deep-learning",
+        "overfitting",
+        "imbalanced-classes"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/machine-learning.json",
+        "txt": "/seeds/machine-learning.txt"
+      }
+    },
+    {
+      "stack": "mathematics",
+      "chunks": 111,
+      "top_tags": [
+        "numerical-stability",
+        "statistics",
+        "linear-algebra",
+        "floating-point",
+        "convergence",
+        "mandelbrot"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/mathematics.json",
+        "txt": "/seeds/mathematics.txt"
+      }
+    },
+    {
+      "stack": "mathematics_category",
+      "chunks": 15,
+      "top_tags": [
+        "category-theory",
+        "limits",
+        "haskell",
+        "universal-property",
+        "presheaf",
+        "monad"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/mathematics_category.json",
+        "txt": "/seeds/mathematics_category.txt"
+      }
+    },
+    {
+      "stack": "mongodb",
+      "chunks": 20,
+      "top_tags": [
+        "performance",
+        "schema-design",
+        "indexes",
+        "queries",
+        "arrays",
+        "aggregation"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/mongodb.json",
+        "txt": "/seeds/mongodb.txt"
+      }
+    },
+    {
+      "stack": "music",
+      "chunks": 21,
+      "top_tags": [
+        "music-theory",
+        "voice-leading",
+        "notation",
+        "counterpoint",
+        "harmony",
+        "rhythm"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/music.json",
+        "txt": "/seeds/music.txt"
+      }
+    },
+    {
+      "stack": "mysql",
+      "chunks": 20,
+      "top_tags": [
+        "indexes",
+        "performance",
+        "innodb",
+        "concurrency",
+        "charset",
+        "unicode"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/mysql.json",
+        "txt": "/seeds/mysql.txt"
+      }
+    },
+    {
+      "stack": "negotiation",
+      "chunks": 7,
+      "top_tags": [
+        "salary",
+        "concession",
+        "BATNA",
+        "alternative",
+        "leverage",
+        "walk-away"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/negotiation.json",
+        "txt": "/seeds/negotiation.txt"
+      }
+    },
+    {
+      "stack": "nextjs-docker",
+      "chunks": 12,
+      "top_tags": [
+        "env-vars",
+        "ci",
+        "performance",
+        "security",
+        "build-time",
+        "next-public"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/nextjs-docker.json",
+        "txt": "/seeds/nextjs-docker.txt"
+      }
+    },
+    {
+      "stack": "nextjs",
+      "chunks": 20,
+      "top_tags": [
+        "App Router",
+        "server component",
+        "async",
+        "Next.js 15",
+        "server action",
+        "bundle"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/nextjs.json",
+        "txt": "/seeds/nextjs.txt"
+      }
+    },
+    {
+      "stack": "nginx",
+      "chunks": 20,
+      "top_tags": [
+        "configuration",
+        "performance",
+        "security",
+        "routing",
+        "tls",
+        "logging"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/nginx.json",
+        "txt": "/seeds/nginx.txt"
+      }
+    },
+    {
+      "stack": "numpy",
+      "chunks": 20,
+      "top_tags": [
+        "views",
+        "memory",
+        "performance",
+        "vectorisation",
+        "operations",
+        "shape"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/numpy.json",
+        "txt": "/seeds/numpy.txt"
+      }
+    },
+    {
+      "stack": "oauth",
+      "chunks": 10,
+      "top_tags": [
+        "PKCE",
+        "SPA",
+        "OAuth2",
+        "public-client",
+        "mobile",
+        "OAuth"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/oauth.json",
+        "txt": "/seeds/oauth.txt"
+      }
+    },
+    {
+      "stack": "observability",
+      "chunks": 9,
+      "top_tags": [
+        "Prometheus",
+        "SLO",
+        "metrics",
+        "latency",
+        "histogram",
+        "OpenTelemetry"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/observability.json",
+        "txt": "/seeds/observability.txt"
+      }
+    },
+    {
+      "stack": "pandas",
+      "chunks": 20,
+      "top_tags": [
+        "performance",
+        "memory",
+        "copy",
+        "readability",
+        "settingwithcopywarning",
+        "assignment"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/pandas.json",
+        "txt": "/seeds/pandas.txt"
+      }
+    },
+    {
+      "stack": "personal-finance",
+      "chunks": 8,
+      "top_tags": [
+        "FIRE",
+        "retirement",
+        "RSU",
+        "correlated-risk",
+        "sequence-of-returns",
+        "SoRR"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/personal-finance.json",
+        "txt": "/seeds/personal-finance.txt"
+      }
+    },
+    {
+      "stack": "php",
+      "chunks": 20,
+      "top_tags": [
+        "php8",
+        "php81",
+        "security",
+        "type-safety",
+        "gotchas",
+        "readability"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/php.json",
+        "txt": "/seeds/php.txt"
+      }
+    },
+    {
+      "stack": "physics",
+      "chunks": 24,
+      "top_tags": [
+        "quantum-mechanics",
+        "statistical-mechanics",
+        "classical-mechanics",
+        "density-matrix",
+        "decoherence",
+        "bell-inequality"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/physics.json",
+        "txt": "/seeds/physics.txt"
+      }
+    },
+    {
+      "stack": "playwright",
+      "chunks": 20,
+      "top_tags": [
+        "performance",
+        "debugging",
+        "flaky-tests",
+        "selectors",
+        "accessibility",
+        "ci"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/playwright.json",
+        "txt": "/seeds/playwright.txt"
+      }
+    },
+    {
+      "stack": "postgresql",
+      "chunks": 20,
+      "top_tags": [
+        "GIN",
+        "SERIAL",
+        "IDENTITY",
+        "sequence",
+        "performance",
+        "jsonb"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/postgresql.json",
+        "txt": "/seeds/postgresql.txt"
+      }
+    },
+    {
+      "stack": "powerquery",
+      "chunks": 9,
+      "top_tags": [
+        "performance",
+        "M",
+        "data-source",
+        "merge",
+        "data-model",
+        "Power-BI"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/powerquery.json",
+        "txt": "/seeds/powerquery.txt"
+      }
+    },
+    {
+      "stack": "prisma",
+      "chunks": 20,
+      "top_tags": [
+        "performance",
+        "schema",
+        "include",
+        "migrations",
+        "atomicity",
+        "data-integrity"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/prisma.json",
+        "txt": "/seeds/prisma.txt"
+      }
+    },
+    {
+      "stack": "prompt-engineering",
+      "chunks": 10,
+      "top_tags": [
+        "consistency",
+        "context",
+        "few-shot",
+        "zero-shot",
+        "examples",
+        "format"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/prompt-engineering.json",
+        "txt": "/seeds/prompt-engineering.txt"
+      }
+    },
+    {
+      "stack": "pytest",
+      "chunks": 20,
+      "top_tags": [
+        "fixtures",
+        "test-design",
+        "assertions",
+        "organisation",
+        "mocking",
+        "exceptions"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/pytest.json",
+        "txt": "/seeds/pytest.txt"
+      }
+    },
+    {
+      "stack": "python-docker",
+      "chunks": 12,
+      "top_tags": [
+        "python-env",
+        "security",
+        "logging",
+        "stdout",
+        "pyc",
+        "bytecode"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/python-docker.json",
+        "txt": "/seeds/python-docker.txt"
+      }
+    },
+    {
+      "stack": "python",
+      "chunks": 20,
+      "top_tags": [
+        "dict",
+        "loop",
+        "list",
+        "mutation",
+        "NameError",
+        "parallel"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/python.json",
+        "txt": "/seeds/python.txt"
+      }
+    },
+    {
+      "stack": "pytorch",
+      "chunks": 20,
+      "top_tags": [
+        "gradients",
+        "memory",
+        "inference",
+        "training",
+        "performance",
+        "eval"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/pytorch.json",
+        "txt": "/seeds/pytorch.txt"
+      }
+    },
+    {
+      "stack": "rails",
+      "chunks": 20,
+      "top_tags": [
+        "rollback",
+        "performance",
+        "joins",
+        "association",
+        "query",
+        "security"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/rails.json",
+        "txt": "/seeds/rails.txt"
+      }
+    },
+    {
+      "stack": "react-apollo",
+      "chunks": 12,
+      "top_tags": [
+        "mutations",
+        "cache",
+        "normalisation",
+        "cache-update",
+        "lists",
+        "optimistic-ui"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/react-apollo.json",
+        "txt": "/seeds/react-apollo.txt"
+      }
+    },
+    {
+      "stack": "react-testing",
+      "chunks": 15,
+      "top_tags": [
+        "queries",
+        "async",
+        "getByRole",
+        "user-event",
+        "providers",
+        "accessibility"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/react-testing.json",
+        "txt": "/seeds/react-testing.txt"
+      }
+    },
+    {
+      "stack": "react",
+      "chunks": 20,
+      "top_tags": [
+        "useEffect",
+        "async",
+        "cleanup",
+        "performance",
+        "stale",
+        "dependency"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/react.json",
+        "txt": "/seeds/react.txt"
+      }
+    },
+    {
+      "stack": "reactnative",
+      "chunks": 20,
+      "top_tags": [
+        "performance",
+        "flatlist",
+        "android",
+        "navigation",
+        "keys",
+        "stylesheet"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/reactnative.json",
+        "txt": "/seeds/reactnative.txt"
+      }
+    },
+    {
+      "stack": "real-estate",
+      "chunks": 19,
+      "top_tags": [
+        "real-estate",
+        "valuation",
+        "noi",
+        "underwriting",
+        "financing",
+        "cap-rate"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/real-estate.json",
+        "txt": "/seeds/real-estate.txt"
+      }
+    },
+    {
+      "stack": "redis",
+      "chunks": 20,
+      "top_tags": [
+        "atomic",
+        "race condition",
+        "SCAN",
+        "Sorted Set",
+        "ZADD",
+        "TTL"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/redis.json",
+        "txt": "/seeds/redis.txt"
+      }
+    },
+    {
+      "stack": "rust",
+      "chunks": 20,
+      "top_tags": [
+        "borrow",
+        "reference",
+        "panic",
+        "Result",
+        "Option",
+        "error"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/rust.json",
+        "txt": "/seeds/rust.txt"
+      }
+    },
+    {
+      "stack": "rxjs",
+      "chunks": 20,
+      "top_tags": [
+        "shareReplay",
+        "memory-leaks",
+        "error-handling",
+        "combineLatest",
+        "combining",
+        "cold-observable"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/rxjs.json",
+        "txt": "/seeds/rxjs.txt"
+      }
+    },
+    {
+      "stack": "scala",
+      "chunks": 20,
+      "top_tags": [
+        "functional",
+        "pattern-matching",
+        "immutability",
+        "typeclass",
+        "domain-modeling",
+        "collections"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/scala.json",
+        "txt": "/seeds/scala.txt"
+      }
+    },
+    {
+      "stack": "seed-authoring",
+      "chunks": 20,
+      "top_tags": [
+        "retrieval",
+        "search",
+        "symptom",
+        "observable",
+        "injection",
+        "bm25"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/seed-authoring.json",
+        "txt": "/seeds/seed-authoring.txt"
+      }
+    },
+    {
+      "stack": "seq-model-internals",
+      "chunks": 18,
+      "top_tags": [
+        "language-models",
+        "inference",
+        "context-window",
+        "limitations",
+        "sampling",
+        "generation"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/seq-model-internals.json",
+        "txt": "/seeds/seq-model-internals.txt"
+      }
+    },
+    {
+      "stack": "solidity",
+      "chunks": 15,
+      "top_tags": [
+        "proxy",
+        "upgradeable",
+        "openzeppelin",
+        "constructor",
+        "reentrancy",
+        "check-effects-interactions"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/solidity.json",
+        "txt": "/seeds/solidity.txt"
+      }
+    },
+    {
+      "stack": "spring-docker",
+      "chunks": 11,
+      "top_tags": [
+        "jvm",
+        "configuration",
+        "kubernetes",
+        "maven",
+        "layered-jar",
+        "layer-caching"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/spring-docker.json",
+        "txt": "/seeds/spring-docker.txt"
+      }
+    },
+    {
+      "stack": "spring",
+      "chunks": 20,
+      "top_tags": [
+        "configuration",
+        "transactions",
+        "jpa",
+        "performance",
+        "testing",
+        "transactional"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/spring.json",
+        "txt": "/seeds/spring.txt"
+      }
+    },
+    {
+      "stack": "sql",
+      "chunks": 20,
+      "top_tags": [
+        "performance",
+        "NULL",
+        "WHERE",
+        "COALESCE",
+        "index",
+        "COUNT"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/sql.json",
+        "txt": "/seeds/sql.txt"
+      }
+    },
+    {
+      "stack": "sqlite",
+      "chunks": 20,
+      "top_tags": [
+        "performance",
+        "wal",
+        "concurrency",
+        "primary-key",
+        "indexes",
+        "threading"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/sqlite.json",
+        "txt": "/seeds/sqlite.txt"
+      }
+    },
+    {
+      "stack": "statistics",
+      "chunks": 12,
+      "top_tags": [
+        "p-value",
+        "replication",
+        "frequentist",
+        "p-hacking",
+        "false-positive",
+        "confounding"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/statistics.json",
+        "txt": "/seeds/statistics.txt"
+      }
+    },
+    {
+      "stack": "svelte",
+      "chunks": 20,
+      "top_tags": [
+        "store",
+        "DOM",
+        "subscribe",
+        "cleanup",
+        "onMount",
+        "reactivity"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/svelte.json",
+        "txt": "/seeds/svelte.txt"
+      }
+    },
+    {
+      "stack": "swift",
+      "chunks": 20,
+      "top_tags": [
+        "async",
+        "SwiftUI",
+        "optional",
+        "guard",
+        "crash",
+        "retain cycle"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/swift.json",
+        "txt": "/seeds/swift.txt"
+      }
+    },
+    {
+      "stack": "system-design",
+      "chunks": 8,
+      "top_tags": [
+        "microservices",
+        "monolith",
+        "domain-driven-design",
+        "bounded-context",
+        "modular",
+        "premature"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/system-design.json",
+        "txt": "/seeds/system-design.txt"
+      }
+    },
+    {
+      "stack": "systems-thinking",
+      "chunks": 10,
+      "top_tags": [
+        "feedback",
+        "leverage",
+        "balancing-loop",
+        "Meadows",
+        "feedback-loop",
+        "symptom"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/systems-thinking.json",
+        "txt": "/seeds/systems-thinking.txt"
+      }
+    },
+    {
+      "stack": "technical-writing",
+      "chunks": 9,
+      "top_tags": [
+        "documentation",
+        "README",
+        "quickstart",
+        "getting-started",
+        "onboarding",
+        "commit-message"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/technical-writing.json",
+        "txt": "/seeds/technical-writing.txt"
+      }
+    },
+    {
+      "stack": "terraform",
+      "chunks": 20,
+      "top_tags": [
+        "state",
+        "security",
+        "lifecycle",
+        "modules",
+        "provider",
+        "outputs"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/terraform.json",
+        "txt": "/seeds/terraform.txt"
+      }
+    },
+    {
+      "stack": "threejs",
+      "chunks": 21,
+      "top_tags": [
+        "performance",
+        "GLTF",
+        "VRAM",
+        "geometry",
+        "material",
+        "texture"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/threejs.json",
+        "txt": "/seeds/threejs.txt"
+      }
+    },
+    {
+      "stack": "typescript",
+      "chunks": 20,
+      "top_tags": [
+        "narrowing",
+        "union",
+        "tsconfig",
+        "type",
+        "interface",
+        "extends"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/typescript.json",
+        "txt": "/seeds/typescript.txt"
+      }
+    },
+    {
+      "stack": "unity",
+      "chunks": 20,
+      "top_tags": [
+        "performance",
+        "Update",
+        "cache",
+        "Awake",
+        "Start",
+        "GetComponent"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/unity.json",
+        "txt": "/seeds/unity.txt"
+      }
+    },
+    {
+      "stack": "universal",
+      "chunks": 20,
+      "top_tags": [
+        "edit",
+        "concurrency",
+        "float",
+        "scope",
+        "javascript",
+        "path-traversal"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/universal.json",
+        "txt": "/seeds/universal.txt"
+      }
+    },
+    {
+      "stack": "unreal",
+      "chunks": 20,
+      "top_tags": [
+        "performance",
+        "memory",
+        "ue5",
+        "rendering",
+        "networking",
+        "uproperties"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/unreal.json",
+        "txt": "/seeds/unreal.txt"
+      }
+    },
+    {
+      "stack": "vue",
+      "chunks": 20,
+      "top_tags": [
+        "script setup",
+        "ref",
+        "lazy",
+        "reactive",
+        "readonly",
+        "watch"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/vue.json",
+        "txt": "/seeds/vue.txt"
+      }
+    },
+    {
+      "stack": "wasm",
+      "chunks": 20,
+      "top_tags": [
+        "memory",
+        "performance",
+        "interop",
+        "javascript",
+        "emscripten",
+        "limits"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/wasm.json",
+        "txt": "/seeds/wasm.txt"
+      }
+    },
+    {
+      "stack": "web-a11y",
+      "chunks": 11,
+      "top_tags": [
+        "accessibility",
+        "wcag",
+        "screen-reader",
+        "keyboard-navigation",
+        "skip-nav",
+        "wcag-2.4.1"
+      ],
+      "has_version_pinning": true,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/web-a11y.json",
+        "txt": "/seeds/web-a11y.txt"
+      }
+    },
+    {
+      "stack": "web-performance",
+      "chunks": 9,
+      "top_tags": [
+        "performance",
+        "lcp",
+        "fonts",
+        "preconnect",
+        "google-fonts",
+        "resource-hints"
+      ],
+      "has_version_pinning": true,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/web-performance.json",
+        "txt": "/seeds/web-performance.txt"
+      }
+    },
+    {
+      "stack": "web-privacy",
+      "chunks": 8,
+      "top_tags": [
+        "privacy",
+        "gdpr",
+        "consent",
+        "cookies",
+        "ccpa",
+        "third-party"
+      ],
+      "has_version_pinning": true,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/web-privacy.json",
+        "txt": "/seeds/web-privacy.txt"
+      }
+    },
+    {
+      "stack": "web-security",
+      "chunks": 16,
+      "top_tags": [
+        "security",
+        "http-headers",
+        "xss",
+        "hardening",
+        "supply-chain",
+        "api-security"
+      ],
+      "has_version_pinning": true,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/web-security.json",
+        "txt": "/seeds/web-security.txt"
+      }
+    },
+    {
+      "stack": "web-seo-content",
+      "chunks": 9,
+      "top_tags": [
+        "seo",
+        "on-page-seo",
+        "e-commerce",
+        "conversion",
+        "structured-data",
+        "content"
+      ],
+      "has_version_pinning": true,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/web-seo-content.json",
+        "txt": "/seeds/web-seo-content.txt"
+      }
+    },
+    {
+      "stack": "zig",
+      "chunks": 20,
+      "top_tags": [
+        "types",
+        "memory",
+        "error-handling",
+        "comptime",
+        "generics",
+        "slices"
+      ],
+      "has_version_pinning": false,
+      "has_deprecated": false,
+      "urls": {
+        "json": "/seeds/zig.json",
+        "txt": "/seeds/zig.txt"
+      }
+    }
+  ]
+}
